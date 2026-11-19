@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ pdf_title }} — Защищённый просмотр</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+    }
+    .viewer-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #334155;
+      padding: 10px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .viewer-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .viewer-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(244, 63, 94, 0.16);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      white-space: nowrap;
+    }
+    .viewer-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1f5f9;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 46vw;
+    }
+    .viewer-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .viewer-btn {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .viewer-btn:hover {
+      background: #334155;
+      border-color: #475569;
+    }
+    .viewer-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    .viewer-meta {
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      padding: 0 4px;
+      white-space: nowrap;
+    }
+    #pdf-status {
+      text-align: center;
+      padding: 48px 16px;
+      font-size: 15px;
+      color: #cbd5e1;
+    }
+    #pdf-pages {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 12px 48px;
+    }
+    .pdf-page-shell {
+      position: relative;
+      background: #ffffff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      max-width: 100%;
+    }
+    .pdf-page-shell canvas {
+      display: block;
+      max-width: 100%;
+      height: auto !important;
+      pointer-events: none;
+      -webkit-user-drag: none;
+    }
+    .pdf-page-num {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(15, 23, 42, 0.45);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="viewer-header">
+    <div class="viewer-title-wrap">
+      <span class="viewer-badge">Защищённый PDF</span>
+      <span class="viewer-title" title="{{ pdf_title }}">{{ pdf_title }}</span>
+    </div>
+    <div class="viewer-controls">
+      <button type="button" class="viewer-btn" id="btn-zoom-out" title="Уменьшить">−</button>
+      <span class="viewer-meta" id="zoom-value">130%</span>
+      <button type="button" class="viewer-btn" id="btn-zoom-in" title="Увеличить">+</button>
+      <button type="button" class="viewer-btn" id="btn-zoom-reset" title="Сбросить масштаб">Сброс</button>
+      <span class="viewer-meta" id="page-info">Загрузка...</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="pdf-status">Загрузка защищённого методического материала...</div>
+    <div id="pdf-pages"></div>
+  </main>
+
+  <script>
+    (function() {
+      if (window.pdfjsLib) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+
+      const pdfUrl = {{ pdf_api_url | tojson }};
+      const watermarkText = {{ watermark_label | tojson }};
+      const pagesEl = document.getElementById('pdf-pages');
+      const statusEl = document.getElementById('pdf-status');
+      const pageInfoEl = document.getElementById('page-info');
+      const zoomValueEl = document.getElementById('zoom-value');
+      const btnZoomIn = document.getElementById('btn-zoom-in');
+      const btnZoomOut = document.getElementById('btn-zoom-out');
+      const btnZoomReset = document.getElementById('btn-zoom-reset');
+
+      let pdfDoc = null;
+      let scale = 1.3;
+      let renderToken = 0;
+
+      function stampWatermarkOnCanvas(ctx, width, height) {
+        ctx.save();
+        ctx.font = '700 ' + Math.max(14, Math.round(width * 0.018)) + 'px sans-serif';
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.085)';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const stamp = watermarkText + ' • ' + new Date().toLocaleDateString('ru-RU');
+        const stepX = Math.max(260, Math.round(width * 0.42));
+        const stepY = Math.max(180, Math.round(height * 0.22));
+        for (let y = stepY * 0.4; y < height + stepY; y += stepY) {
+          for (let x = stepX * 0.3; x < width + stepX; x += stepX) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(-26 * Math.PI / 180);
+            ctx.fillText(stamp, 0, 0);
+            ctx.restore();
+          }
+        }
+        ctx.restore();
+      }
+
+      async function renderAllPages() {
+        if (!pdfDoc) return;
+        const currentToken = ++renderToken;
+        pagesEl.innerHTML = '';
+        zoomValueEl.textContent = Math.round(scale * 100) + '%';
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+          if (currentToken !== renderToken) return;
+          const page = await pdfDoc.getPage(pageNum);
+          if (currentToken !== renderToken) return;
+
+          const viewport = page.getViewport({ scale: scale });
+          const renderViewport = page.getViewport({ scale: scale * dpr });
+
+          const shell = document.createElement('div');
+          shell.className = 'pdf-page-shell';
+          shell.style.width = Math.round(viewport.width) + 'px';
+
+          const canvas = document.createElement('canvas');
+          canvas.width = Math.floor(renderViewport.width);
+          canvas.height = Math.floor(renderViewport.height);
+          canvas.style.width = Math.round(viewport.width) + 'px';
+          canvas.style.height = Math.round(viewport.height) + 'px';
+
+          const pageTag = document.createElement('div');
+          pageTag.className = 'pdf-page-num';
+          pageTag.textContent = pageNum + ' / ' + pdfDoc.numPages;
+
+          shell.appendChild(canvas);
+          shell.appendChild(pageTag);
+          pagesEl.appendChild(shell);
+
+          const ctx = canvas.getContext('2d', { alpha: false });
+          await page.render({ canvasContext: ctx, viewport: renderViewport }).promise;
+          if (currentToken !== renderToken) return;
+          stampWatermarkOnCanvas(ctx, canvas.width, canvas.height);
+          // Блокируем программное извлечение изображения со страницы canvas
+          try {
+            canvas.toDataURL = function() { return ''; };
+            canvas.toBlob = function(cb) { if (cb) cb(null); };
+          } catch (e) {}
+        }
+      }
+
+      async function loadPdf() {
+        try {
+          const response = await fetch(pdfUrl, {
+            method: 'GET',
+            credentials: 'same-origin',
+            cache: 'no-store',
+            headers: { 'X-Protected-Viewer': '1' }
+          });
+          if (!response.ok) {
+            throw new Error('Доступ к документу ограничен (код ' + response.status + ')');
+          }
+          const arrayBuffer = await response.arrayBuffer();
+          pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          statusEl.style.display = 'none';
+          pageInfoEl.textContent = 'Страниц: ' + pdfDoc.numPages;
+          await renderAllPages();
+        } catch (err) {
+          statusEl.textContent = err.message || 'Не удалось загрузить защищённый PDF-документ.';
+          pageInfoEl.textContent = 'Ошибка';
+        }
+      }
+
+      btnZoomIn.addEventListener('click', () => {
+        if (!pdfDoc || scale >= 2.4) return;
+        scale = Math.round((scale + 0.2) * 10) / 10;
+        renderAllPages();
+      });
+      btnZoomOut.addEventListener('click', () => {
+        if (!pdfDoc || scale <= 0.7) return;
+        scale = Math.round((scale - 0.2) * 10) / 10;
+        renderAllPages();
+      });
+      btnZoomReset.addEventListener('click', () => {
+        if (!pdfDoc) return;
+        scale = 1.3;
+        renderAllPages();
+      });
+
+      loadPdf();
+    })();
+  </script>
+
+  {{ protection_snippet | safe }}
+</body>
+</html>
