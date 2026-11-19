@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<!-- Chosen Palette: Warm Somatic Harmony -->
+<!-- Application Structure Plan: The SPA transforms Elena Perevalina's 12-page practical manual into a five-module interactive workbench: (1) Conceptual Foundation ("Course of Coarse Purification", Case Studies & Method vs. Hypnosis comparison), (2) Interactive Body Map & Somatic Analytics (all 18 anatomical zones across 7 systems with Canvas hotspot map, filters, and Chart.js adrenal/autonomic balance charts), (3) Diagnostics & Calibration Lab (Pendulum "dry head" guide, 3-state kinesiological muscle tone tester, and live Canvas 1:2 breathing reset pacer), (4) 8-Axis Fear Overwriting Simulator (interactive kinesiology cards || and X, 8-direction visual vector scanner with resistance mode, and 6-step protocol), and (5) Practical Homework Tracker across all chapters. This task-oriented architecture prioritizes active self-diagnostics and structured exploration over linear reading. -->
+<!-- Visualization & Content Choices: 1. Adrenal Dominance & System Distribution (Report Info: ~60% of chronic blocks localize in adrenal glands -> Goal: Inform/Compare -> Viz: Chart.js Doughnut Chart on Canvas -> Interaction: Hover tooltips & click to filter body map -> Justification: Highlights the primary physiological bottleneck described in Ch. 3). 2. Autonomic Nervous System & Fear Balance Curve (Report Info: Zero fear = recklessness, balanced fear = protection/growth cursor, excess fear = paralysis -> Goal: Explain relationship -> Viz: Chart.js Line/Area Curve on Canvas -> Interaction: Interactive slider exploring sympathetic vs. parasympathetic states -> Justification: Clarifies dual function of fear in Ch. 2). 3. Interactive Canvas Body Map (Report Info: 7 body systems & 18 somatic zones -> Goal: Organize/Explore -> Viz: HTML5 Canvas anatomical map with clickable nodes -> Interaction: Click node or system filter to inspect exact fear triggers & symptoms -> Justification: Replaces static text list with spatial somatic navigation, NO SVG). 4. Canvas 1:2 Breathing & Acupressure Reset Pacer (Report Info: Vertex point pressure + exhale 2x longer than inhale -> Goal: Guide practice -> Viz: Animated HTML5 Canvas wave -> Interaction: Start/Stop timer -> Justification: Operationalizes emergency hypertonus reset from Ch. 1). 5. Interactive 8-Axis Eye Vector Compass & Kinesiology Cards (Report Info: Cards || and X, 8 eye axes with fixed head -> Goal: Simulate Ch. 4 protocol -> Viz: Styled HTML/CSS cards & interactive compass -> Interaction: Axis selection & resistance toggle -> Justification: Teaches visual exit-point search safely). -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Освобождение тела и сознания — Интерактивное руководство Елены Перевалиной</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#FAF8F5',
+            oat: '#F2EDE4',
+            sand: '#E6E0D6',
+            espresso: '#2C2A29',
+            slatewarm: '#5C5852',
+            sage: '#3B6E6C',
+            sagelight: '#E7F0EF',
+            terracotta: '#C47D58',
+            terralight: '#F9EFE9'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #2C2A29;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 290px;
+      max-height: 360px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 330px;
+      }
+    }
+    .body-canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 470px;
+      max-height: 500px;
+    }
+    .pacer-canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 210px;
+      max-height: 240px;
+    }
+    .tab-active {
+      background-color: #3B6E6C;
+      color: #FFFFFF;
+      border-color: #3B6E6C;
+    }
+    .axis-btn-active {
+      background-color: #C47D58;
+      color: #FFFFFF;
+      border-color: #C47D58;
+      transform: scale(1.06);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sage selection:text-white">
+
+  <header class="sticky top-0 z-40 bg-linen/95 backdrop-blur-md border-b border-sand">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sage text-white font-serif text-lg font-bold">ЕП</span>
+          <div>
+            <span class="block text-sm font-semibold tracking-tight text-espresso leading-none">Освобождение тела и сознания</span>
+            <span class="block text-xs text-slatewarm mt-0.5">Методичка Елены Перевалиной • Урок 1</span>
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium">
+          <a href="#foundation" class="px-3 py-2 rounded-lg text-slatewarm hover:text-espresso hover:bg-oat transition">Фундамент и природа страха</a>
+          <a href="#bodymap" class="px-3 py-2 rounded-lg text-slatewarm hover:text-espresso hover:bg-oat transition">Карта тела (18 зон)</a>
+          <a href="#calibration" class="px-3 py-2 rounded-lg text-slatewarm hover:text-espresso hover:bg-oat transition">Маятник и тонус</a>
+          <a href="#overwriting" class="px-3 py-2 rounded-lg text-slatewarm hover:text-espresso hover:bg-oat transition">Перезапись страха</a>
+          <a href="#homework" class="px-3 py-2 rounded-lg text-slatewarm hover:text-espresso hover:bg-oat transition">Практикум ДЗ</a>
+        </nav>
+        <button id="mobileMenuBtn" class="md:hidden px-3 py-2 rounded-lg border border-sand text-espresso text-sm font-medium hover:bg-oat">
+          Меню ☰
+        </button>
+      </div>
+      <div id="mobileMenu" class="hidden md:hidden pb-3 pt-1 border-t border-sand flex flex-col gap-1 text-sm">
+        <a href="#foundation" class="px-3 py-2 rounded-lg text-slatewarm hover:bg-oat">1. Фундамент и природа страха</a>
+        <a href="#bodymap" class="px-3 py-2 rounded-lg text-slatewarm hover:bg-oat">2. Телесная карта страхов</a>
+        <a href="#calibration" class="px-3 py-2 rounded-lg text-slatewarm hover:bg-oat">3. Маятник, тонус и перезагрузка</a>
+        <a href="#overwriting" class="px-3 py-2 rounded-lg text-slatewarm hover:bg-oat">4. Перезапись страха по 8 осям</a>
+        <a href="#homework" class="px-3 py-2 rounded-lg text-slatewarm hover:bg-oat">5. Реестр домашних заданий</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-24">
+
+    <section class="bg-white rounded-3xl border border-sand p-6 sm:p-10 lg:p-12 shadow-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8 space-y-5">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sagelight text-sage text-xs font-semibold tracking-wide uppercase">
+            <span>✦ Базовый этап • «Курс грубой очистки»</span>
+          </div>
+          <h1 class="font-serif text-3xl sm:text-5xl font-bold text-espresso leading-tight">
+            Освобождение тела и сознания: практическое руководство по работе со страхами
+          </h1>
+          <p class="text-base sm:text-lg text-slatewarm leading-relaxed max-w-3xl">
+            Интерактивная исследовательская система по материалам первого занятия Елены Перевалиной. Пособие объединяет прикладную кинезиологию, нейрофизиологию стресса и телесно-энергетическую диагностику, переводя работу со страхами из бессознательного зажима в осознанный 6-шаговый алгоритм перезаписи.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a href="#bodymap" class="px-5 py-3 rounded-xl bg-sage text-white font-medium text-sm hover:opacity-95 transition shadow-sm">
+              Исследовать карту тела (18 зон) →
+            </a>
+            <a href="#overwriting" class="px-5 py-3 rounded-xl bg-oat text-espresso font-medium text-sm hover:bg-sand transition">
+              Симулятор перезаписи страха
+            </a>
+          </div>
+        </div>
+        <div class="lg:col-span-4 grid grid-cols-2 gap-3.5">
+          <div class="bg-linen rounded-2xl p-4 border border-sand">
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-terracotta">~60%</div>
+            <div class="text-xs font-medium text-espresso mt-1">Блоков в зоне надпочечников</div>
+            <p class="text-xs text-slatewarm mt-1">Главная зона хронического стресса и истощения</p>
+          </div>
+          <div class="bg-linen rounded-2xl p-4 border border-sand">
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-sage">18 зон</div>
+            <div class="text-xs font-medium text-espresso mt-1">В 7 системах организма</div>
+            <p class="text-xs text-slatewarm mt-1">Топографический атлас психосоматики</p>
+          </div>
+          <div class="bg-linen rounded-2xl p-4 border border-sand">
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-sage">8 осей</div>
+            <div class="text-xs font-medium text-espresso mt-1">Зрительного вектора</div>
+            <p class="text-xs text-slatewarm mt-1">Поиск точки выхода спазма через карточку «Х»</p>
+          </div>
+          <div class="bg-linen rounded-2xl p-4 border border-sand">
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-terracotta">1 страх</div>
+            <div class="text-xs font-medium text-espresso mt-1">Строгий лимит в день</div>
+            <p class="text-xs text-slatewarm mt-1">Бережная перестройка нейросети</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="foundation" class="space-y-8 scroll-mt-20">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-sage">Раздел 1 • Введение и Глава 2</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso">Фундамент внутренней работы и природа страха</h2>
+        <p class="text-slatewarm text-base leading-relaxed">
+          В этом разделе раскрывается философия «курса грубой очистки», нейрофизиологический механизм фиксации страха («запись на флешку»), энергетическая метафора батарейки, а также двойственная роль страха как предохранителя и курсора роста. Переключайте вкладки ниже, чтобы изучить ключевые концепции, реальные примеры из практики и отличие метода от гипноза.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm space-y-6">
+        <div class="flex flex-wrap gap-2 border-b border-sand pb-4" id="foundationTabs">
+          <button data-ftab="tab-course" class="ftab-btn tab-active px-4 py-2 rounded-xl text-sm font-medium border border-sand transition">
+            1. Философия «грубой очистки»
+          </button>
+          <button data-ftab="tab-neuro" class="ftab-btn px-4 py-2 rounded-xl text-sm font-medium border border-sand text-slatewarm hover:bg-oat transition">
+            2. Нейрофизиология и «Батарейка»
+          </button>
+          <button data-ftab="tab-cases" class="ftab-btn px-4 py-2 rounded-xl text-sm font-medium border border-sand text-slatewarm hover:bg-oat transition">
+            3. Кейсы из практики и Поле поддержки
+          </button>
+          <button data-ftab="tab-hypnosis" class="ftab-btn px-4 py-2 rounded-xl text-sm font-medium border border-sand text-slatewarm hover:bg-oat transition">
+            4. Метод Перевалиной vs Гипноз
+          </button>
+        </div>
+
+        <div id="tab-course" class="ftab-panel grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-linen rounded-2xl p-5 border border-sand space-y-2.5">
+            <div class="text-xl">🧭</div>
+            <h3 class="font-semibold text-espresso text-base">Холистический подход</h3>
+            <p class="text-sm text-slatewarm leading-relaxed">
+              Всё происходящее с телом неотделимо от жизни: здоровья, взаимоотношений, поиска своего пути и формирования мировоззрения. Невозможно затронуть одну грань, не коснувшись остальных.
+            </p>
+          </div>
+          <div class="bg-linen rounded-2xl p-5 border border-sand space-y-2.5">
+            <div class="text-xl">🛡️</div>
+            <h3 class="font-semibold text-espresso text-base">Чистота собственного поля</h3>
+            <p class="text-sm text-slatewarm leading-relaxed">
+              Прежде чем работать с другими людьми, пропускать через себя энергию, взаимодействовать с меридианами, чакрами, прошлым, будущим и родовыми проекциями, ученик обязан устранить личные внутренние блоки.
+            </p>
+          </div>
+          <div class="bg-linen rounded-2xl p-5 border border-sand space-y-2.5">
+            <div class="text-xl">💎</div>
+            <h3 class="font-semibold text-espresso text-base">Радикальная честность без насилия</h3>
+            <p class="text-sm text-slatewarm leading-relaxed">
+              Самое трудное — пойти в собственную боль и «обнажиться» перед собой вместо привычного закрытия. Если в процессе «кипит голова» и что-то не выходит сразу — нельзя злиться на себя, нужно идти постепенно.
+            </p>
+          </div>
+        </div>
+
+        <div id="tab-neuro" class="ftab-panel hidden space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            <div class="space-y-4">
+              <div class="bg-terralight rounded-2xl p-5 border border-terracotta/30">
+                <h3 class="font-semibold text-espresso text-base mb-2">Механизм «записи на флешку»</h3>
+                <p class="text-sm text-slatewarm leading-relaxed">
+                  При возникновении угрозы мгновенно включаются <strong>миндалевидное тело (амигдала)</strong> и <strong>гипоталамус</strong>, выбрасывая <strong>адреналин, норадреналин и кортизол</strong>. Тело спазмируется в режиме симпатической системы («действуй, беги, работай»). Поскольку расслабляться мы не умеем, спазм фиксируется в мышцах и памяти мозга как хронический паттерн, а первопричина часто вытесняется.
+                </p>
+              </div>
+              <div class="bg-sagelight rounded-2xl p-5 border border-sage/30">
+                <h3 class="font-semibold text-espresso text-base mb-2">Метафора батарейки и Феникса</h3>
+                <p class="text-sm text-slatewarm leading-relaxed">
+                  Человек рождается как новенькая батарейка с емким аккумулятором, но каждый непереработанный страх постоянно оттягивает заряд на обслуживание спазма. Убирая страх, мы возвращаем ресурс через глубокое расслабление. Любой рост требует символического обнуления («умереть» в старом качестве, как феникс, чтобы родиться в новом).
+                </p>
+              </div>
+            </div>
+            <div class="bg-linen rounded-2xl p-5 border border-sand space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="font-semibold text-sm text-espresso">Кривая баланса страха и вегетативной системы</h4>
+                <span id="fearLevelBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sage text-white">Баланс (Норма)</span>
+              </div>
+              <p class="text-xs text-slatewarm">Передвигайте ползунок, чтобы увидеть, как уровень страха влияет на нервную систему и поведение по Главе 2:</p>
+              <input type="range" id="fearBalanceSlider" min="0" max="100" value="50" class="w-full accent-sage cursor-pointer">
+              <div id="fearBalanceDescription" class="bg-white rounded-xl p-4 border border-sand text-sm text-espresso leading-relaxed">
+                <strong>Оптимальный баланс (50%):</strong> Симпатическая и парасимпатическая системы гармонизируют друг друга. Страх работает как здоровый предохранитель (выживание) и как «курсор роста», указывающий, где скрыт новый потенциал.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-cases" class="ftab-panel hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-linen rounded-2xl p-6 border border-sand space-y-3">
+            <div class="inline-block px-3 py-1 rounded-full bg-sage/15 text-sage text-xs font-semibold">Кейс 1 • Сканирование поля (Глава 2)</div>
+            <h3 class="font-semibold text-espresso text-lg">Отработанные и неотработанные связи</h3>
+            <p class="text-sm text-slatewarm leading-relaxed">
+              При сканировании поля клиентки Елена увидела контрастную картину: <strong>по линии отца</strong> энергия текла свободно и гармонично («всё просто супер»), так как женщина эту тему полностью прожила, приняла и отработала. <strong>По линии брата</strong> ситуация осталась непринятой и заблокированной, превратившись в плотные телесные зажимы.
+            </p>
+            <div class="p-3.5 rounded-xl bg-white border border-sand text-xs font-medium text-espresso">
+              Вывод автора: Душа воспринимает всё принятое как благо, а всё непринятое и непрожитое оседает в теле как дисгармония.
+            </div>
+          </div>
+          <div class="bg-linen rounded-2xl p-6 border border-sand space-y-3">
+            <div class="inline-block px-3 py-1 rounded-full bg-terracotta/15 text-terracotta text-xs font-semibold">Кейс 2 • Групповая динамика (Введение)</div>
+            <h3 class="font-semibold text-espresso text-lg">Единое поле поддержки и своевременность</h3>
+            <p class="text-sm text-slatewarm leading-relaxed">
+              Участник текущего потока ранее сильно обиделся, когда ему не хватило места на прошлом курсе, но в итоге попал именно в ту группу, к которой должен был притянуться. Выпускники старшего, <strong>третьего курса</strong> записали новичкам искренние голосовые сообщения с любовью, признаваясь, что на выпуске плачут и мечтают вернуться на этот первый, самый трудный, но самый ценный этап.
+            </p>
+            <div class="p-3.5 rounded-xl bg-white border border-sand text-xs font-medium text-espresso">
+              Вывод автора: Люди притягиваются именно тогда и к тем, к кому должны, формируя поддерживающее поле.
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-hypnosis" class="ftab-panel hidden space-y-4">
+          <p class="text-sm text-slatewarm">
+            В Главе 4 автор сопоставляет свой метод с классической гипнотерапией (на примере знакомства с парой профессиональных гипнотерапевтов):
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-linen rounded-2xl p-6 border border-sand space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-slatewarm">Классический гипноз</div>
+              <h3 class="font-serif text-2xl font-bold text-espresso">В обход сознания</h3>
+              <ul class="space-y-2 text-sm text-slatewarm">
+                <li>• Погружение напрямую в подсознание, минуя активный контроль разума.</li>
+                <li>• Специалист сам извлекает заблокированные воспоминания из подсознания клиента.</li>
+                <li>• Клиент занимает более ведомую позицию в процессе извлечения травмы.</li>
+              </ul>
+            </div>
+            <div class="bg-sagelight rounded-2xl p-6 border border-sage/40 space-y-3">
+              <div class="text-xs font-bold uppercase tracking-wider text-sage">Метод Елены Перевалиной</div>
+              <h3 class="font-serif text-2xl font-bold text-espresso">Прямо через осознание</h3>
+              <ul class="space-y-2 text-sm text-espresso">
+                <li>• Работа через сознание и душу в полном контакте с текущей реальностью.</li>
+                <li>• Человек сам вспоминает, нагнетает, перепроживает и перезаписывает свой опыт.</li>
+                <li>• Травматический рефлекс осознанно выводится наружу через тело, взгляд и дыхание.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bodymap" class="space-y-8 scroll-mt-20">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-sage">Раздел 2 • Глава 3</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso">Телесная карта страхов: где живут наши эмоции</h2>
+        <p class="text-slatewarm text-base leading-relaxed">
+          Практический атлас психосоматики Елены Перевалиной охватывает <strong>18 анатомических зон в 7 системах организма</strong>. Нажимайте на точки на интерактивной схеме тела или используйте фильтры по системам и типу мышечного тонуса, чтобы узнать, какой именно страх вызывает конкретный спазм или гипотонус.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-sand">
+        <div class="flex flex-wrap gap-1.5" id="systemFilters">
+          <button data-sys="all" class="sys-btn tab-active px-3 py-1.5 rounded-lg text-xs font-medium border border-sand transition">Все 18 зон</button>
+          <button data-sys="endocrine" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Эндокринная и низ спины</button>
+          <button data-sys="respiratory" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Дыхательная</button>
+          <button data-sys="digestive" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Пищеварительная</button>
+          <button data-sys="headneck" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Голова, шея и плечи</button>
+          <button data-sys="backlegs" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Спина, таз и стопы</button>
+          <button data-sys="cardioskin" class="sys-btn px-3 py-1.5 rounded-lg text-xs font-medium border border-sand text-slatewarm hover:bg-oat transition">Сердце и кожа</button>
+        </div>
+        <div class="w-full sm:w-auto">
+          <input type="text" id="zoneSearchInput" placeholder="Поиск по страху или симптому..." class="w-full sm:w-64 px-3.5 py-1.5 rounded-lg border border-sand bg-linen text-xs text-espresso focus:outline-none focus:border-sage">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-5 bg-white rounded-3xl border border-sand p-6 shadow-sm flex flex-col items-center">
+          <div class="text-center mb-3">
+            <h3 class="font-semibold text-espresso text-base">Интерактивная проекция зон</h3>
+            <p class="text-xs text-slatewarm">Кликните на любую точку на силуэте для диагностики</p>
+          </div>
+          <div class="body-canvas-wrap">
+            <canvas id="bodyMapCanvas"></canvas>
+          </div>
+          <div class="flex flex-wrap justify-center gap-4 mt-3 text-xs text-slatewarm">
+            <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-terracotta inline-block"></span> Гипертонус / Спазм («Панцирь»)</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-sage inline-block"></span> Гипотонус («Пустота» / Ослабление)</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+          <div id="activeZoneCard" class="bg-white rounded-3xl border-2 border-sage p-6 sm:p-8 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span id="zoneSystemBadge" class="px-3 py-1 rounded-full bg-sagelight text-sage text-xs font-semibold">Эндокринная система и нижняя часть спины</span>
+              <span id="zoneToneBadge" class="px-3 py-1 rounded-full bg-terralight text-terracotta text-xs font-semibold">Хронический гипертонус и истощение • ~60% случаев</span>
+            </div>
+            <h3 id="zoneTitle" class="font-serif text-2xl sm:text-3xl font-bold text-espresso">Надпочечники (зона спины, поясница)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div class="bg-linen rounded-2xl p-4 border border-sand">
+                <div class="text-xs font-bold uppercase tracking-wider text-terracotta mb-1.5">Базовый страх и триггер</div>
+                <p id="zoneFearText" class="text-sm text-espresso leading-relaxed">
+                  Хронические страхи и состояние постоянной боевой готовности («беги или дерись»). Самая частая зона блокировки в практике автора (около 60% всех случаев).
+                </p>
+              </div>
+              <div class="bg-linen rounded-2xl p-4 border border-sand">
+                <div class="text-xs font-bold uppercase tracking-wider text-sage mb-1.5">Телесный механизм и симптомы</div>
+                <p id="zoneSymptomText" class="text-sm text-espresso leading-relaxed">
+                  Непрерывная выработка адреналина, норадреналина и кортизола без фазы расслабления. Ведет к истощению надпочечников, падению иммунитета, гормональным сбоям и хронической необъяснимой усталости.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl border border-sand p-6 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-semibold text-espresso text-sm">Реестр зон выбранного фильтра (<span id="zoneCountLabel">18</span>)</h4>
+              <span class="text-xs text-slatewarm">Нажмите на строку для подробного разбора</span>
+            </div>
+            <div id="zonesListContainer" class="max-h-72 overflow-y-auto divide-y divide-sand pr-1"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+        <div class="bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-espresso">Доминирование надпочечников в структуре блоков</h3>
+            <p class="text-xs sm:text-sm text-slatewarm mt-1">
+              Согласно статистике практики Елены Перевалиной (Глава 3), около 60% всех телесных блокировок приходится на зону надпочечников из-за хронической активации режима «беги или дерись».
+            </p>
+          </div>
+          <div class="chart-container">
+            <canvas id="adrenalChart"></canvas>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="font-serif text-2xl font-bold text-espresso">Распределение зон по функциональным системам</h3>
+            <p class="text-xs sm:text-sm text-slatewarm mt-1">
+              Количество детализированных анатомических локаций в каждой из 7 систем телесной карты. Пищеварительная система (желудок и кишечник) реагирует на стресс первой и максимально быстро.
+            </p>
+          </div>
+          <div class="chart-container">
+            <canvas id="systemsBarChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="calibration" class="space-y-8 scroll-mt-20">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-sage">Раздел 3 • Глава 1</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso">Базовые навыки считывания тела и экстренная перезагрузка</h2>
+        <p class="text-slatewarm text-base leading-relaxed">
+          Прежде чем выявлять страхи, необходимо отработать вход в состояние расслабленного маятника («сухая» голова), откалибровать ответы «Да/Нет» и научиться проверять мышечный тонус. Если тело зажато в гипертонусе, используйте встроенный тренажер экстренной перезагрузки через точку на макушке и дыхание 1:2.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-7 bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm space-y-6">
+          <div class="space-y-2">
+            <h3 class="font-serif text-2xl font-bold text-espresso">Состояние маятника и калибровка «Да / Нет»</h3>
+            <p class="text-sm text-slatewarm">
+              «Сухая», пустая голова — главное условие: там, где есть мысли, есть контроль, который блокирует движение энергии.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div class="bg-linen p-4 rounded-2xl border border-sand">
+              <div class="text-xs font-bold text-sage uppercase">Шаг 1 • Опора</div>
+              <p class="text-sm text-espresso mt-1">Встаньте ровно и максимально плотно прижмите стопы к полу.</p>
+            </div>
+            <div class="bg-linen p-4 rounded-2xl border border-sand">
+              <div class="text-xs font-bold text-sage uppercase">Шаг 2 • Мягкость</div>
+              <p class="text-sm text-espresso mt-1">Расслабьте колени (не выпрямляйте жестко), таз и всё тело.</p>
+            </div>
+            <div class="bg-linen p-4 rounded-2xl border border-sand">
+              <div class="text-xs font-bold text-sage uppercase">Шаг 3 • «Сухая» голова</div>
+              <p class="text-sm text-espresso mt-1">Уберите мысли и контроль. Представьте себя спокойным деревом.</p>
+            </div>
+            <div class="bg-linen p-4 rounded-2xl border border-sand">
+              <div class="text-xs font-bold text-sage uppercase">Шаг 4 • Восьмерка</div>
+              <p class="text-sm text-espresso mt-1">Позвольте телу начать легкое покачивание (чаще всего по траектории восьмерки).</p>
+            </div>
+          </div>
+
+          <div class="bg-sagelight/70 rounded-2xl p-5 border border-sage/30 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h4 class="font-semibold text-espresso text-sm">Интерактивная проверка калибровки и мышечного тонуса</h4>
+              <span class="text-xs text-sage font-medium">Кинезиология (Глава 1)</span>
+            </div>
+            <div class="flex flex-wrap gap-2" id="toneButtons">
+              <button data-tone="normo" class="tone-btn tab-active px-3.5 py-2 rounded-xl text-xs font-semibold border border-sand transition">Нормотонус (Рабочее состояние)</button>
+              <button data-tone="hyper" class="tone-btn px-3.5 py-2 rounded-xl text-xs font-semibold border border-sand bg-white text-slatewarm hover:bg-oat transition">Гипертонус (Зажатость)</button>
+              <button data-tone="weak" class="tone-btn px-3.5 py-2 rounded-xl text-xs font-semibold border border-sand bg-white text-slatewarm hover:bg-oat transition">Слабость (Нехватка сил)</button>
+            </div>
+            <div id="toneResultBox" class="bg-white rounded-xl p-4 border border-sand space-y-2 text-sm">
+              <div class="font-semibold text-sage">✓ Нормотонус — целевое состояние для сканирования</div>
+              <p class="text-slatewarm leading-relaxed">
+                <strong>Тест через бедро:</strong> надавите на бедро и механически сдвиньте мышечное волокно навстречу друг другу — в норме на <strong>3 секунды</strong> происходит легкое расслабление мышцы.<br>
+                <strong>Тест через руку и маятник:</strong> на истинное утверждение («Меня зовут [ваше имя]») рука остается сильной, а тело качается вперед («Да»). На ложное — рука слабеет, а тело идет назад («Нет»).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm flex flex-col justify-between space-y-5">
+          <div class="space-y-2">
+            <span class="inline-block px-3 py-1 rounded-full bg-terralight text-terracotta text-xs font-semibold">Кнопка перезапуска в компьютере</span>
+            <h3 class="font-serif text-2xl font-bold text-espresso">Экстренная перезагрузка при гипертонусе</h3>
+            <p class="text-xs sm:text-sm text-slatewarm leading-relaxed">
+              Если тело заблокировано и маятник не идет: мысленно разделите голову крестом, найдите <strong>самый центр на макушке</strong>, надавите пальцем (или неострой зубочисткой) и дышите через нос с <strong>выдохом в 2 раза длиннее вдоха</strong>.
+            </p>
+          </div>
+
+          <div class="bg-linen rounded-2xl p-4 border border-sand text-center space-y-3">
+            <div class="pacer-canvas-wrap">
+              <canvas id="breathingCanvas"></canvas>
+            </div>
+            <div id="breathInstruction" class="text-sm font-semibold text-espresso">
+              Нажмите «Запустить тренажер» (Вдох 4 сек • Выдох 8 сек)
+            </div>
+            <div class="flex justify-center gap-3">
+              <button id="toggleBreathBtn" class="px-5 py-2.5 rounded-xl bg-sage text-white text-xs font-semibold hover:opacity-95 transition">
+                ▶ Запустить тренажер 1:2
+              </button>
+              <button id="resetBreathBtn" class="px-4 py-2.5 rounded-xl bg-white border border-sand text-slatewarm text-xs font-semibold hover:bg-oat transition">
+                Сброс
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="overwriting" class="space-y-8 scroll-mt-20">
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-sage">Раздел 4 • Глава 4</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso">Практика перепрограммирования и перезаписи страха</h2>
+        <p class="text-slatewarm text-base leading-relaxed">
+          Освойте работу с визуальными кинезиологическими карточками (<code>||</code> и <code>Х</code>) и пройдите интерактивный симулятор поиска точки выхода страха по <strong>8 зрительным направлениям</strong> при неподвижной голове. Соблюдайте технику безопасности: берите только легкие страхи и не более 1–2 случаев в день.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white rounded-3xl border border-sand p-6 shadow-sm space-y-4">
+            <h3 class="font-serif text-2xl font-bold text-espresso">Кинезиологические карточки</h3>
+            <p class="text-xs sm:text-sm text-slatewarm">
+              Рисуются самостоятельно черным цветом на небольших кусочках бумаги. Нажмите на карточку, чтобы увидеть ее назначение:
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              <button id="cardLinesBtn" class="p-4 rounded-2xl border-2 border-sage bg-sagelight/40 flex flex-col items-center justify-center gap-3 transition hover:shadow-sm">
+                <div class="w-20 h-24 bg-white rounded-xl border border-sand shadow-inner flex items-center justify-center gap-2.5">
+                  <span class="w-1.5 h-14 bg-espresso rounded-full block"></span>
+                  <span class="w-1.5 h-14 bg-espresso rounded-full block"></span>
+                </div>
+                <span class="text-xs font-bold text-espresso">Две полоски ( || )</span>
+              </button>
+              <button id="cardCrossBtn" class="p-4 rounded-2xl border-2 border-sand bg-linen flex flex-col items-center justify-center gap-3 transition hover:shadow-sm">
+                <div class="w-20 h-24 bg-white rounded-xl border border-sand shadow-inner flex items-center justify-center relative">
+                  <span class="w-1.5 h-14 bg-espresso rounded-full block rotate-45 absolute"></span>
+                  <span class="w-1.5 h-14 bg-espresso rounded-full block -rotate-45 absolute"></span>
+                </div>
+                <span class="text-xs font-bold text-espresso">Крестик ( Х )</span>
+              </button>
+            </div>
+            <div id="cardExplanation" class="bg-linen rounded-2xl p-4 border border-sand text-sm text-espresso leading-relaxed">
+              <strong>Карточка с двумя полосками (||):</strong> Используется для проверки нормотонуса перед началом работы. В норме, если вы посмотрите на эти полоски перед собой, ваше тело должно стать мягким и расслабиться.
+            </div>
+          </div>
+
+          <div class="bg-terralight rounded-3xl border border-terracotta/30 p-6 space-y-3">
+            <h4 class="font-semibold text-espresso text-base flex items-center gap-2">
+              <span>⚠️ Правила безопасности практики</span>
+            </h4>
+            <ul class="space-y-2 text-xs sm:text-sm text-espresso leading-relaxed">
+              <li>• <strong>Только простые страхи:</strong> высота, собаки, пауки, уколы, глубина, стоматолог. Глобальные и глубокие травмы на этом этапе брать запрещено.</li>
+              <li>• <strong>Суточный лимит:</strong> отрабатывайте не более <strong>1–2 случаев в день</strong> (в домашнем задании — строго <strong>1 легкий страх в день</strong>), чтобы нейросеть и нервная система успели перестроиться.</li>
+              <li>• <strong>Маркеры перезаписи:</strong> непроизвольная <strong>зевота</strong> или <strong>кашель</strong> сигнализируют, что мозг перезаписал программу (слезы — нормальное очищение).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white rounded-3xl border border-sand p-6 sm:p-8 shadow-sm space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-espresso">Симулятор поиска зрительного вектора (8 осей)</h3>
+              <p class="text-xs sm:text-sm text-slatewarm mt-0.5">Голова неподвижна! Натягиваем только мышцы глаз, перемещая карточку «Х».</p>
+            </div>
+            <label class="inline-flex items-center gap-2 text-xs font-medium text-espresso bg-linen px-3 py-2 rounded-xl border border-sand cursor-pointer">
+              <input type="checkbox" id="resistanceToggle" class="accent-terracotta">
+              <span>Режим сопротивления («Нет» стоит на месте)</span>
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div class="bg-linen rounded-2xl p-5 border border-sand">
+              <div class="grid grid-cols-3 gap-2.5 max-w-[240px] mx-auto" id="axisGrid">
+                <button data-axis="0" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↖<span class="block text-[10px] font-normal text-slatewarm">Вверх-лево</span></button>
+                <button data-axis="1" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↑<span class="block text-[10px] font-normal text-slatewarm">Вверх</span></button>
+                <button data-axis="2" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↗<span class="block text-[10px] font-normal text-slatewarm">Вверх-право</span></button>
+                <button data-axis="3" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">←<span class="block text-[10px] font-normal text-slatewarm">Влево</span></button>
+                <div class="p-2 rounded-xl bg-sagelight border border-sage/30 flex flex-col items-center justify-center text-center">
+                  <span class="text-base">👁️</span>
+                  <span class="text-[10px] font-semibold text-sage leading-tight mt-0.5">Голова прямо</span>
+                </div>
+                <button data-axis="4" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">→<span class="block text-[10px] font-normal text-slatewarm">Вправо</span></button>
+                <button data-axis="5" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↙<span class="block text-[10px] font-normal text-slatewarm">Вниз-лево</span></button>
+                <button data-axis="6" class="axis-btn p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↓<span class="block text-[10px] font-normal text-slatewarm">Вниз</span></button>
+                <button data-axis="7" class="axis-btn axis-btn-active p-3 rounded-xl bg-white border border-sand text-center font-bold text-sm hover:bg-oat transition">↘<span class="block text-[10px] font-normal">Вниз-право</span></button>
+              </div>
+            </div>
+
+            <div id="axisFeedbackBox" class="bg-linen rounded-2xl p-5 border border-sand space-y-3">
+              <div class="inline-block px-2.5 py-1 rounded-full bg-terracotta text-white text-xs font-semibold">
+                Найдена точка выхода! (Диагональ вниз-вправо)
+              </div>
+              <h4 class="font-semibold text-espresso text-base">Реакция тела на «Я боюсь высоты»: Маятник идет НАЗАД («Нет»)</h4>
+              <p class="text-xs sm:text-sm text-slatewarm leading-relaxed">
+                Смотреть в эту точку физически неприятно, глазные мышцы отзываются легкой болью, взгляд хочется увести — это верный индикатор угла, через который энергия страха выходит. Зафиксируйте здесь карточку «Х» и запустите волнообразное дыхание от стоп до появления зевоты.
+              </p>
+            </div>
+          </div>
+
+          <div class="border-t border-sand pt-5 space-y-3">
+            <h4 class="font-semibold text-espresso text-sm">Пошаговый алгоритм перезаписи (6 этапов):</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">1. Калибровка:</span> Вход в маятник («сухая» голова), проверка «Да» (вперед) и «Нет» (назад) по 3 раза.
+              </div>
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">2. Определение:</span> Произнести «Я боюсь [страх]» и получить четкий наклон тела вперед («Да»).
+              </div>
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">3. Поиск оси:</span> Вести карточку «Х» по 8 осям без поворота головы до точки боли в глазах и ответа «Нет».
+              </div>
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">4. Проживание:</span> Натянуть взгляд на «Х», ярко вспомнить страх и дышать волной от стоп через нос.
+              </div>
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">5. Маркер:</span> Дождаться непроизвольной зевоты, кашля или слез — момент перезаписи в мозге.
+              </div>
+              <div class="p-3.5 rounded-xl bg-linen border border-sand">
+                <span class="font-bold text-sage">6. Проверка:</span> Спокойно постоять <strong>1 минуту</strong>, затем снова протестировать фразу (ответ «Нет»).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="homework" class="space-y-8 scroll-mt-20">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="max-w-3xl space-y-3">
+          <span class="text-xs font-semibold uppercase tracking-wider text-sage">Раздел 5 • Практикум и Заключение</span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-espresso">Сводный реестр домашних заданий курса</h2>
+          <p class="text-slatewarm text-base leading-relaxed">
+            Отмечайте выполненные этапы самостоятельной работы по всем разделам методички. Как подчеркивает Елена Перевалина в заключении, знания передаются не только через ум, но и на невербальном уровне — глубина результата прямо зависит от вашей честности и готовности идти в практику.
+          </p>
+        </div>
+        <div class="bg-white px-5 py-3.5 rounded-2xl border border-sand text-right">
+          <div class="text-xs text-slatewarm">Прогресс освоения урока</div>
+          <div class="text-2xl font-serif font-bold text-sage" id="hwProgressText">0 из 5 этапов</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="homeworkGrid"></div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-sand mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slatewarm">
+      <div>
+        <strong>Освобождение тела и сознания: Практическое руководство по работе со страхами</strong> • По материалам занятия Елены Перевалиной
+      </div>
+      <div>
+        Информационно-справочное интерактивное пособие • Не заменяет консультацию врача
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const bodyZonesData = [
+      {
+        id: 'adrenals',
+        system: 'endocrine',
+        systemName: 'Эндокринная система и низ спины',
+        title: 'Надпочечники (зона спины, поясница)',
+        toneType: 'hyper',
+        toneLabel: 'Хронический гипертонус и истощение • ~60% случаев',
+        fear: 'Хронические страхи и постоянная боевая готовность («беги или дерись»). Самая частая зона блокировки в практике автора (около 60% случаев).',
+        symptom: 'Непрерывная выработка адреналина, норадреналина и кортизола без расслабления. Ведет к истощению надпочечников, снижению иммунитета, гормональным сбоям и хронической необъяснимой усталости.',
+        x: 0.50,
+        y: 0.43
+      },
+      {
+        id: 'lowerback',
+        system: 'endocrine',
+        systemName: 'Эндокринная система и низ спины',
+        title: 'Поясница (поясничный отдел)',
+        toneType: 'hyper',
+        toneLabel: 'Сильное напряжение и спазм',
+        fear: 'Страх потери стабильности и опоры, чаще всего в финансовой сфере («Что будет дальше?», «Куда мне идти?», «Как заработать?»). У мужчин взаимосвязь с финансами выражена особенно сильно.',
+        symptom: 'Сильное мышечное напряжение и болевой синдром в поясничном отделе.',
+        x: 0.50,
+        y: 0.48
+      },
+      {
+        id: 'iliopsoas',
+        system: 'endocrine',
+        systemName: 'Эндокринная система и низ спины',
+        title: 'Подвздошно-поясничная мышца',
+        toneType: 'hyper',
+        toneLabel: 'Вторичная спастическая дисфункция',
+        fear: 'Хронический затяжной стресс (вторичная реакция на перегрузку надпочечников).',
+        symptom: 'Проблемы с мышцей развиваются как прямое следствие истощения надпочечников из-за длительного стресса.',
+        x: 0.43,
+        y: 0.51
+      },
+      {
+        id: 'diaphragm',
+        system: 'respiratory',
+        systemName: 'Дыхательная система и грудная клетка',
+        title: 'Грудной отдел и диафрагма',
+        toneType: 'hyper',
+        toneLabel: 'Спазм диафрагмы',
+        fear: 'Страх за свою жизнь или жизнь другого человека; страх нехватки ресурсов (когда метафорически не хватает «воздуха» или кислорода).',
+        symptom: 'При спазме возникает состояние, когда хочется вдохнуть, но не получается — поступление кислорода словно ограничивается.',
+        x: 0.50,
+        y: 0.33
+      },
+      {
+        id: 'intercostal',
+        system: 'respiratory',
+        systemName: 'Дыхательная система и грудная клетка',
+        title: 'Межреберные мышцы (невралгия)',
+        toneType: 'hyper',
+        toneLabel: 'Болевой мышечный спазм',
+        fear: 'Страх быть уязвимым, страх близости, страх открыть свое сердце и довериться другому человеку.',
+        symptom: 'Острая или ноющая боль в межреберной зоне (межреберная невралгия).',
+        x: 0.41,
+        y: 0.31
+      },
+      {
+        id: 'bronchi',
+        system: 'respiratory',
+        systemName: 'Дыхательная система и грудная клетка',
+        title: 'Бронхи (чуть выше легких)',
+        toneType: 'hyper',
+        toneLabel: 'Спазм бронхов',
+        fear: 'Страх потери свободы и ограничения личного пространства.',
+        symptom: 'Локальный спазм в области бронхов чуть выше легких.',
+        x: 0.50,
+        y: 0.25
+      },
+      {
+        id: 'heart',
+        system: 'cardioskin',
+        systemName: 'Сердечно-сосудистая система',
+        title: 'Область сердца',
+        toneType: 'hyper',
+        toneLabel: 'Ощущение сдавливания',
+        fear: 'Страх смерти и страх потерять контроль над ситуацией.',
+        symptom: 'Физическое ощущение сжатия, сдавливания около сердца.',
+        x: 0.56,
+        y: 0.28
+      },
+      {
+        id: 'stomach',
+        system: 'digestive',
+        systemName: 'Пищеварительная система (реагирует первой)',
+        title: 'Желудок (солнечное сплетение)',
+        toneType: 'hyper',
+        toneLabel: 'Мгновенная реакция на стресс',
+        fear: 'Страх неопределенности и страх потери опоры.',
+        symptom: 'Неприятное «подсасывающее» чувство или холод в животе; многие люди инстинктивно начинают заедать это состояние.',
+        x: 0.50,
+        y: 0.38
+      },
+      {
+        id: 'intestines',
+        system: 'digestive',
+        systemName: 'Пищеварительная система (реагирует первой)',
+        title: 'Тонкий и толстый кишечник',
+        toneType: 'hyper',
+        toneLabel: 'Висцеральные спазмы (особенно тонкий)',
+        fear: 'Тревога за социальные связи — страх отвержения, непринятия, страх потерять лицо и оценки окружающих.',
+        symptom: 'Спазмы кишечника; тонкий кишечник страдает от социальных страхов особенно часто.',
+        x: 0.50,
+        y: 0.45
+      },
+      {
+        id: 'temples',
+        system: 'headneck',
+        systemName: 'Голова, шея и плечевой пояс',
+        title: 'Височная и лобная части головы',
+        toneType: 'hyper',
+        toneLabel: 'Головные боли напряжения',
+        fear: 'Страх критики, публичного позора, неуверенность перед выступлениями и фоновые мысли «я не справлюсь», «у меня не получится».',
+        symptom: 'Головные боли, локализованные в височной и лобной частях головы.',
+        x: 0.50,
+        y: 0.08
+      },
+      {
+        id: 'jaw',
+        system: 'headneck',
+        systemName: 'Голова, шея и плечевой пояс',
+        title: 'Жевательные мышцы (челюсть)',
+        toneType: 'hyper',
+        toneLabel: 'Хронический гипертонус челюсти',
+        fear: 'Подавленная агрессия из-за страха, неспособность сказать «нет».',
+        symptom: 'Человек хочет отказать, но из-за страха терпит, буквально стискивая зубы.',
+        x: 0.44,
+        y: 0.13
+      },
+      {
+        id: 'throatneck',
+        system: 'headneck',
+        systemName: 'Голова, шея и плечевой пояс',
+        title: 'Гортань, глотка и шея',
+        toneType: 'hyper',
+        toneLabel: 'Жесткий «панцирь» гордости',
+        fear: 'Страх проявить себя, громко говорить и заявлять о себе; страх показать себя слабым/уязвимым и попросить о помощи.',
+        symptom: 'Жесткая зажатость шейного отдела вплоть до жутких головных болей; удержание себя в «панцире» гордости.',
+        x: 0.50,
+        y: 0.17
+      },
+      {
+        id: 'trapezius',
+        system: 'headneck',
+        systemName: 'Голова, шея и плечевой пояс',
+        title: 'Трапеция (плечи)',
+        toneType: 'hyper',
+        toneLabel: 'Скручивание плеч и сутулость',
+        fear: 'Страх ответственности и тяжесть от взятых на себя обязательств (например, финансового груза, ипотеки).',
+        symptom: 'Плечи скручиваются вперед (грудные мышцы укорачиваются, широчайшая мышца спины ослабляется), формируя сутулость.',
+        x: 0.36,
+        y: 0.21
+      },
+      {
+        id: 'spine',
+        system: 'backlegs',
+        systemName: 'Спина, таз и ноги',
+        title: 'Мышцы вдоль позвоночника (желтая связка)',
+        toneType: 'hyper',
+        toneLabel: 'Защитный «панцирь» спины',
+        fear: 'Страх быть открытым из-за прошлого опыта (обманы, предательства).',
+        symptom: 'Желтая связка и мышцы, фиксирующие позвонки, спазмируются в «панцирь»; обычные массажи дают лишь временный эффект.',
+        x: 0.58,
+        y: 0.36
+      },
+      {
+        id: 'glutes',
+        system: 'backlegs',
+        systemName: 'Спина, таз и ноги',
+        title: 'Ягодичные мышцы (в т.ч. грушевидная)',
+        toneType: 'hyper',
+        toneLabel: 'Спазм и защемление седалищного нерва',
+        fear: 'Страх перемен, страх двигаться вперед в момент жизненного перехода.',
+        symptom: 'Ягодичная и грушевидная мышцы спазмируются, пережимают седалищный нерв, а боль отдает в поясницу.',
+        x: 0.58,
+        y: 0.54
+      },
+      {
+        id: 'adductors',
+        system: 'backlegs',
+        systemName: 'Спина, таз и ноги',
+        title: 'Приводящие мышцы бедра и промежность',
+        toneType: 'hypo',
+        toneLabel: 'Гипотонус и нарушение иннервации',
+        fear: 'Страх интимности и близости. У женщин — следствие грубых отношений или насилия (в т.ч. морального); у мужчин — при унижении мужского достоинства.',
+        symptom: 'Развитие гипотонуса (ослабления) мышц внутренней части бедра и нарушение иннервации тазового дна.',
+        x: 0.46,
+        y: 0.62
+      },
+      {
+        id: 'feet',
+        system: 'backlegs',
+        systemName: 'Спина, таз и ноги',
+        title: 'Стопы',
+        toneType: 'hypo',
+        toneLabel: 'Гипотонус и потеря опоры с детства',
+        fear: 'Формирующееся с детства ощущение неуверенности и потери жизненной опоры.',
+        symptom: 'Стопа уходит в гипотонус, развивается плоскостопие и потеря фиксации; всё тело начинает искривляться, подстраиваясь под эту «пустоту».',
+        x: 0.44,
+        y: 0.93
+      },
+      {
+        id: 'skin',
+        system: 'cardioskin',
+        systemName: 'Кожа и вегетативная регуляция',
+        title: 'Поверхность кожи (ладони)',
+        toneType: 'hyper',
+        toneLabel: 'Гиперактивность симпатики / истощение блуждающего нерва',
+        fear: 'Страх разоблачения и чувство стыда.',
+        symptom: 'Повышенное потоотделение, мокрые ладони: симпатическая система постоянно активна, парасимпатическая перегружена, блуждающий нерв истощается.',
+        x: 0.28,
+        y: 0.52
+      }
+    ];
+
+    const homeworkItemsData = [
+      {
+        id: 'hw0',
+        chapter: 'Введение',
+        title: 'Намерение и честность с собой',
+        norm: '2 письменных пункта',
+        tasks: [
+          'Сформулируйте личное намерение на период прохождения «курса грубой очистки».',
+          'Запишите внутренние барьеры и сопротивления при мысли об абсолютной честности с самим собой.'
+        ]
+      },
+      {
+        id: 'hw1',
+        chapter: 'Глава 1',
+        title: 'Тренировка маятника и калибровка',
+        norm: 'Ежедневно • Минимум 3 проверки',
+        tasks: [
+          'Ежедневно тренируйте вход в состояние маятника и «сухую» голову.',
+          'Откалибруйте «Мое Да — вперед, мое Нет — назад» не менее 3 раз.',
+          'Протестируйте бытовые вещи (яблоко, витамины): «Это будет для меня полезно?».'
+        ]
+      },
+      {
+        id: 'hw2',
+        chapter: 'Глава 2',
+        title: 'Страх как курсор роста',
+        norm: '2–3 жизненные ситуации',
+        tasks: [
+          'Выпишите 2–3 ситуации из жизни, где вы чувствуете страх перед действием (сложный разговор, смена работы).',
+          'Напротив каждой сформулируйте скрытый потенциальный ресурс или зону роста.'
+        ]
+      },
+      {
+        id: 'hw3',
+        chapter: 'Глава 3',
+        title: 'Самодиагностика по карте тела',
+        norm: '2–3 хронические зоны',
+        tasks: [
+          'Просканируйте тело и выпишите 2–3 зоны хронического напряжения, спазмов или дискомфорта.',
+          'Сопоставьте их с «Телесной картой страхов» и запишите стоящие за ними страхи.'
+        ]
+      },
+      {
+        id: 'hw4',
+        chapter: 'Глава 4',
+        title: 'Перезапись легкого страха',
+        norm: 'Строго 1 легкий страх в день',
+        tasks: [
+          'Подготовьте карточки (|| и Х), выберите 1 незначительный страх и пройдите все 6 шагов алгоритма.',
+          'Запишите ощущения до, во время (зевота, боль в глазах) и после финальной проверки.'
+        ]
+      }
+    ];
+
+    const state = {
+      activeSystem: 'all',
+      searchQuery: '',
+      selectedZoneId: 'adrenals',
+      selectedAxis: 7,
+      resistanceMode: false,
+      completedHw: {},
+      breathRunning: false,
+      breathStartTime: 0,
+      breathRaf: null
+    };
+
+    function wrapLabel(str, maxLen = 16) {
+      if (str.length <= maxLen) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let current = '';
+      words.forEach(w => {
+        if ((current + ' ' + w).trim().length <= maxLen) {
+          current = (current + ' ' + w).trim();
+        } else {
+          if (current) lines.push(current);
+          current = w;
+        }
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.ftab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ftab-btn').forEach(b => {
+          b.classList.remove('tab-active');
+          b.classList.add('text-slatewarm');
+        });
+        btn.classList.add('tab-active');
+        btn.classList.remove('text-slatewarm');
+        const target = btn.getAttribute('data-ftab');
+        document.querySelectorAll('.ftab-panel').forEach(p => p.classList.add('hidden'));
+        document.getElementById(target).classList.remove('hidden');
+      });
+    });
+
+    const fearSlider = document.getElementById('fearBalanceSlider');
+    const fearBadge = document.getElementById('fearLevelBadge');
+    const fearDesc = document.getElementById('fearBalanceDescription');
+    fearSlider.addEventListener('input', () => {
+      const val = parseInt(fearSlider.value, 10);
+      if (val < 25) {
+        fearBadge.textContent = 'Дефицит страха (0%)';
+        fearBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-terracotta text-white';
+        fearDesc.innerHTML = '<strong>Страх ушел в ноль:</strong> Потеря предохранителя безопасности. Человек теряет адекватное восприятие реальности и совершает безрассудные, опасные для жизни поступки.';
+      } else if (val <= 75) {
+        fearBadge.textContent = 'Баланс (Норма)';
+        fearBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-sage text-white';
+        fearDesc.innerHTML = '<strong>Оптимальный баланс:</strong> Симпатическая и парасимпатическая нервные системы уравновешивают друг друга. Страх защищает от реальных угроз и служит точным «курсором роста», показывая, где спрятан ваш потенциал.';
+      } else {
+        fearBadge.textContent = 'Избыток страха (100%)';
+        fearBadge.className = 'text-xs font-semibold px-2.5 py-1 rounded-full bg-terracotta text-white';
+        fearDesc.innerHTML = '<strong>Чрезмерный страх:</strong> Гиперактивация симпатической системы. Человек сжимается, замирает в хроническом мышечном спазме и перестает полноценно жить, сливая заряд «батарейки» на обслуживание боли.';
+      }
+    });
+
+    function getFilteredZones() {
+      return bodyZonesData.filter(z => {
+        const matchSys = state.activeSystem === 'all' || z.system === state.activeSystem;
+        const q = state.searchQuery.toLowerCase().trim();
+        const matchQuery = !q || z.title.toLowerCase().includes(q) || z.fear.toLowerCase().includes(q) || z.symptom.toLowerCase().includes(q);
+        return matchSys && matchQuery;
+      });
+    }
+
+    function selectZone(zoneId) {
+      const zone = bodyZonesData.find(z => z.id === zoneId) || bodyZonesData[0];
+      state.selectedZoneId = zone.id;
+      document.getElementById('zoneSystemBadge').textContent = zone.systemName;
+      const toneBadge = document.getElementById('zoneToneBadge');
+      toneBadge.textContent = zone.toneLabel;
+      if (zone.toneType === 'hypo') {
+        toneBadge.className = 'px-3 py-1 rounded-full bg-sagelight text-sage text-xs font-semibold';
+      } else {
+        toneBadge.className = 'px-3 py-1 rounded-full bg-terralight text-terracotta text-xs font-semibold';
+      }
+      document.getElementById('zoneTitle').textContent = zone.title;
+      document.getElementById('zoneFearText').textContent = zone.fear;
+      document.getElementById('zoneSymptomText').textContent = zone.symptom;
+      renderZonesList();
+      drawBodyMap();
+    }
+
+    function renderZonesList() {
+      const filtered = getFilteredZones();
+      document.getElementById('zoneCountLabel').textContent = filtered.length;
+      const container = document.getElementById('zonesListContainer');
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="py-6 text-center text-xs text-slatewarm">По вашему запросу зон не найдено. Попробуйте сбросить фильтр.</div>';
+        return;
+      }
+      container.innerHTML = filtered.map(z => {
+        const isSelected = z.id === state.selectedZoneId;
+        const dotColor = z.toneType === 'hypo' ? 'bg-sage' : 'bg-terracotta';
+        return `
+          <button onclick="selectZone('${z.id}')" class="w-full text-left py-3 px-3 rounded-xl transition flex items-start justify-between gap-3 ${isSelected ? 'bg-sagelight/70 font-medium' : 'hover:bg-linen'}">
+            <div class="flex items-start gap-2.5">
+              <span class="w-2.5 h-2.5 rounded-full ${dotColor} mt-1.5 shrink-0"></span>
+              <div>
+                <div class="text-xs sm:text-sm text-espresso font-semibold">${z.title}</div>
+                <div class="text-xs text-slatewarm line-clamp-1 mt-0.5">${z.fear}</div>
+              </div>
+            </div>
+            <span class="text-xs text-sage shrink-0 font-medium">→</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    const bodyCanvas = document.getElementById('bodyMapCanvas');
+    const bodyCtx = bodyCanvas.getContext('2d');
+
+    function drawBodyMap() {
+      const wrap = bodyCanvas.parentElement;
+      const dpr = window.devicePixelRatio || 1;
+      const w = wrap.clientWidth;
+      const h = wrap.clientHeight;
+      bodyCanvas.width = w * dpr;
+      bodyCanvas.height = h * dpr;
+      bodyCanvas.style.width = w + 'px';
+      bodyCanvas.style.height = h + 'px';
+      bodyCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      bodyCtx.clearRect(0, 0, w, h);
+
+      const cx = w * 0.5;
+      bodyCtx.fillStyle = '#F2EDE4';
+      bodyCtx.strokeStyle = '#D5CEC2';
+      bodyCtx.lineWidth = 2;
+
+      bodyCtx.beginPath();
+      bodyCtx.arc(cx, h * 0.10, w * 0.085, 0, Math.PI * 2);
+      bodyCtx.fill();
+      bodyCtx.stroke();
+
+      bodyCtx.beginPath();
+      bodyCtx.moveTo(cx - w * 0.035, h * 0.15);
+      bodyCtx.lineTo(cx + w * 0.035, h * 0.15);
+      bodyCtx.lineTo(cx + w * 0.045, h * 0.20);
+      bodyCtx.lineTo(cx + w * 0.18, h * 0.23);
+      bodyCtx.lineTo(cx + w * 0.24, h * 0.53);
+      bodyCtx.lineTo(cx + w * 0.19, h * 0.54);
+      bodyCtx.lineTo(cx + w * 0.13, h * 0.30);
+      bodyCtx.lineTo(cx + w * 0.12, h * 0.52);
+      bodyCtx.lineTo(cx + w * 0.14, h * 0.92);
+      bodyCtx.lineTo(cx + w * 0.06, h * 0.94);
+      bodyCtx.lineTo(cx + w * 0.02, h * 0.58);
+      bodyCtx.lineTo(cx - w * 0.02, h * 0.58);
+      bodyCtx.lineTo(cx - w * 0.06, h * 0.94);
+      bodyCtx.lineTo(cx - w * 0.14, h * 0.92);
+      bodyCtx.lineTo(cx - w * 0.12, h * 0.52);
+      bodyCtx.lineTo(cx - w * 0.13, h * 0.30);
+      bodyCtx.lineTo(cx - w * 0.19, h * 0.54);
+      bodyCtx.lineTo(cx - w * 0.24, h * 0.53);
+      bodyCtx.lineTo(cx - w * 0.18, h * 0.23);
+      bodyCtx.lineTo(cx - w * 0.045, h * 0.20);
+      bodyCtx.closePath();
+      bodyCtx.fill();
+      bodyCtx.stroke();
+
+      bodyCtx.beginPath();
+      bodyCtx.setLineDash([4, 4]);
+      bodyCtx.moveTo(cx, h * 0.17);
+      bodyCtx.lineTo(cx, h * 0.55);
+      bodyCtx.strokeStyle = '#C9C0B1';
+      bodyCtx.stroke();
+      bodyCtx.setLineDash([]);
+
+      const filteredIds = new Set(getFilteredZones().map(z => z.id));
+
+      bodyZonesData.forEach(z => {
+        const px = z.x * w;
+        const py = z.y * h;
+        const isSelected = z.id === state.selectedZoneId;
+        const isFiltered = filteredIds.has(z.id);
+        const baseColor = z.toneType === 'hypo' ? '#3B6E6C' : '#C47D58';
+
+        bodyCtx.save();
+        bodyCtx.globalAlpha = isFiltered ? 1 : 0.22;
+
+        if (isSelected) {
+          bodyCtx.beginPath();
+          bodyCtx.arc(px, py, 14, 0, Math.PI * 2);
+          bodyCtx.fillStyle = z.toneType === 'hypo' ? 'rgba(59, 110, 108, 0.24)' : 'rgba(196, 125, 88, 0.28)';
+          bodyCtx.fill();
+        }
+
+        bodyCtx.beginPath();
+        bodyCtx.arc(px, py, isSelected ? 8 : 6, 0, Math.PI * 2);
+        bodyCtx.fillStyle = baseColor;
+        bodyCtx.fill();
+        bodyCtx.lineWidth = 2;
+        bodyCtx.strokeStyle = '#FFFFFF';
+        bodyCtx.stroke();
+        bodyCtx.restore();
+      });
+    }
+
+    bodyCanvas.addEventListener('click', (e) => {
+      const rect = bodyCanvas.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickY = e.clientY - rect.top;
+      const w = rect.width;
+      const h = rect.height;
+
+      let closest = null;
+      let minDist = 24;
+      bodyZonesData.forEach(z => {
+        const dx = z.x * w - clickX;
+        const dy = z.y * h - clickY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = z;
+        }
+      });
+      if (closest) {
+        selectZone(closest.id);
+      }
+    });
+
+    document.querySelectorAll('.sys-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sys-btn').forEach(b => {
+          b.classList.remove('tab-active');
+          b.classList.add('text-slatewarm');
+        });
+        btn.classList.add('tab-active');
+        btn.classList.remove('text-slatewarm');
+        state.activeSystem = btn.getAttribute('data-sys');
+        const filtered = getFilteredZones();
+        if (filtered.length > 0 && !filtered.some(z => z.id === state.selectedZoneId)) {
+          selectZone(filtered[0].id);
+        } else {
+          renderZonesList();
+          drawBodyMap();
+        }
+      });
+    });
+
+    document.getElementById('zoneSearchInput').addEventListener('input', (e) => {
+      state.searchQuery = e.target.value;
+      renderZonesList();
+      drawBodyMap();
+    });
+
+    const toneDescriptions = {
+      normo: {
+        title: '✓ Нормотонус — целевое рабочее состояние',
+        color: 'text-sage',
+        text: '<strong>Тест через бедро:</strong> надавите на бедро и механически сдвиньте мышечное волокно навстречу друг другу — в норме на <strong>3 секунды</strong> происходит легкое расслабление мышцы.<br><strong>Тест через руку и маятник:</strong> на истинное утверждение («Меня зовут [имя]») рука остается сильной, тело качается вперед («Да»). На ложное — рука слабеет, тело идет назад («Нет»).'
+      },
+      hyper: {
+        title: '⚠️ Гипертонус (зажатость) — сканирование невозможно',
+        color: 'text-terracotta',
+        text: '<strong>Диагностический признак:</strong> после сокращения мышцы рука остается «каменной», сильной и не расслабляется ни на секунду.<br><strong>Что делать:</strong> в состоянии зажатости достоверно просканировать себя нельзя. Выполните <strong>экстренную перезагрузку</strong> через центр макушки и дыхание 1:2 справа.'
+      },
+      weak: {
+        title: '⚠️ Слабость (нехватка жизненных сил)',
+        color: 'text-terracotta',
+        text: '<strong>Диагностический признак:</strong> при тестировании рука сразу падает без всякого сопротивления.<br><strong>Причина по Главе 2:</strong> выраженный дефицит ресурса («батарейка» разряжена на обслуживание хронических страхов и истощение надпочечников). Требуется мягкое восстановление и постепенная очистка.'
+      }
+    };
+
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tone-btn').forEach(b => {
+          b.classList.remove('tab-active');
+          b.classList.add('bg-white', 'text-slatewarm');
+        });
+        btn.classList.add('tab-active');
+        btn.classList.remove('bg-white', 'text-slatewarm');
+        const key = btn.getAttribute('data-tone');
+        const info = toneDescriptions[key];
+        document.getElementById('toneResultBox').innerHTML = `
+          <div class="font-semibold ${info.color}">${info.title}</div>
+          <p class="text-slatewarm leading-relaxed">${info.text}</p>
+        `;
+      });
+    });
+
+    const breathCanvas = document.getElementById('breathingCanvas');
+    const breathCtx = breathCanvas.getContext('2d');
+
+    function drawBreathingFrame(timestamp) {
+      const wrap = breathCanvas.parentElement;
+      const dpr = window.devicePixelRatio || 1;
+      const w = wrap.clientWidth;
+      const h = wrap.clientHeight;
+      breathCanvas.width = w * dpr;
+      breathCanvas.height = h * dpr;
+      breathCanvas.style.width = w + 'px';
+      breathCanvas.style.height = h + 'px';
+      breathCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      breathCtx.clearRect(0, 0, w, h);
+
+      let progress = 0;
+      let phaseText = 'Нажмите «Запустить тренажер» (Вдох 4 сек • Выдох 8 сек)';
+      let isInhale = true;
+
+      if (state.breathRunning) {
+        if (!state.breathStartTime) state.breathStartTime = timestamp;
+        const elapsed = ((timestamp - state.breathStartTime) / 1000) % 12;
+        if (elapsed < 4) {
+          isInhale = true;
+          progress = elapsed / 4;
+          const secLeft = Math.ceil(4 - elapsed);
+          phaseText = `ВДОХ через всё тело (нос): ${secLeft} сек...`;
+        } else {
+          isInhale = false;
+          const exElapsed = elapsed - 4;
+          progress = 1 - exElapsed / 8;
+          const secLeft = Math.ceil(8 - exElapsed);
+          phaseText = `ДЛИННЫЙ ВЫДОХ в 2 раза дольше (нос): ${secLeft} сек...`;
+        }
+        document.getElementById('breathInstruction').textContent = phaseText;
+      }
+
+      const cx = w * 0.5;
+      const cy = h * 0.5;
+      const minR = 32;
+      const maxR = Math.min(w, h) * 0.40;
+      const radius = minR + (maxR - minR) * progress;
+
+      breathCtx.beginPath();
+      breathCtx.arc(cx, cy, maxR, 0, Math.PI * 2);
+      breathCtx.strokeStyle = '#E6E0D6';
+      breathCtx.lineWidth = 2;
+      breathCtx.stroke();
+
+      breathCtx.beginPath();
+      breathCtx.arc(cx, cy, radius, 0, Math.PI * 2);
+      breathCtx.fillStyle = isInhale ? 'rgba(59, 110, 108, 0.22)' : 'rgba(196, 125, 88, 0.20)';
+      breathCtx.fill();
+      breathCtx.strokeStyle = isInhale ? '#3B6E6C' : '#C47D58';
+      breathCtx.lineWidth = 3;
+      breathCtx.stroke();
+
+      breathCtx.beginPath();
+      breathCtx.arc(cx, cy, 8, 0, Math.PI * 2);
+      breathCtx.fillStyle = '#3B6E6C';
+      breathCtx.fill();
+
+      breathCtx.fillStyle = '#2C2A29';
+      breathCtx.font = '600 12px Inter, sans-serif';
+      breathCtx.textAlign = 'center';
+      breathCtx.fillText(state.breathRunning ? (isInhale ? 'ВДОХ (1)' : 'ВЫДОХ (2)') : 'Точка макушки', cx, cy + maxR + 18);
+
+      if (state.breathRunning) {
+        state.breathRaf = requestAnimationFrame(drawBreathingFrame);
+      }
+    }
+
+    document.getElementById('toggleBreathBtn').addEventListener('click', () => {
+      state.breathRunning = !state.breathRunning;
+      const btn = document.getElementById('toggleBreathBtn');
+      if (state.breathRunning) {
+        state.breathStartTime = 0;
+        btn.textContent = '⏸ Пауза';
+        state.breathRaf = requestAnimationFrame(drawBreathingFrame);
+      } else {
+        btn.textContent = '▶ Продолжить 1:2';
+        if (state.breathRaf) cancelAnimationFrame(state.breathRaf);
+      }
+    });
+
+    document.getElementById('resetBreathBtn').addEventListener('click', () => {
+      state.breathRunning = false;
+      state.breathStartTime = 0;
+      if (state.breathRaf) cancelAnimationFrame(state.breathRaf);
+      document.getElementById('toggleBreathBtn').textContent = '▶ Запустить тренажер 1:2';
+      document.getElementById('breathInstruction').textContent = 'Нажмите «Запустить тренажер» (Вдох 4 сек • Выдох 8 сек)';
+      drawBreathingFrame(0);
+    });
+
+    const cardLinesBtn = document.getElementById('cardLinesBtn');
+    const cardCrossBtn = document.getElementById('cardCrossBtn');
+    const cardExplanation = document.getElementById('cardExplanation');
+
+    cardLinesBtn.addEventListener('click', () => {
+      cardLinesBtn.className = 'p-4 rounded-2xl border-2 border-sage bg-sagelight/40 flex flex-col items-center justify-center gap-3 transition hover:shadow-sm';
+      cardCrossBtn.className = 'p-4 rounded-2xl border-2 border-sand bg-linen flex flex-col items-center justify-center gap-3 transition hover:shadow-sm';
+      cardExplanation.innerHTML = '<strong>Карточка с двумя полосками (||):</strong> Используется для проверки нормотонуса перед началом работы. В норме, если вы посмотрите на эти полоски перед собой, ваше тело должно стать мягким и расслабиться.';
+    });
+
+    cardCrossBtn.addEventListener('click', () => {
+      cardCrossBtn.className = 'p-4 rounded-2xl border-2 border-terracotta bg-terralight/60 flex flex-col items-center justify-center gap-3 transition hover:shadow-sm';
+      cardLinesBtn.className = 'p-4 rounded-2xl border-2 border-sand bg-linen flex flex-col items-center justify-center gap-3 transition hover:shadow-sm';
+      cardExplanation.innerHTML = '<strong>Карточка с крестиком (Х):</strong> Главный рабочий инструмент перезаписи. Влияет на зрительные каналы при перемещении по 8 осям взгляда (при неподвижной голове) и помогает перезаписать фиксирующую установку страха.';
+    });
+
+    const axisNames = [
+      'Диагональ вверх-влево',
+      'Вертикаль вверх',
+      'Диагональ вверх-вправо',
+      'Горизонталь влево',
+      'Горизонталь вправо',
+      'Диагональ вниз-влево',
+      'Вертикаль вниз',
+      'Диагональ вниз-вправо'
+    ];
+
+    function updateAxisFeedback() {
+      const box = document.getElementById('axisFeedbackBox');
+      const isExitPoint = state.selectedAxis === 7;
+      const axisTitle = axisNames[state.selectedAxis];
+
+      if (isExitPoint) {
+        const responseDesc = state.resistanceMode
+          ? 'В режиме внутреннего сопротивления тело на фразу «Я боюсь...» <strong>остается на месте (не идет вперед)</strong> — по правилу Главы 4 засчитываем это как ответ «Нет»!'
+          : 'На фразу «Я боюсь высоты» тело качнулось <strong>НАЗАД (ответ «Нет»)</strong>!';
+        box.innerHTML = `
+          <div class="inline-block px-2.5 py-1 rounded-full bg-terracotta text-white text-xs font-semibold">
+            Найдена точка выхода! (${axisTitle})
+          </div>
+          <h4 class="font-semibold text-espresso text-base">${responseDesc}</h4>
+          <p class="text-xs sm:text-sm text-slatewarm leading-relaxed">
+            Смотреть в эту точку физически неприятно, глазные мышцы отзываются легкой болью, взгляд хочется увести — это верный индикатор угла выхода страха. Зафиксируйте здесь карточку «Х», ярко вспомните страх и дышите волной от стоп до появления зевоты или кашля.
+          </p>
+        `;
+      } else {
+        box.innerHTML = `
+          <div class="inline-block px-2.5 py-1 rounded-full bg-sage text-white text-xs font-semibold">
+            Ось: ${axisTitle} — Страх всё еще активен
+          </div>
+          <h4 class="font-semibold text-espresso text-base">Реакция тела на «Я боюсь...»: Маятник идет ВПЕРЕД («Да»)</h4>
+          <p class="text-xs sm:text-sm text-slatewarm leading-relaxed">
+            В этом направлении взгляд удерживать легко, боли в глазных мышцах нет, а тело продолжает подтверждать наличие страха. Продолжайте вести карточку «Х» по остальным осям (попробуйте <strong>Диагональ вниз-вправо ↘</strong>), не поворачивая голову.
+          </p>
+        `;
+      }
+    }
+
+    document.querySelectorAll('.axis-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.axis-btn').forEach(b => b.classList.remove('axis-btn-active'));
+        btn.classList.add('axis-btn-active');
+        state.selectedAxis = parseInt(btn.getAttribute('data-axis'), 10);
+        updateAxisFeedback();
+      });
+    });
+
+    document.getElementById('resistanceToggle').addEventListener('change', (e) => {
+      state.resistanceMode = e.target.checked;
+      updateAxisFeedback();
+    });
+
+    function renderHomework() {
+      const grid = document.getElementById('homeworkGrid');
+      const doneCount = Object.values(state.completedHw).filter(Boolean).length;
+      document.getElementById('hwProgressText').textContent = `${doneCount} из ${homeworkItemsData.length} этапов`;
+
+      grid.innerHTML = homeworkItemsData.map(item => {
+        const isDone = !!state.completedHw[item.id];
+        return `
+          <div class="bg-white rounded-3xl border ${isDone ? 'border-sage bg-sagelight/20' : 'border-sand'} p-6 shadow-sm flex flex-col justify-between space-y-4 transition">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-oat text-espresso text-xs font-semibold">${item.chapter}</span>
+                <span class="text-xs font-medium text-terracotta">${item.norm}</span>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-espresso">${item.title}</h3>
+              <ul class="space-y-2 text-xs sm:text-sm text-slatewarm leading-relaxed">
+                ${item.tasks.map(t => `<li>• ${t}</li>`).join('')}
+              </ul>
+            </div>
+            <button onclick="toggleHw('${item.id}')" class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold border transition ${isDone ? 'bg-sage text-white border-sage' : 'bg-linen text-espresso border-sand hover:bg-oat'}">
+              ${isDone ? '✓ Этап выполнен' : 'Отметить выполнение'}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleHw(id) {
+      state.completedHw[id] = !state.completedHw[id];
+      renderHomework();
+    }
+
+    function initCharts() {
+      const adrenalCtx = document.getElementById('adrenalChart').getContext('2d');
+      new Chart(adrenalCtx, {
+        type: 'doughnut',
+        data: {
+          labels: [
+            wrapLabel('Надпочечники (хронические страхи)'),
+            wrapLabel('Остальные 17 зон телесной карты')
+          ],
+          datasets: [{
+            data: [60, 40],
+            backgroundColor: ['#C47D58', '#3B6E6C'],
+            borderColor: '#FFFFFF',
+            borderWidth: 3,
+            hoverOffset: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '64%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#2C2A29',
+                font: { family: 'Inter', size: 12 },
+                padding: 16
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => {
+                  const label = Array.isArray(ctx.label) ? ctx.label.join(' ') : ctx.label;
+                  return ` ${label}: ~${ctx.parsed}%`;
+                }
+              }
+            }
+          }
+        }
+      });
+
+      const sysBarCtx = document.getElementById('systemsBarChart').getContext('2d');
+      new Chart(sysBarCtx, {
+        type: 'bar',
+        data: {
+          labels: [
+            wrapLabel('Голова, шея и плечи'),
+            wrapLabel('Спина, таз и стопы'),
+            wrapLabel('Дыхательная система'),
+            wrapLabel('Эндокринная и низ спины'),
+            wrapLabel('Пищеварительная (быстрый отклик)'),
+            wrapLabel('Сердце и кожа')
+          ],
+          datasets: [{
+            label: 'Количество описанных зон в Главе 3',
+            data: [4, 4, 3, 3, 2, 2],
+            backgroundColor: '#3B6E6C',
+            borderRadius: 8,
+            maxBarThickness: 34
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { stepSize: 1, color: '#5C5852', font: { family: 'Inter', size: 11 } },
+              grid: { color: '#E6E0D6' }
+            },
+            x: {
+              ticks: { color: '#2C2A29', font: { family: 'Inter', size: 10 } },
+              grid: { display: false }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                title: (items) => {
+                  const lbl = items[0].label;
+                  return Array.isArray(lbl) ? lbl.join(' ') : lbl;
+                },
+                label: (ctx) => ` Анатомических зон: ${ctx.parsed.y}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      drawBodyMap();
+      if (!state.breathRunning) drawBreathingFrame(0);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      selectZone('adrenals');
+      drawBreathingFrame(0);
+      updateAxisFeedback();
+      renderHomework();
+      initCharts();
+    });
+  </script>
+</body>
+</html>

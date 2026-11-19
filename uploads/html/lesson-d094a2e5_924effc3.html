@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Глубинная природа обиды — Интерактивная методичка Елены Перевалиной</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chosen Palette: Warm Alabaster & Terracotta Harmony (#FAF8F5 background, #FFFFFF cards, #E6DFD5 warm borders, #2D2A26 deep charcoal text, #8C5E58 muted terracotta primary accent, #4A6B65 sage teal secondary accent) -->
+  <!-- Application Structure Plan: The SPA is architected into 4 task-oriented functional views rather than a linear chapter dump, maximizing user exploration and self-practice: 1) 'Философия и Шкала Эго' (interactive balance explorer, learning methodology, and core principles), 2) '9 Видов и Психосоматика' (filterable matrix of all 9 resentment archetypes from Ch. 2 & Conclusion, clinical cases, and systemic impact chart), 3) 'Телесный Тест' (interactive self-diagnostic tool implementing Ch. 4's 'Neutral State' rule where 'Doubt = No', dynamically computing a somatic radar profile, plus a dedicated 'Отправка куратору' tab to compile, copy, download, or send the structured somatic report via WhatsApp), and 4) 'Практикум Отработки' (interactive 'Point B to Point A' spiral unwrapper, guided 'Cross' eye-movement & breathing simulator with daily limit tracker, Ch. 7's 5-step prohibition protocol, Ch. 6's illusion detector, and homework checklist). -->
+  <!-- Visualization & Content Choices: 1) Ego & Pride Balance Curve (Chart.js Line/Scatter Canvas) -> Goal: Illustrate Ch. 1's scale from Deficit (Arrogance) to Zero (Ideal Balance) to Excess (Self-destruction) -> Interactive slider updates state description dynamically. 2) Psychosomatic & Systemic Impact Chart (Chart.js Horizontal Bar Canvas) -> Goal: Compare somatic and life-blocking severity across the 9 resentment types -> Updates when filtering categories. 3) Diagnostic Sphere Breakdown (Chart.js Radar Canvas) -> Goal: Visualize hidden resentment concentrations across the 7 relationship spheres after completing the Body Test -> Dynamically driven by user responses. 4) Eye-Movement 'Cross' Simulator (HTML5 Canvas + JS animation) -> Goal: Guide users through Ch. 5's meridian stretching technique without SVG -> Interactive directional cues and breathing timer. All graphics strictly use Canvas, Unicode, and Tailwind CSS. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF8F5;
+      color: #2D2A26;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .font-serif-display {
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 290px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    .tab-active {
+      background-color: #8C5E58;
+      color: #FFFFFF;
+      border-color: #8C5E58;
+    }
+    .tab-inactive {
+      background-color: #FFFFFF;
+      color: #5C554E;
+      border-color: #E6DFD5;
+    }
+    .tab-inactive:hover {
+      background-color: #F3EFEA;
+      color: #2D2A26;
+    }
+    .fade-in {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="bg-white/95 backdrop-blur-sm border-b border-[#E6DFD5] sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="text-xs uppercase tracking-widest text-[#8C5E58] font-semibold">Книга-методичка Елены Перевалиной</div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-[#2D2A26] leading-tight">Глубинная природа обиды</h1>
+        </div>
+        <nav class="flex flex-wrap gap-2" aria-label="Основная навигация">
+          <button onclick="switchTab('philosophy')" id="nav-philosophy" class="tab-active px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-colors cursor-pointer">
+            1. Философия и Эго
+          </button>
+          <button onclick="switchTab('typology')" id="nav-typology" class="tab-inactive px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-colors cursor-pointer">
+            2. 9 Видов и Тело
+          </button>
+          <button onclick="switchTab('bodytest')" id="nav-bodytest" class="tab-inactive px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-colors cursor-pointer">
+            3. Телесный Тест
+          </button>
+          <button onclick="switchTab('practice')" id="nav-practice" class="tab-inactive px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border transition-colors cursor-pointer">
+            4. Практикум Отработки
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 py-8">
+
+    <section id="view-philosophy" class="fade-in space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-[#E6DFD5] shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-[#F3EFEA] text-[#8C5E58] text-xs font-semibold mb-3">Введение и Глава 1 • Фундамент метода</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2A26] mb-3">Обида как эволюционный тренажер и индикатор границ Эго</h2>
+        <p class="text-[#5C554E] leading-relaxed text-sm sm:text-base">
+          В данном разделе раскрывается базовое переосмысление обиды по методологии Елены Перевалиной. Обида — это не ностальгия по прошлому и не инструмент для разрыва отношений, а точный внутренний барометр, показывающий границы нашего эго — той части, где душа соединена с телом и проявлением себя в материальном мире. Исследуйте интерактивную шкалу баланса ниже, чтобы увидеть, как связаны обидчивость и гордыня, а также изучите правила усвоения материала курса.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-[#2D2A26] mb-1">Интерактивная шкала баланса Эго и Гордыни</h3>
+            <p class="text-xs sm:text-sm text-[#5C554E] mb-4">
+              Передвигайте ползунок от «Недостатка» через «Ноль» к «Избытку», чтобы изучить диагностику состояния по Главе 1.
+            </p>
+            <div class="chart-container mb-4">
+              <canvas id="egoBalanceChart"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-[#FAF8F5] rounded-xl p-4 border border-[#E6DFD5]">
+            <div class="flex items-center justify-between text-xs font-semibold text-[#5C554E] mb-2">
+              <span>-100: Полное отсутствие обид</span>
+              <span class="text-[#4A6B65]">0: Баланс (Норма)</span>
+              <span>+100: Избыток обид</span>
+            </div>
+            <input type="range" id="egoSlider" min="-100" max="100" value="0" step="10" oninput="updateEgoScale(this.value)" class="w-full accent-[#8C5E58] cursor-pointer">
+            <div id="egoStateOutput" class="mt-4 p-4 rounded-lg bg-white border border-[#E6DFD5]">
+              <div class="flex items-center justify-between mb-1">
+                <span id="egoStateTitle" class="font-bold text-[#4A6B65] text-base">Точка Ноль: Осознанный баланс</span>
+                <span id="egoStateBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-[#4A6B65]/10 text-[#4A6B65] font-medium">Идеальное состояние</span>
+              </div>
+              <p id="egoStateDesc" class="text-sm text-[#5C554E] leading-relaxed">
+                В идеале мы балансируем в нуле — ни на что не обижаемся длительно. Обида срабатывает лишь как мгновенный импульс-индикатор: «комфортно мне или некомфортно? почему? зачем?». У осознанных людей этот процесс размышливания и освобождения происходит очень быстро.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+            <h3 class="text-xl font-bold text-[#2D2A26] mb-3">Ключевые аксиомы Главы 1</h3>
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5]">
+                <div class="font-semibold text-sm text-[#8C5E58] mb-1">✦ «На пустоту обидеться нельзя»</div>
+                <p class="text-xs sm:text-sm text-[#5C554E]">
+                  Если вы ощущаете себя «маленьким», без раздутой важности, вас практически невозможно задеть. Чем выше на голове «корона» и чем более значимым («большим») вы себя представляете, тем легче вас обидеть.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5]">
+                <div class="font-semibold text-sm text-[#8C5E58] mb-1">✦ Разделение Духа и Эго</div>
+                <p class="text-xs sm:text-sm text-[#5C554E]">
+                  Обида указывает не на абстрактные «личные границы», а именно на границы Эго — места соединения души с телом и социальным проявлением, в отличие от божественного проявления духа.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5]">
+                <div class="font-semibold text-sm text-[#8C5E58] mb-1">✦ Вектор силы энергии</div>
+                <p class="text-xs sm:text-sm text-[#5C554E]">
+                  В здоровой функции обида служит тренажером самопознания. Но при чрезмерном накоплении она разворачивается против носителя и начинает его разрушать.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+            <h3 class="text-xl font-bold text-[#2D2A26] mb-3">Методика работы с материалом (Введение)</h3>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-[#5C554E]">
+              <li class="flex items-start gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] flex items-center justify-center font-bold shrink-0">1</span>
+                <span><strong>Потоковое восприятие:</strong> сначала пропускайте знания чувственно, через телесные ощущения («словно поток»), не пытаясь сразу логически всё удержать.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] flex items-center justify-center font-bold shrink-0">2</span>
+                <span><strong>Ручной конспект:</strong> при повторном прослушивании записывайте главное вручную в небольшой блокнот — мелкая моторика закрепляет нейронные связи.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="w-6 h-6 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] flex items-center justify-center font-bold shrink-0">3</span>
+                <span><strong>Датирование и цикличность:</strong> ставьте дату на каждой записи для навигации. Возврат к пройденным темам естественен: на новом витке открываются ранее ускользавшие смыслы.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-typology" class="hidden fade-in space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-[#E6DFD5] shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-[#F3EFEA] text-[#8C5E58] text-xs font-semibold mb-3">Глава 2 и Заключение • Классификация и соматика</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2A26] mb-3">Многообразие проявлений обиды: 9 архетипов и психосоматика</h2>
+        <p class="text-[#5C554E] leading-relaxed text-sm sm:text-base">
+          Обида маскируется под самые разные поведенческие стратегии: от демонстративного «театра шапито» до самоуничижения или молчаливого саморазрушения. Выбирайте категории фильтров или нажимайте на карточки ниже, чтобы изучить психологический механизм каждого вида, скрытую вторичную выгоду, реальные клинические случаи из практики Елены Перевалиной и точечные удары по физическому телу.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl border border-[#E6DFD5]">
+        <div class="flex flex-wrap gap-2" id="typologyFilters">
+          <button onclick="filterResentments('all')" data-filter="all" class="filter-btn tab-active px-3 py-1.5 rounded-lg text-xs font-medium border cursor-pointer">Все 9 видов</button>
+          <button onclick="filterResentments('somatic')" data-filter="somatic" class="filter-btn tab-inactive px-3 py-1.5 rounded-lg text-xs font-medium border cursor-pointer">Прямая психосоматика</button>
+          <button onclick="filterResentments('projection')" data-filter="projection" class="filter-btn tab-inactive px-3 py-1.5 rounded-lg text-xs font-medium border cursor-pointer">Проекции и зеркала</button>
+          <button onclick="filterResentments('victim')" data-filter="victim" class="filter-btn tab-inactive px-3 py-1.5 rounded-lg text-xs font-medium border cursor-pointer">Жертвенность и эго-игры</button>
+        </div>
+        <div class="text-xs text-[#5C554E]">Нажмите на карточку для детального разбора</div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4" id="resentmentCardsGrid">
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div id="resentmentDetailPanel" class="bg-white rounded-2xl p-6 border-2 border-[#8C5E58]/40 shadow-sm sticky top-24">
+            <div class="flex items-center justify-between mb-2">
+              <span id="detailBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#8C5E58]/10 text-[#8C5E58]">Вид №1 • Прямая психосоматика</span>
+              <span id="detailIcon" class="text-2xl">🤐</span>
+            </div>
+            <h3 id="detailTitle" class="text-2xl font-bold text-[#2D2A26] mb-3">Молчаливая обида</h3>
+            <div class="space-y-3 text-sm">
+              <div class="p-3 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5]">
+                <div class="text-xs font-bold uppercase tracking-wider text-[#5C554E] mb-1">Механизм и корень эго</div>
+                <p id="detailMechanism" class="text-[#2D2A26] leading-relaxed">
+                  Человек замолкает, не выражая претензий; колоссальная энергия, вместо того чтобы выйти наружу, уходит внутрь и пожирает носителя изнутри подобно мощнейшей атомной бомбе.
+                </p>
+              </div>
+              <div class="p-3 rounded-xl bg-[#8C5E58]/5 border border-[#8C5E58]/20">
+                <div class="text-xs font-bold uppercase tracking-wider text-[#8C5E58] mb-1">Телесные и жизненные последствия</div>
+                <p id="detailSomatic" class="text-[#2D2A26] leading-relaxed">
+                  Жесткие сжатые губы, челюстной зажим, бруксизм. Невыраженная злость к матери бьет по аппендиксу и тонкому кишечнику. Обида на мужчин (отца, партнера) — по женской репродуктивной системе (матка, яичники, кисты).
+                </p>
+              </div>
+              <div class="p-3 rounded-xl bg-[#4A6B65]/5 border border-[#4A6B65]/20">
+                <div class="text-xs font-bold uppercase tracking-wider text-[#4A6B65] mb-1">Случай из практики / Пояснение автора</div>
+                <p id="detailCase" class="text-[#2D2A26] leading-relaxed">
+                  Девушка на приеме у автора и супружеские пары, молча обижающиеся друг на друга вместо диалога. Чем сильнее энергетически человек, тем разрушительнее действует эта нерастраченная внутренняя бомба.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+        <h3 class="text-xl font-bold text-[#2D2A26] mb-1">Сравнительный профиль воздействия 9 видов обиды</h3>
+        <p class="text-xs sm:text-sm text-[#5C554E] mb-4">
+          Визуализация акцентов каждого архетипа по трем векторам из методички: глубина телесной соматизации, энергетический вампиризм/гордыня и блокировка жизненного пути.
+        </p>
+        <div class="chart-container">
+          <canvas id="typologyChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-bodytest" class="hidden fade-in space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-[#E6DFD5] shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-[#F3EFEA] text-[#4A6B65] text-xs font-semibold mb-3">Глава 4 • Практика выявления скрытых обид</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2A26] mb-3">Интерактивный Телесный Тест в «Состоянии Нейтрала»</h2>
+        <p class="text-[#5C554E] leading-relaxed text-sm sm:text-base mb-4">
+          Тело выступает универсальным барометром скрытых блоков (у мужчин ярче работает телесная «чуйка» через вибрации, у женщин — интуиция, но соматический отклик точен у всех). Пройдите по всем 7 сферам отношений, представляя конкретных людей и прислушиваясь исключительно к первой реакции тела, а затем перейдите во вкладку <strong>«Отправка куратору»</strong>.
+        </p>
+        <div class="p-4 rounded-xl bg-[#4A6B65]/10 border border-[#4A6B65]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="text-xs sm:text-sm text-[#2D2A26]">
+            <strong>Жесткое правило фильтрации:</strong> Войдите в состояние нейтрала (расслабьтесь, отпустите ожидания). Если при ответе возникает малейшее сомнение — сразу жмите <strong>«Нет / Сомневаюсь»</strong> (сомнение означает включение ума вместо тела). Отмечайте «Да» только при однозначном телесном отклике.
+          </div>
+          <button onclick="resetBodyTest()" class="px-4 py-2 rounded-lg bg-white border border-[#E6DFD5] text-xs font-semibold text-[#8C5E58] hover:bg-[#FAF8F5] shrink-0 cursor-pointer">
+            Сбросить ответы
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="flex flex-wrap gap-1.5 bg-white p-3 rounded-xl border border-[#E6DFD5]" id="sphereTabs">
+          </div>
+
+          <div id="sphereQuestionsContainer" class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm space-y-4">
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+            <h3 class="text-xl font-bold text-[#2D2A26] mb-1">Карта скрытых телесных блоков</h3>
+            <p class="text-xs text-[#5C554E] mb-3">
+              Диаграмма обновляется в реальном времени по мере ваших ответов «Да (телесный отклик)».
+            </p>
+            <div class="chart-container">
+              <canvas id="bodyTestRadarChart"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-lg font-bold text-[#2D2A26]">Список выявленных зарядов</h3>
+              <span id="detectedCountBadge" class="px-2.5 py-0.5 rounded-full bg-[#8C5E58] text-white text-xs font-bold">0 выявлено</span>
+            </div>
+            <p class="text-xs text-[#5C554E] mb-3">
+              Домашнее задание Главы 4: выписать все утверждения с положительным телесным откликом и передать куратору в WhatsApp.
+            </p>
+            <div id="detectedListContainer" class="max-h-64 overflow-y-auto space-y-2 pr-1 text-xs">
+              <div class="p-4 rounded-xl bg-[#FAF8F5] text-[#5C554E] text-center border border-dashed border-[#E6DFD5]">
+                Отмечайте вопросы в левой панели, чтобы сформировать персональный список для проработки.
+              </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#E6DFD5]">
+              <button onclick="selectSphere(bodyTestSpheres.length)" class="w-full py-2.5 px-4 rounded-xl bg-[#4A6B65] text-white text-xs font-semibold hover:bg-[#3B5752] transition-colors cursor-pointer">
+                📤 Перейти к отправке отчета куратору →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-practice" class="hidden fade-in space-y-8">
+      <div class="bg-white rounded-2xl p-6 sm:p-8 border border-[#E6DFD5] shadow-sm">
+        <span class="inline-block px-3 py-1 rounded-full bg-[#F3EFEA] text-[#8C5E58] text-xs font-semibold mb-3">Главы 3, 5, 6, 7 и Заключение • Технология освобождения</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-[#2D2A26] mb-3">Алгоритмы отработки: Спираль, «Крестик», Проекции и Истинное принятие</h2>
+        <p class="text-[#5C554E] leading-relaxed text-sm sm:text-base">
+          Главный принцип очистки: <em>«Мы не накрываем грязь цветочками; сначала мы делаем уборку, а уже потом наполняем пространство любовью и благодарностью»</em>. Используйте интерактивные инструменты ниже: раскрутите спираль от Точки Б к Точке А, запустите визуальный тренажер глазодвигательной техники «Крестик», разберите проекцию запрета и проверьте себя на отсутствие психологической иллюзии.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#8C5E58]">Глава 5 • Глазодвигательная техника</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] font-medium">Лимит: 2–3 обиды в день</span>
+            </div>
+            <h3 class="text-xl font-bold text-[#2D2A26] mb-2">Тренажер «Крестик» и дыхание</h3>
+            <p class="text-xs sm:text-sm text-[#5C554E] mb-4">
+              Глазодвигательные нервы связаны с фасциями и меридианами тела. Переводя взгляд по крайним углам («крестиком») и глубоко дыша, вы натягиваете эти линии и выпускаете застрявшую энергию. Легкая болезненность в глазах или головокружение говорят об эффективности (5–10 минут).
+            </p>
+
+            <div class="bg-[#FAF8F5] rounded-xl p-4 border border-[#E6DFD5] flex flex-col items-center">
+              <canvas id="crossSimulatorCanvas" width="300" height="240" class="rounded-lg bg-white border border-[#E6DFD5] max-w-full"></canvas>
+              <div id="crossInstructionText" class="mt-3 text-center text-sm font-semibold text-[#2D2A26]">
+                Нажмите «Запустить цикл», чтобы начать движение взглядом
+              </div>
+              <div class="flex flex-wrap justify-center gap-2 mt-3">
+                <button onclick="toggleCrossAnimation()" id="crossStartBtn" class="px-4 py-2 rounded-lg bg-[#8C5E58] text-white text-xs font-semibold hover:bg-[#764D48] cursor-pointer">
+                  ▶ Запустить цикл
+                </button>
+                <button onclick="logCompletedPractice()" class="px-4 py-2 rounded-lg bg-[#4A6B65] text-white text-xs font-semibold hover:bg-[#3B5752] cursor-pointer">
+                  ✓ Засчитать отработку (1/3)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] flex items-center justify-between">
+            <div>
+              <div class="text-xs font-bold text-[#2D2A26]">Дневной счетчик безопасности: <span id="dailyPracticeCount" class="text-[#8C5E58]">0</span> из 3</div>
+              <div id="dailyPracticeWarning" class="text-xs text-[#5C554E]">Не более 2–3 глубоких проработок в сутки во избежание перегрузки.</div>
+            </div>
+            <button onclick="resetDailyPractice()" class="text-xs text-[#8C5E58] underline cursor-pointer">Сброс</button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm space-y-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#4A6B65]">Глава 3 и Глава 5 • Механика и тактики</span>
+          <h3 class="text-xl font-bold text-[#2D2A26]">Спираль от Точки Б к Точке А и выбор тактики</h3>
+          <p class="text-xs sm:text-sm text-[#5C554E]">
+            Обида зарождается в первичной <strong>Точке А</strong> (детство или гены) и раскручивается по спирали, цепляясь за схожие события-крючки до текущей <strong>Точки Б</strong>. Выберите тип вашей ситуации ниже, чтобы получить точный протокол работы:
+          </p>
+
+          <div class="grid grid-cols-2 gap-2" id="tacticSelector">
+            <button onclick="selectTactic('fresh')" data-tactic="fresh" class="tactic-btn tab-active p-2.5 rounded-lg text-xs font-semibold border text-left cursor-pointer">
+              1. Свежая обида (триггер сейчас)
+            </button>
+            <button onclick="selectTactic('direct')" data-tactic="direct" class="tactic-btn tab-inactive p-2.5 rounded-lg text-xs font-semibold border text-left cursor-pointer">
+              2. Прямой обидчик (без родовой связи)
+            </button>
+            <button onclick="selectTactic('projection')" data-tactic="projection" class="tactic-btn tab-inactive p-2.5 rounded-lg text-xs font-semibold border text-left cursor-pointer">
+              3. Проекция (партнер ↔ родитель)
+            </button>
+            <button onclick="selectTactic('deep')" data-tactic="deep" class="tactic-btn tab-inactive p-2.5 rounded-lg text-xs font-semibold border text-left cursor-pointer">
+              4. Глубинная обида на маму / папу
+            </button>
+          </div>
+
+          <div id="tacticDetailBox" class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] space-y-2">
+            <div id="tacticTitle" class="font-bold text-[#8C5E58] text-sm">Тактика для свежей обиды</div>
+            <p id="tacticDesc" class="text-xs sm:text-sm text-[#2D2A26] leading-relaxed">
+              Ситуации, которые произошли только что и триггерят прямо сейчас, не требуют долгих раскопок. Моментально продышите ситуацию «крестиком» — это снимет острую боль и не позволит новой обиде заякориться в теле как очередной виток спирали.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-[#4A6B65]/5 border border-[#4A6B65]/20">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#4A6B65] mb-2">3 обязательных шага любого цикла (Глава 5)</div>
+            <ol class="text-xs text-[#2D2A26] space-y-1.5 list-decimal list-inside">
+              <li><strong>Найти и признать:</strong> осознать Точку Б, найти Точку А и честно признать свою вторичную выгоду (например, получение жалости).</li>
+              <li><strong>Выпустить напряжение:</strong> продышать все промежуточные крючки движением глаз «крестиком» до расслабления.</li>
+              <li><strong>Обнулить и наполнить:</strong> войти в освобожденные точки и начать самому генерировать любовь к тем, от кого раньше её требовали.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm space-y-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#8C5E58]">Глава 7 • Практический разбор</span>
+          <h3 class="text-xl font-bold text-[#2D2A26]">5 шагов работы с проекцией запрета</h3>
+          <p class="text-xs sm:text-sm text-[#5C554E]">
+            На примере ситуации, когда близкий человек кричит и проявляет негатив, а вы себе это запрещаете из-за детской травмы от крика матери. Нажимайте на шаги по порядку:
+          </p>
+          <div class="space-y-2" id="chapter7Steps">
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm space-y-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-[#4A6B65]">Глава 6 и Заключение • Проверка результата</span>
+          <h3 class="text-xl font-bold text-[#2D2A26]">Иллюзия проработки против Истинного принятия</h3>
+          <p class="text-xs sm:text-sm text-[#5C554E]">
+            Сказать «Я всё простила», закрыв глаза на боль — это самообман (как в случае девушки, полюбившей выдуманную иллюзию отсутствующего отца). Сравните критерии:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-4 rounded-xl bg-[#8C5E58]/5 border border-[#8C5E58]/30 space-y-2">
+              <div class="font-bold text-[#8C5E58] text-sm">✕ Иллюзия (Подавление)</div>
+              <ul class="space-y-1.5 text-[#2D2A26]">
+                <li>• Любовь к выдуманному в голове идеальному образу родителя.</li>
+                <li>• Отрицание неприятных черт родителя в самом себе.</li>
+                <li>• Воспроизведение тех же поступков «под другим соусом».</li>
+                <li>• Переход из обиды в чувство вины («Я сам во всем виноват»).</li>
+              </ul>
+            </div>
+            <div class="p-4 rounded-xl bg-[#4A6B65]/10 border border-[#4A6B65]/30 space-y-2">
+              <div class="font-bold text-[#4A6B65] text-sm">✓ Истинное принятие</div>
+              <ul class="space-y-1.5 text-[#2D2A26]">
+                <li>• Обнаружение реальных генов и темперамента родителя в себе.</li>
+                <li>• Принятие: «Здесь я поступаю как папа/мама, и я люблю это в себе».</li>
+                <li>• Понимание урока без оправдания чужого выбора.</li>
+                <li>• Использование «минусовых» качеств рода как своей силы.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] text-xs text-[#2D2A26]">
+            <strong>Важное предостережение Заключения:</strong> Особое внимание уделите самой жесткой форме — <strong>обиде на судьбу, Бога или Вселенную</strong> («Почему со мной это произошло?», «Почему меня так бьют?»). Она вычеркивает человека из жизни и требует первоочередной отработки.
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-[#E6DFD5] shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+          <div>
+            <h3 class="text-xl font-bold text-[#2D2A26]">Чек-лист всех 8 домашних заданий курса</h3>
+            <p class="text-xs sm:text-sm text-[#5C554E]">Отмечайте выполненные этапы самостоятельной работы по методичке.</p>
+          </div>
+          <span id="hwProgressText" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-[#F3EFEA] text-[#8C5E58]">Выполнено: 0 из 8</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="homeworkGrid">
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-[#E6DFD5] py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#5C554E]">
+      <div>Интерактивный конспект-тренажер по книге-методичке Елены Перевалиной «Глубинная природа обиды»</div>
+      <div>Формат итогового отчета: текст, голосовое сообщение или 10-минутное видео отработки</div>
+    </div>
+  </footer>
+
+  <script>
+    const resentmentsData = [
+      {
+        id: 1,
+        category: 'somatic',
+        badge: 'Вид №1 • Прямая психосоматика',
+        icon: '🤐',
+        title: 'Молчаливая обида',
+        shortDesc: 'Сжатые губы, бруксизм и разворот энергии внутрь тела как атомная бомба.',
+        mechanism: 'Человек замолкает, не выражая злость и недосказанность. Колоссальная энергия, вместо того чтобы выйти наружу, уходит внутрь и пожирает носителя изнутри.',
+        somatic: 'Жесткие сжатые губы, челюстной зажим, бруксизм. Невыраженная злость к матери бьет по аппендиксу и тонкому кишечнику. Обида на мужчин (отца, партнера) — по женской репродуктивной системе (матка, яичники, кисты).',
+        clinicalCase: 'Девушка на приеме у автора и семейные пары, которые вместо решения проблемы сидят и молча обижаются. Чем сильнее энергетически человек, тем мощнее его разрушает эта внутренняя бомба.',
+        scores: [95, 45, 80]
+      },
+      {
+        id: 2,
+        category: 'projection',
+        badge: 'Вид №2 • Проекция запрета',
+        icon: '🪞',
+        title: 'Обида как проекция на себя',
+        shortDesc: 'Раздражение на тех, кто позволяет себе то, что вы сами себе запретили.',
+        mechanism: 'Возмущение поведением другого («ему можно, а мне нельзя»). Человек создает фантазийный «правильный» образ и обижается на тех, кто живет ярко и свободно.',
+        somatic: 'Хроническое внутреннее напряжение, обида на самого себя за подавленные качества и запреты.',
+        clinicalCase: 'Человек на строгой диете обижается на тех, кто ест мясо; родитель злится на бездельничающего сына из-за детского запрета на отдых. Дети — «чистые души» и зеркала, лечащие травмы родителей.',
+        scores: [55, 60, 65]
+      },
+      {
+        id: 3,
+        category: 'victim',
+        badge: 'Вид №3 • Ложь себе и гордыня',
+        icon: '🎭',
+        title: 'Состояние «хорошести»',
+        shortDesc: 'Игра в идеального партнера или ребенка ради похвалы и ощущения нужности.',
+        mechanism: 'Человек делает всё для другого не из искренней любви, а чтобы получить одобрение и внимание. Когда это не ценят, возникает обида: «Я ему всё отдала, а он не видит!».',
+        somatic: 'Эмоциональное истощение, болезненное крушение иллюзий при встрече с правдой.',
+        clinicalCase: 'Женщина готовит и убирает ради похвалы, а партнер не оценивает. Автор подчеркивает: такой партнер — «лекарь эго», которому нужно сказать спасибо за вскрытие внутренней лжи.',
+        scores: [50, 85, 60]
+      },
+      {
+        id: 4,
+        category: 'projection',
+        badge: 'Вид №4 • Рефлекс прошлого',
+        icon: '📀',
+        title: 'Проекция с другим человеком',
+        shortDesc: 'Перенос старой родительской боли на нового партнера по рефлексу Павлова.',
+        mechanism: 'Непроработанные отношения с матерью или отцом проигрываются как «старая пластинка» с партнером, чтобы привычно подвампиривать в роли жертвы.',
+        somatic: 'Паттерн записывается в лимбическую систему как рефлекс собаки Павлова и срабатывает моментально.',
+        clinicalCase: 'Женщина выросла без отца, не разобралась с этим, находит мужчину и постоянно на него обижается, хотя партнер объективно ни при чем. Человек ошибочно считает себя просто «обидчивым».',
+        scores: [65, 75, 75]
+      },
+      {
+        id: 5,
+        category: 'victim',
+        badge: 'Вид №5 • Энергетический вампиризм',
+        icon: ' doormat',
+        title: 'Жертвенная обида («половик»)',
+        shortDesc: 'Позиция «коврика», об который вытирают ноги, ради жалости и внимания.',
+        mechanism: 'Человек кайфует от страдания («родители недодали, судьба обделила»), вместо того чтобы встать на ноги и повзрослеть. Чистая гордыня и вампиризм.',
+        somatic: 'Полная блокировка духовной работы над собой и способности взаимодействовать с людьми.',
+        clinicalCase: 'Выпускник 3-го курса предъявил автору счет: «Всех спросила, всех обняла, а меня не обняла», специально выискивая повод почувствовать себя обделенным.',
+        scores: [60, 95, 90]
+      },
+      {
+        id: 6,
+        category: 'victim',
+        badge: 'Вид №6 • Защитное самоуничижение',
+        icon: '🛡️',
+        title: 'Привязанная обида на себя',
+        shortDesc: 'Уход от ответственности через позицию «Я плохой и никчемный».',
+        mechanism: 'Направленная внутрь защита: «Родители хорошие, а я такой никчемный, ничего не смог». Используется, чтобы плыть по течению и избегать требований жизни.',
+        somatic: 'Апатия, слабость, провоцирование жалости окружающих, которая лишь закрепляет инфантильность.',
+        clinicalCase: 'По наблюдениям автора, особенно часто свойственна мужчинам, которые привязывают к себе эту обиду как щит от взрослой ответственности.',
+        scores: [70, 70, 85]
+      },
+      {
+        id: 7,
+        category: 'somatic',
+        badge: 'Вид №7 • Клеточная память рода',
+        icon: '🧬',
+        title: 'Генная (наследственная) обида',
+        shortDesc: 'Механизм обидчивости, переданный предками на генном уровне.',
+        mechanism: 'Передается от родителей и предков точно так же, как цвет глаз или волос, проявляясь в виде беспричинной детской ранимости.',
+        somatic: 'Хронические зажимы в мышцах лица и тела, постоянные слезы от любого громкого слова с раннего детства.',
+        clinicalCase: 'Личный опыт автора: работая с зажатой мышцей лица, она увидела себя в 7–8 лет (1–3 класс) в беспричинных слезах, а затем осознала, что этот механизм передался с генами матери.',
+        scores: [85, 40, 70]
+      },
+      {
+        id: 8,
+        category: 'victim',
+        badge: 'Вид №8 • Манипуляция короной',
+        icon: '👑',
+        title: 'Обида как проявление власти',
+        shortDesc: 'Детский «театр шапито»: демонстративное «Я обиделся!».',
+        mechanism: 'Человек надевает «корону», демонстрирует свою сверхзначимость и заставляет окружающих бегать вокруг, мучиться виной и выпрашивать прощение.',
+        somatic: 'Разрушение искренней близости, закрепление позиции надменного судьи.',
+        clinicalCase: 'Обиженный упивается властью, единолично решая, «помиловать» окружающих или продолжать их наказывать своим видом.',
+        scores: [40, 95, 65]
+      },
+      {
+        id: 9,
+        category: 'somatic',
+        badge: 'Вид №9 • Критическая программа',
+        icon: '⚡',
+        title: 'Обида на судьбу, Бога или Вселенную',
+        shortDesc: 'Самая жесткая форма обиды, вычеркивающая человека из жизни.',
+        mechanism: 'Глобальная претензия к мироустройству: «Почему со мной это произошло?», «Почему меня так сильно бьют?», «Почему я такой бедный и несчастный?».',
+        somatic: 'Бьет по человеку больнее всего и буквально вычеркивает его из потока жизни и развития.',
+        clinicalCase: 'Выделена автором в Заключении как критическая форма, которую при обнаружении необходимо отрабатывать в первую очередь наравне с остальными.',
+        scores: [100, 90, 100]
+      }
+    ];
+
+    const bodyTestSpheres = [
+      {
+        id: 'mom',
+        title: '1. Мама',
+        somaticHint: 'Маркеры: сдавленность в груди, ком в горле, невозможность дышать рядом с мамой, желание спрятаться.',
+        questions: [
+          'Я ощущаю сдавленность в груди, когда думаю о маме?',
+          'Когда я думаю о маме, я ощущаю ком в горле?',
+          'Я эмоционально не могу дотянуться до мамы?',
+          'Я обижена на маму?',
+          'У меня есть тайная, глубинная обида на мою маму?',
+          'Когда я думаю о маме, я хочу спрятаться?',
+          'Когда я с мамой, я словно не могу дышать?',
+          'Я считаю, что моя мама могла дать мне больше?'
+        ]
+      },
+      {
+        id: 'dad',
+        title: '2. Отец',
+        somaticHint: 'Маркеры: напряжение в спине и шее, дискомфорт в пояснице или руках при мыслях об отце.',
+        questions: [
+          'В моем теле (в спине, шее) есть напряжение, когда я думаю о папе?',
+          'У меня есть дискомфорт в пояснице или в руках, когда я думаю о папе?',
+          'У меня есть глубинная обида на папу?',
+          'Я не могу опереться на папу?',
+          'Мне не хватало папы в детстве?',
+          'Я считаю, что мой папа мог дать мне больше?',
+          'Я считаю, что мой папа меня не любил?',
+          'Тело сжимается при прямом вопросе: «Я люблю своего папу?» (отсутствие теплого отклика)?'
+        ]
+      },
+      {
+        id: 'partner',
+        title: '3. Партнер',
+        somaticHint: 'Маркеры: сжатие в груди, холод внизу живота (у мужчин — дисфункция), трудности с ходьбой после ссоры.',
+        questions: [
+          'Сжимается ли у меня в груди, когда я думаю о своем любимом человеке (нынешнем или бывшем)?',
+          'Ощущаю ли я холод внизу живота при мыслях о партнере?',
+          'После конфликта и ссоры мне было трудно ходить или двигаться?',
+          'Мне больно от тех поступков, которые совершал мой любимый человек?',
+          'Я не хочу больше его видеть?',
+          'В теле есть сопротивление при проверочном вопросе: «Я благодарна своему любимому?»'
+        ]
+      },
+      {
+        id: 'child',
+        title: '4. Ребенок',
+        somaticHint: 'Маркеры: нежелание физически общаться с ребенком, неконтролируемые вспышки злости.',
+        questions: [
+          'Я часто злюсь на ребенка?',
+          'Я не могу сдержать злость на ребенка?',
+          'Я обижаюсь на своего ребенка, меня злит и обижает его поведение?',
+          'Я его люблю, но он делает мне больно?',
+          'Мне больно думать о том, как он живет?',
+          'Мне не хватает полного принятия своего ребенка?',
+          'Я не хочу общаться физически со своим ребенком?',
+          'Мне сложно разговаривать с ним?',
+          'Я ощущаю чувство вины по отношению к своему ребенку?'
+        ]
+      },
+      {
+        id: 'friend',
+        title: '5. Друзья',
+        somaticHint: 'Маркеры: боль в запястьях и локтях при мысли о помощи, боль между лопатками после ссоры.',
+        questions: [
+          'Я больше не хочу доверять и открываться своим друзьям, потому что меня больно ранили?',
+          'Я больше не готова открыто дружить, как раньше? У меня нет настоящих друзей?',
+          'У меня часто болят запястья и локти, когда я думаю, что кому-то нужна помощь?',
+          'У меня часто болит между лопатками после ссоры с другом?',
+          'Меня сильно предавал мой друг?',
+          'Я до сих пор не могу или не хочу простить друга из-за того предательства?',
+          'Мне сложно простить, мне нравится обижаться на друга?'
+        ]
+      },
+      {
+        id: 'work',
+        title: '6. Работа',
+        somaticHint: 'Маркеры: трудно дышать на работе, желание стать незаметным при виде начальника.',
+        questions: [
+          'Я обижаюсь на своего начальника, мне трудно дышать на работе?',
+          'Я чувствую себя зависимым от своего начальника?',
+          'Каждый раз, когда я вижу начальника, мне хочется стать незаметным?',
+          'Мой начальник ведет себя некорректно по отношению ко мне?',
+          'Мне платят меньше, чем я этого заслуживаю?',
+          'Мои коллеги меня часто обижают, подшучивают надо мной?',
+          'Мои коллеги работают меньше, чем я, но постоянно выслуживаются перед начальником?',
+          'Начальник или коллега повышает на меня голос, и я разрешаю это делать?'
+        ]
+      },
+      {
+        id: 'self',
+        title: '7. На себя',
+        somaticHint: 'Маркеры: ощущение внутренней пустоты, желание исчезнуть от стыда, осуждение в зеркале.',
+        questions: [
+          'Я пустая внутри, я неинтересная?',
+          'Я ничего не умею, я ничего не стою?',
+          'Я противна сама себе, хочу исчезнуть от стыда?',
+          'Когда я смотрю в зеркало, я всегда себя осуждаю?',
+          'У меня ничего не получилось в этой жизни, потому что я слабая?',
+          'Я хуже, чем другие? У меня получается хуже, чем у других?',
+          'В теле есть зажим или неприятие при прямом вопросе: «Я люблю себя?»'
+        ]
+      }
+    ];
+
+    const chapter7StepsData = [
+      {
+        step: 'Шаг 1. Поиск болевой точки',
+        desc: 'Используем «крестик»: ищем взглядом положение (например, верхний правый угол), где максимально натягивается воспоминание о крике, и направляем внимание туда.'
+      },
+      {
+        step: 'Шаг 2. Погружение в детство',
+        desc: 'Заходим в состояние той маленькой, чувствительной и ранимой девочки, которая боялась конфликтов. Осознаем: то, что называлось «обидой», на самом деле было диким страхом ребенка перед агрессией.'
+      },
+      {
+        step: 'Шаг 3. Разделение боли',
+        desc: 'Понимаем, что крик мамы — это её личная боль и бессилие, она не умела иначе. Ребенок из любви принял её боль на себя. Возвращаем её со словами: «Это не моя боль».'
+      },
+      {
+        step: 'Шаг 4. Защита внутреннего ребенка',
+        desc: 'Глубоко дышим, мысленно обнимаем маленькую девочку и говорим: «Ты сильная. Теперь ты можешь говорить "нет". Со мной так не надо». Разрешаем себе отойти из дискомфорта.'
+      },
+      {
+        step: 'Шаг 5. Перенос понимания на обидчика',
+        desc: 'Переносим осознание на человека, который кричит сейчас: его агрессия — попытка докричаться до самого себя из собственной боли. Это не про вас. Продышав это через всё тело, вы убираете страх и обиду.'
+      }
+    ];
+
+    const homeworkList = [
+      { id: 'hw1', ch: 'Глава 1', text: 'Вспомнить последнюю сильную обиду и письменно разобрать, как в ней проявилась гордыня и на какую часть себя указал индикатор.' },
+      { id: 'hw2', ch: 'Глава 2', text: 'Выписать 2–3 текущие обиды в отношениях и классифицировать каждую по видам из главы с обоснованием.' },
+      { id: 'hw3', ch: 'Глава 3', text: 'Взять одну сильную обиду (Точку Б), выписать промежуточные ситуации-крючки и найти самую первую Точку А.' },
+      { id: 'hw4', ch: 'Глава 4', text: 'В состоянии нейтрала пройти все 7 блоков телесного теста и составить полный список положительных телесных откликов.' },
+      { id: 'hw5', ch: 'Глава 5', text: 'Отработать самую свежую или простую обиду методом «крестика» и дыхания, зафиксировав ощущения в теле до и после.' },
+      { id: 'hw6', ch: 'Глава 6', text: 'Выбрать родственника, обида на которого считалась «проработанной», найти его ранившие черты в себе и описать их позитивную силу.' },
+      { id: 'hw7', ch: 'Глава 7', text: 'Пройти 5 шагов работы с проекцией запрета и записать фразу-разрешение для своего внутреннего ребенка.' },
+      { id: 'hw8', ch: 'Заключение', text: 'Составить итоговый реестр всех обид (включая проверку на обиду на судьбу/Бога) для обратной связи (текст, голос или 10-мин видео).' }
+    ];
+
+    let activeSphereIndex = 0;
+    let bodyTestAnswers = {};
+    let curatorMeta = {
+      studentName: '',
+      somaticNotes: '',
+      destinyCheck: false,
+      reportFormat: 'Текстовый отчет'
+    };
+    let dailyPractices = 0;
+    let crossAnimId = null;
+    let crossStepIndex = 0;
+    let completedHw = {};
+
+    let egoChartInstance = null;
+    let typologyChartInstance = null;
+    let radarChartInstance = null;
+
+    function switchTab(tabName) {
+      ['philosophy', 'typology', 'bodytest', 'practice'].forEach(name => {
+        const view = document.getElementById('view-' + name);
+        const btn = document.getElementById('nav-' + name);
+        if (name === tabName) {
+          view.classList.remove('hidden');
+          btn.classList.remove('tab-inactive');
+          btn.classList.add('tab-active');
+        } else {
+          view.classList.add('hidden');
+          btn.classList.remove('tab-active');
+          btn.classList.add('tab-inactive');
+        }
+      });
+      if (tabName === 'typology' && typologyChartInstance) {
+        typologyChartInstance.resize();
+      }
+      if (tabName === 'bodytest' && radarChartInstance) {
+        radarChartInstance.resize();
+      }
+      if (tabName === 'philosophy' && egoChartInstance) {
+        egoChartInstance.resize();
+      }
+    }
+
+    function wrapLabel(str, maxLen = 16) {
+      if (str.length <= maxLen) return str;
+      const words = str.split(' ');
+      const lines = [];
+      let currentLine = '';
+      words.forEach(word => {
+        if ((currentLine + ' ' + word).trim().length <= maxLen) {
+          currentLine = (currentLine + ' ' + word).trim();
+        } else {
+          if (currentLine) lines.push(currentLine);
+          currentLine = word;
+        }
+      });
+      if (currentLine) lines.push(currentLine);
+      return lines;
+    }
+
+    function initEgoChart() {
+      const ctx = document.getElementById('egoBalanceChart').getContext('2d');
+      const labels = ['-100 (Дефицит)', '-50', '0 (Баланс)', '+50', '+100 (Избыток)'];
+      egoChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Искажение Эго и Гордыни',
+              data: [95, 45, 5, 50, 98],
+              borderColor: '#8C5E58',
+              backgroundColor: 'rgba(140, 94, 88, 0.12)',
+              borderWidth: 3,
+              fill: true,
+              tension: 0.4,
+              pointRadius: [5, 4, 8, 4, 5],
+              pointBackgroundColor: ['#8C5E58', '#8C5E58', '#4A6B65', '#8C5E58', '#8C5E58']
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const idx = context.dataIndex;
+                  if (idx === 0) return ' Высокомерие: люди кажутся «червями»';
+                  if (idx === 2) return ' Точка Ноль: быстрая осознанная рефлексия';
+                  if (idx === 4) return ' Огромная «корона»: обида убивает изнутри';
+                  return ' Дисбаланс границ эго';
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 110,
+              title: { display: true, text: 'Уровень деструкции Эго', color: '#5C554E', font: { size: 11 } },
+              ticks: { display: false },
+              grid: { color: '#F0EBE4' }
+            },
+            x: {
+              grid: { color: '#F0EBE4' },
+              ticks: { color: '#5C554E', font: { size: 11 } }
+            }
+          }
+        }
+      });
+    }
+
+    function updateEgoScale(val) {
+      const num = parseInt(val, 10);
+      const titleEl = document.getElementById('egoStateTitle');
+      const badgeEl = document.getElementById('egoStateBadge');
+      const descEl = document.getElementById('egoStateDesc');
+
+      if (num < -20) {
+        titleEl.textContent = 'Недостаток обиды: Завышенная гордыня и высокомерие';
+        titleEl.className = 'font-bold text-[#8C5E58] text-base';
+        badgeEl.textContent = 'Полюс дефицита (' + num + ')';
+        badgeEl.className = 'text-xs px-2.5 py-0.5 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] font-medium';
+        descEl.textContent = 'Полное отсутствие способности обижаться — не духовность, а крайнее высокомерие. Человек считает окружающих никем, «червями», на которых даже не стоит обращать внимания. Без качества обиды невозможно изучать и трансформировать свое эго.';
+      } else if (num > 20) {
+        titleEl.textContent = 'Избыток обиды: Большая «корона» и саморазрушение';
+        titleEl.className = 'font-bold text-[#8C5E58] text-base';
+        badgeEl.textContent = 'Полюс избытка (+' + num + ')';
+        badgeEl.className = 'text-xs px-2.5 py-0.5 rounded-full bg-[#8C5E58]/10 text-[#8C5E58] font-medium';
+        descEl.textContent = 'Чем выше «корона» и чем более значимым («большим») вы себя представляете, тем легче вас уязвить. Чрезмерная, невыраженная обида разворачивается против носителя, накапливается в теле и начинает буквально убивать изнутри.';
+      } else {
+        titleEl.textContent = 'Точка Ноль: Осознанный баланс';
+        titleEl.className = 'font-bold text-[#4A6B65] text-base';
+        badgeEl.textContent = 'Идеальное состояние (' + num + ')';
+        badgeEl.className = 'text-xs px-2.5 py-0.5 rounded-full bg-[#4A6B65]/10 text-[#4A6B65] font-medium';
+        descEl.textContent = 'В идеале мы балансируем в нуле — ни на что не обижаемся длительно. Обида срабатывает лишь как мгновенный импульс-индикатор: «комфортно мне или некомфортно? почему? зачем?». У осознанных людей этот процесс размышливания и освобождения происходит очень быстро.';
+      }
+    }
+
+    function renderResentmentCards(filter = 'all') {
+      const grid = document.getElementById('resentmentCardsGrid');
+      const filtered = filter === 'all' ? resentmentsData : resentmentsData.filter(item => item.category === filter);
+      grid.innerHTML = filtered.map(item => `
+        <div onclick="selectResentmentDetail(${item.id})" class="bg-white rounded-xl p-4 border border-[#E6DFD5] hover:border-[#8C5E58] transition-all cursor-pointer shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-[#8C5E58]">№${item.id}</span>
+              <span class="text-lg">${item.icon === ' doormat' ? '🧎' : item.icon}</span>
+            </div>
+            <h4 class="font-bold text-[#2D2A26] text-base mb-1">${item.title}</h4>
+            <p class="text-xs text-[#5C554E] leading-relaxed">${item.shortDesc}</p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-[#F3EFEA] text-xs font-medium text-[#4A6B65] flex items-center justify-between">
+            <span>Разбор и соматика</span>
+            <span>→</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterResentments(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.classList.remove('tab-inactive');
+          btn.classList.add('tab-active');
+        } else {
+          btn.classList.remove('tab-active');
+          btn.classList.add('tab-inactive');
+        }
+      });
+      renderResentmentCards(category);
+    }
+
+    function selectResentmentDetail(id) {
+      const item = resentmentsData.find(x => x.id === id);
+      if (!item) return;
+      document.getElementById('detailBadge').textContent = item.badge;
+      document.getElementById('detailIcon').textContent = item.icon === ' doormat' ? '🧎' : item.icon;
+      document.getElementById('detailTitle').textContent = item.title;
+      document.getElementById('detailMechanism').textContent = item.mechanism;
+      document.getElementById('detailSomatic').textContent = item.somatic;
+      document.getElementById('detailCase').textContent = item.clinicalCase;
+    }
+
+    function initTypologyChart() {
+      const ctx = document.getElementById('typologyChart').getContext('2d');
+      typologyChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: resentmentsData.map(r => wrapLabel(r.title, 18)),
+          datasets: [
+            {
+              label: 'Телесная соматизация',
+              data: resentmentsData.map(r => r.scores[0]),
+              backgroundColor: '#8C5E58',
+              borderRadius: 4
+            },
+            {
+              label: 'Гордыня / Вампиризм',
+              data: resentmentsData.map(r => r.scores[1]),
+              backgroundColor: '#C59B76',
+              borderRadius: 4
+            },
+            {
+              label: 'Блокировка жизни',
+              data: resentmentsData.map(r => r.scores[2]),
+              backgroundColor: '#4A6B65',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', labels: { font: { size: 11 }, color: '#2D2A26' } }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 110,
+              grid: { color: '#F0EBE4' },
+              ticks: { color: '#5C554E', font: { size: 10 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#2D2A26', font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    function getTotalDetectedCount() {
+      let count = 0;
+      bodyTestSpheres.forEach(sp => {
+        sp.questions.forEach((_, qIdx) => {
+          if (bodyTestAnswers[`${sp.id}_${qIdx}`] === true) count++;
+        });
+      });
+      return count;
+    }
+
+    function getTotalAnsweredCount() {
+      return Object.keys(bodyTestAnswers).length;
+    }
+
+    function renderSphereTabs() {
+      const container = document.getElementById('sphereTabs');
+      const sphereButtons = bodyTestSpheres.map((sp, idx) => {
+        const yesCount = sp.questions.filter((_, qIdx) => bodyTestAnswers[`${sp.id}_${qIdx}`] === true).length;
+        const activeClass = idx === activeSphereIndex ? 'tab-active' : 'tab-inactive';
+        return `
+          <button onclick="selectSphere(${idx})" class="${activeClass} px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors cursor-pointer flex items-center gap-1.5">
+            <span>${sp.title}</span>
+            ${yesCount > 0 ? `<span class="px-1.5 py-0.2 rounded-full bg-white text-[#8C5E58] font-bold text-[10px]">${yesCount}</span>` : ''}
+          </button>
+        `;
+      }).join('');
+
+      const curatorTabIndex = bodyTestSpheres.length;
+      const isCuratorActive = activeSphereIndex === curatorTabIndex;
+      const curatorBtnClass = isCuratorActive
+        ? 'bg-[#4A6B65] text-white border-[#4A6B65]'
+        : 'bg-[#4A6B65]/10 text-[#4A6B65] border-[#4A6B65]/40 hover:bg-[#4A6B65]/20';
+      const totalYes = getTotalDetectedCount();
+
+      const curatorButton = `
+        <button onclick="selectSphere(${curatorTabIndex})" class="${curatorBtnClass} px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer flex items-center gap-1.5">
+          <span>📤 Отправка куратору</span>
+          <span class="px-1.5 py-0.2 rounded-full ${isCuratorActive ? 'bg-white text-[#4A6B65]' : 'bg-[#4A6B65] text-white'} font-bold text-[10px]">${totalYes}</span>
+        </button>
+      `;
+
+      container.innerHTML = sphereButtons + curatorButton;
+    }
+
+    function selectSphere(idx) {
+      activeSphereIndex = idx;
+      renderSphereTabs();
+      renderSphereQuestions();
+    }
+
+    function renderSphereQuestions() {
+      if (activeSphereIndex === bodyTestSpheres.length) {
+        renderCuratorReportTab();
+        return;
+      }
+
+      const sp = bodyTestSpheres[activeSphereIndex];
+      const container = document.getElementById('sphereQuestionsContainer');
+      const nextBtnLabel = activeSphereIndex < bodyTestSpheres.length - 1
+        ? `Следующий блок: ${bodyTestSpheres[activeSphereIndex + 1].title} →`
+        : 'Перейти во вкладку «📤 Отправка куратору» →';
+
+      container.innerHTML = `
+        <div class="border-b border-[#E6DFD5] pb-3">
+          <h3 class="text-xl font-bold text-[#2D2A26]">Блок ${sp.title}</h3>
+          <p class="text-xs text-[#8C554E] mt-1">${sp.somaticHint}</p>
+        </div>
+        <div class="space-y-3">
+          ${sp.questions.map((q, qIdx) => {
+            const key = `${sp.id}_${qIdx}`;
+            const val = bodyTestAnswers[key];
+            const yesBtnClass = val === true ? 'bg-[#8C5E58] text-white border-[#8C5E58]' : 'bg-white text-[#5C554E] border-[#E6DFD5] hover:bg-[#FAF8F5]';
+            const noBtnClass = val === false ? 'bg-[#4A6B65] text-white border-[#4A6B65]' : 'bg-white text-[#5C554E] border-[#E6DFD5] hover:bg-[#FAF8F5]';
+            return `
+              <div class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span class="text-xs sm:text-sm text-[#2D2A26] leading-snug">${q}</span>
+                <div class="flex items-center gap-2 shrink-0">
+                  <button onclick="answerBodyQuestion('${key}', true)" class="${yesBtnClass} px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer">
+                    Да (отклик)
+                  </button>
+                  <button onclick="answerBodyQuestion('${key}', false)" class="${noBtnClass} px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer">
+                    Нет / Сомнение
+                  </button>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="pt-3 border-t border-[#E6DFD5] flex justify-end">
+          <button onclick="selectSphere(${activeSphereIndex + 1})" class="px-4 py-2 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5] text-xs font-semibold text-[#2D2A26] hover:border-[#8C5E58] transition-colors cursor-pointer">
+            ${nextBtnLabel}
+          </button>
+        </div>
+      `;
+    }
+
+    function buildCuratorReportText() {
+      const totalQuestions = bodyTestSpheres.reduce((acc, s) => acc + s.questions.length, 0);
+      const answeredCount = getTotalAnsweredCount();
+      const detectedCount = getTotalDetectedCount();
+      const today = new Date().toLocaleDateString('ru-RU');
+
+      let lines = [];
+      lines.push(`ОТЧЕТ ПО ТЕЛЕСНОМУ ТЕСТУ (Методика Елены Перевалиной)`);
+      lines.push(`Дата: ${today}`);
+      if (curatorMeta.studentName.trim()) {
+        lines.push(`Ученик: ${curatorMeta.studentName.trim()}`);
+      }
+      lines.push(`Предпочитаемый формат обратной связи: ${curatorMeta.reportFormat}`);
+      lines.push(`Пройдено вопросов: ${answeredCount} из ${totalQuestions} | Выявлено телесных откликов: ${detectedCount}`);
+      lines.push(`--------------------------------------------------`);
+
+      bodyTestSpheres.forEach(sp => {
+        const sphereYes = [];
+        sp.questions.forEach((q, qIdx) => {
+          if (bodyTestAnswers[`${sp.id}_${qIdx}`] === true) {
+            sphereYes.push(`  • ${q}`);
+          }
+        });
+        const pct = Math.round((sphereYes.length / sp.questions.length) * 100);
+        lines.push(`\n${sp.title} — ${sphereYes.length} из ${sp.questions.length} (${pct}%):`);
+        if (sphereYes.length > 0) {
+          lines.push(...sphereYes);
+        } else {
+          lines.push(`  (однозначных телесных откликов не отмечено)`);
+        }
+      });
+
+      if (curatorMeta.destinyCheck) {
+        lines.push(`\n[!] Дополнительно отмечен отклик на критическую программу: Обида на судьбу, Бога или Вселенную.`);
+      }
+
+      if (curatorMeta.somaticNotes.trim()) {
+        lines.push(`\n--------------------------------------------------`);
+        lines.push(`ТЕЛЕСНЫЕ НАБЛЮДЕНИЯ И КОММЕНТАРИЙ ДЛЯ КУРАТОРА:`);
+        lines.push(curatorMeta.somaticNotes.trim());
+      }
+
+      return lines.join('\n');
+    }
+
+    function renderCuratorReportTab() {
+      const container = document.getElementById('sphereQuestionsContainer');
+      const totalQuestions = bodyTestSpheres.reduce((acc, s) => acc + s.questions.length, 0);
+      const answeredCount = getTotalAnsweredCount();
+      const detectedCount = getTotalDetectedCount();
+      const reportText = buildCuratorReportText();
+
+      container.innerHTML = `
+        <div class="border-b border-[#E6DFD5] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="text-xl font-bold text-[#2D2A26]">📤 Подготовка и отправка отчета куратору</h3>
+            <p class="text-xs text-[#5C554E] mt-1">
+              Проверьте сводку телесных реакций, добавьте свои ощущения и отправьте готовый текст куратору в WhatsApp (+7 928 295-29-29).
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-semibold">
+            <span class="px-2.5 py-1 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5] text-[#2D2A26]">Ответов: ${answeredCount}/${totalQuestions}</span>
+            <span class="px-2.5 py-1 rounded-lg bg-[#8C5E58]/10 text-[#8C5E58]">Откликов: ${detectedCount}</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-[#2D2A26] mb-1">Ваше имя (для подписи отчета)</label>
+            <input type="text" id="curatorStudentName" value="${curatorMeta.studentName.replace(/"/g, '&quot;')}" oninput="updateCuratorField('studentName', this.value)" placeholder="Например: Анна К." class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5] text-xs text-[#2D2A26] focus:outline-none focus:border-[#8C5E58]">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-[#2D2A26] mb-1">Формат обратной связи по курсу</label>
+            <select id="curatorReportFormat" onchange="updateCuratorField('reportFormat', this.value)" class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5] text-xs text-[#2D2A26] focus:outline-none focus:border-[#8C5E58]">
+              <option value="Текстовый отчет" ${curatorMeta.reportFormat === 'Текстовый отчет' ? 'selected' : ''}>Текстовый отчет</option>
+              <option value="Текст + голосовое сообщение" ${curatorMeta.reportFormat === 'Текст + голосовое сообщение' ? 'selected' : ''}>Текст + голосовое сообщение</option>
+              <option value="Текст + 10-минутное видео отработки" ${curatorMeta.reportFormat === 'Текст + 10-минутное видео отработки' ? 'selected' : ''}>Текст + 10-минутное видео отработки</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-[#8C5E58]/5 border border-[#8C5E58]/25 flex items-start gap-2.5">
+          <input type="checkbox" id="curatorDestinyCheck" ${curatorMeta.destinyCheck ? 'checked' : ''} onchange="updateCuratorField('destinyCheck', this.checked)" class="mt-0.5 accent-[#8C5E58] cursor-pointer">
+          <label for="curatorDestinyCheck" class="text-xs text-[#2D2A26] cursor-pointer leading-snug">
+            <strong>Проверка Заключения:</strong> При тестировании в состоянии нейтрала я также ощущаю телесный отклик на <em>обиду на судьбу, Бога или Вселенную</em> («Почему со мной это произошло?»).
+          </label>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-[#2D2A26] mb-1">Описание телесных ощущений и вопрос куратору</label>
+          <textarea id="curatorSomaticNotes" rows="3" oninput="updateCuratorField('somaticNotes', this.value)" placeholder="Опишите, где именно в теле возникали зажимы, ком в горле, холод или напряжение, и с какой обиды планируете начать отработку «крестиком»..." class="w-full px-3 py-2 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5] text-xs text-[#2D2A26] focus:outline-none focus:border-[#8C5E58]">${curatorMeta.somaticNotes}</textarea>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold text-[#5C554E]">Сформированный текст отчета (готов к отправке):</span>
+            <span id="copyStatusBadge" class="text-xs font-semibold text-[#4A6B65] hidden">✓ Скопировано в буфер!</span>
+          </div>
+          <textarea id="curatorPreviewTextarea" readonly rows="8" class="w-full p-3 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] text-xs font-mono text-[#2D2A26] leading-relaxed focus:outline-none">${reportText}</textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5 pt-1">
+          <button onclick="sendWhatsAppReport()" class="px-4 py-2.5 rounded-xl bg-[#4A6B65] text-white text-xs font-semibold hover:bg-[#3B5752] transition-colors cursor-pointer">
+            💬 Отправить в WhatsApp (+79282952929)
+          </button>
+          <button onclick="copyCuratorReport()" class="px-4 py-2.5 rounded-xl bg-[#8C5E58] text-white text-xs font-semibold hover:bg-[#764D48] transition-colors cursor-pointer">
+            📋 Скопировать отчет для чата
+          </button>
+          <button onclick="downloadCuratorReport()" class="px-4 py-2.5 rounded-xl bg-white border border-[#E6DFD5] text-xs font-semibold text-[#2D2A26] hover:bg-[#FAF8F5] transition-colors cursor-pointer">
+            💾 Скачать .txt
+          </button>
+        </div>
+      `;
+    }
+
+    function updateCuratorField(field, value) {
+      curatorMeta[field] = value;
+      const previewEl = document.getElementById('curatorPreviewTextarea');
+      if (previewEl) {
+        previewEl.value = buildCuratorReportText();
+      }
+    }
+
+    function copyCuratorReport() {
+      const text = buildCuratorReportText();
+      const previewEl = document.getElementById('curatorPreviewTextarea');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCopyFeedback();
+        }).catch(() => {
+          if (previewEl) {
+            previewEl.select();
+            document.execCommand('copy');
+            showCopyFeedback();
+          }
+        });
+      } else if (previewEl) {
+        previewEl.select();
+        document.execCommand('copy');
+        showCopyFeedback();
+      }
+    }
+
+    function showCopyFeedback() {
+      const badge = document.getElementById('copyStatusBadge');
+      if (badge) {
+        badge.classList.remove('hidden');
+        setTimeout(() => badge.classList.add('hidden'), 3000);
+      }
+    }
+
+    function sendWhatsAppReport() {
+      const text = buildCuratorReportText();
+      const phone = '79282952929';
+      const encodedText = encodeURIComponent(text);
+      window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+    }
+
+    function downloadCuratorReport() {
+      const text = buildCuratorReportText();
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Телесный_тест_отчет_${new Date().toISOString().slice(0, 10)}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function answerBodyQuestion(key, isYes) {
+      bodyTestAnswers[key] = isYes;
+      renderSphereTabs();
+      renderSphereQuestions();
+      updateBodyTestResults();
+    }
+
+    function resetBodyTest() {
+      bodyTestAnswers = {};
+      curatorMeta.destinyCheck = false;
+      renderSphereTabs();
+      renderSphereQuestions();
+      updateBodyTestResults();
+    }
+
+    function initBodyTestRadar() {
+      const ctx = document.getElementById('bodyTestRadarChart').getContext('2d');
+      radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: bodyTestSpheres.map(s => s.title.replace(/^\d+\.\s/, '')),
+          datasets: [{
+            label: 'Интенсивность телесного отклика (%)',
+            data: [0, 0, 0, 0, 0, 0, 0],
+            backgroundColor: 'rgba(140, 94, 88, 0.2)',
+            borderColor: '#8C5E58',
+            borderWidth: 2,
+            pointBackgroundColor: '#8C5E58'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              beginAtZero: true,
+              max: 100,
+              ticks: { display: false },
+              grid: { color: '#E6DFD5' },
+              pointLabels: { color: '#2D2A26', font: { size: 11 } }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function updateBodyTestResults() {
+      const percentages = bodyTestSpheres.map(sp => {
+        const yesCount = sp.questions.filter((_, qIdx) => bodyTestAnswers[`${sp.id}_${qIdx}`] === true).length;
+        return Math.round((yesCount / sp.questions.length) * 100);
+      });
+
+      if (radarChartInstance) {
+        radarChartInstance.data.datasets[0].data = percentages;
+        radarChartInstance.update();
+      }
+
+      const detected = [];
+      bodyTestSpheres.forEach(sp => {
+        sp.questions.forEach((q, qIdx) => {
+          if (bodyTestAnswers[`${sp.id}_${qIdx}`] === true) {
+            detected.push({ sphere: sp.title, question: q });
+          }
+        });
+      });
+
+      document.getElementById('detectedCountBadge').textContent = `${detected.length} выявлено`;
+      const listContainer = document.getElementById('detectedListContainer');
+      if (detected.length === 0) {
+        listContainer.innerHTML = `
+          <div class="p-4 rounded-xl bg-[#FAF8F5] text-[#5C554E] text-center border border-dashed border-[#E6DFD5]">
+            Отмечайте вопросы в левой панели, чтобы сформировать персональный список для проработки.
+          </div>
+        `;
+      } else {
+        listContainer.innerHTML = detected.map(item => `
+          <div class="p-2.5 rounded-lg bg-[#FAF8F5] border border-[#E6DFD5]">
+            <span class="font-bold text-[#8C5E58]">[${item.sphere}]</span>
+            <span class="text-[#2D2A26]"> ${item.question}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    const crossDirections = [
+      { x: 150, y: 120, label: 'Центр: Глубокий вдох, фокус на ощущении обиды' },
+      { x: 45, y: 35, label: 'Верхний левый угол: Взгляд до упора + выдох' },
+      { x: 255, y: 205, label: 'Нижний правый угол: Натягиваем фасцию + вдох' },
+      { x: 255, y: 35, label: 'Верхний правый угол: Поиск точки натяжения + выдох' },
+      { x: 45, y: 205, label: 'Нижний левый угол: Сброс зажима + вдох' },
+      { x: 150, y: 30, label: 'Крайний верх: Продышиваем блок' },
+      { x: 150, y: 210, label: 'Крайний низ: Отпускаем энергию вниз' },
+      { x: 35, y: 120, label: 'Крайний левый край: Расслабление челюсти' },
+      { x: 265, y: 120, label: 'Крайний правый край: Наполнение любовью' }
+    ];
+
+    function drawCrossCanvas(activeIdx = 0) {
+      const canvas = document.getElementById('crossSimulatorCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = '#E6DFD5';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(45, 35);
+      ctx.lineTo(255, 205);
+      ctx.moveTo(255, 35);
+      ctx.lineTo(45, 205);
+      ctx.moveTo(150, 30);
+      ctx.lineTo(150, 210);
+      ctx.lineTo(35, 120);
+      ctx.lineTo(265, 120);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      crossDirections.forEach((pt, i) => {
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, i === activeIdx ? 12 : 6, 0, Math.PI * 2);
+        ctx.fillStyle = i === activeIdx ? '#8C5E58' : '#C59B76';
+        ctx.fill();
+        if (i === activeIdx) {
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 18, 0, Math.PI * 2);
+          ctx.strokeStyle = 'rgba(140, 94, 88, 0.4)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      });
+    }
+
+    function toggleCrossAnimation() {
+      const btn = document.getElementById('crossStartBtn');
+      const instr = document.getElementById('crossInstructionText');
+      if (crossAnimId) {
+        clearInterval(crossAnimId);
+        crossAnimId = null;
+        btn.textContent = '▶ Продолжить цикл';
+        instr.textContent = 'Пауза. Сделайте спокойный глубокий вдох и выдох.';
+      } else {
+        btn.textContent = '⏸ Остановить';
+        instr.textContent = crossDirections[crossStepIndex].label;
+        drawCrossCanvas(crossStepIndex);
+        crossAnimId = setInterval(() => {
+          crossStepIndex = (crossStepIndex + 1) % crossDirections.length;
+          drawCrossCanvas(crossStepIndex);
+          instr.textContent = crossDirections[crossStepIndex].label;
+        }, 2600);
+      }
+    }
+
+    function logCompletedPractice() {
+      dailyPractices++;
+      const countEl = document.getElementById('dailyPracticeCount');
+      const warnEl = document.getElementById('dailyPracticeWarning');
+      countEl.textContent = dailyPractices;
+      if (dailyPractices >= 3) {
+        warnEl.textContent = 'Достигнут дневной максимум (3 обиды)! Сделайте перерыв до завтра во избежание головокружения и перегрузки.';
+        warnEl.className = 'text-xs font-bold text-[#8C5E58]';
+      } else {
+        warnEl.textContent = 'Отлично! Выделите 5–10 минут на спокойное восстановление и наполнение любовью.';
+        warnEl.className = 'text-xs text-[#4A6B65]';
+      }
+    }
+
+    function resetDailyPractice() {
+      dailyPractices = 0;
+      document.getElementById('dailyPracticeCount').textContent = '0';
+      const warnEl = document.getElementById('dailyPracticeWarning');
+      warnEl.textContent = 'Не более 2–3 глубоких проработок в сутки во избежание перегрузки.';
+      warnEl.className = 'text-xs text-[#5C554E]';
+    }
+
+    const tacticsContent = {
+      fresh: {
+        title: 'Тактика 1: Свежая обида (произошла только что)',
+        desc: 'Ситуации, которые триггерят прямо сейчас, прекрасно отрабатываются «крестиком» без долгих глубинных раскопок. Моментально продышите эмоцию — это снимет острую боль и не даст ей заякориться в теле.'
+      },
+      direct: {
+        title: 'Тактика 2: Прямой обидчик (без кармической родовой завязки)',
+        desc: 'Если вас обидел конкретный посторонний человек, мы не ищем глубинных родовых смыслов сразу. Берем образ этого персонажа и моментально отрабатываем дыханием и «крестиком», получая быструю разрядку.'
+      },
+      projection: {
+        title: 'Тактика 3: Проекция с другим человеком (партнер ↔ родственник)',
+        desc: 'Если обида на партнера является проекцией отношений с отцом или бабушкой, берем в работу обоих людей одновременно. Перемещая взгляд «крестиком», отслеживаем перетекание энергии от одного образа к другому до полного снятия натяжения.'
+      },
+      deep: {
+        title: 'Тактика 4: Глубинные обиды на близких (маму или папу)',
+        desc: 'Одного «крестика» здесь недостаточно — он лишь облегчит состояние. Требуется второй уровень: глубинное осознание того, как поступок родителя лечит вашу душу, и переход от замалчивания чувств к их открытому проговариванию.'
+      }
+    };
+
+    function selectTactic(key) {
+      document.querySelectorAll('.tactic-btn').forEach(btn => {
+        if (btn.dataset.tactic === key) {
+          btn.classList.remove('tab-inactive');
+          btn.classList.add('tab-active');
+        } else {
+          btn.classList.remove('tab-active');
+          btn.classList.add('tab-inactive');
+        }
+      });
+      document.getElementById('tacticTitle').textContent = tacticsContent[key].title;
+      document.getElementById('tacticDesc').textContent = tacticsContent[key].desc;
+    }
+
+    function renderChapter7Steps() {
+      const container = document.getElementById('chapter7Steps');
+      container.innerHTML = chapter7StepsData.map((item, idx) => `
+        <div onclick="toggleStepHighlight(this)" class="p-3.5 rounded-xl bg-[#FAF8F5] border border-[#E6DFD5] hover:border-[#8C5E58] transition-all cursor-pointer">
+          <div class="font-bold text-xs sm:text-sm text-[#8C5E58] mb-1">${item.step}</div>
+          <p class="text-xs text-[#2D2A26] leading-relaxed">${item.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function toggleStepHighlight(el) {
+      el.classList.toggle('bg-[#8C5E58]/10');
+      el.classList.toggle('border-[#8C5E58]');
+    }
+
+    function renderHomework() {
+      const grid = document.getElementById('homeworkGrid');
+      grid.innerHTML = homeworkList.map(hw => {
+        const checked = !!completedHw[hw.id];
+        return `
+          <div onclick="toggleHw('${hw.id}')" class="p-3.5 rounded-xl border transition-all cursor-pointer flex items-start gap-3 ${checked ? 'bg-[#4A6B65]/10 border-[#4A6B65]' : 'bg-[#FAF8F5] border-[#E6DFD5]'}">
+            <div class="w-5 h-5 rounded border flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold ${checked ? 'bg-[#4A6B65] text-white border-[#4A6B65]' : 'bg-white border-[#C59B76]'}">
+              ${checked ? '✓' : ''}
+            </div>
+            <div>
+              <div class="text-xs font-bold text-[#8C5E58]">${hw.ch}</div>
+              <div class="text-xs text-[#2D2A26] leading-snug mt-0.5 ${checked ? 'line-through opacity-75' : ''}">${hw.text}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      const count = Object.values(completedHw).filter(Boolean).length;
+      document.getElementById('hwProgressText').textContent = `Выполнено: ${count} из ${homeworkList.length}`;
+    }
+
+    function toggleHw(id) {
+      completedHw[id] = !completedHw[id];
+      renderHomework();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initEgoChart();
+      renderResentmentCards('all');
+      initTypologyChart();
+      renderSphereTabs();
+      renderSphereQuestions();
+      initBodyTestRadar();
+      drawCrossCanvas(0);
+      renderChapter7Steps();
+      renderHomework();
+    });
+  </script>
+</body>
+</html>

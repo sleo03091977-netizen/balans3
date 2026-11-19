@@ -1,0 +1,2853 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Диагностика и исцеление через тело — Интерактивная методичка Елены Перевалиной</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            linen: '#FAF8F5',
+            parchment: '#F2EDE4',
+            sand: '#E6DFD3',
+            charcoal: '#2C302E',
+            stone: '#636965',
+            sage: '#4A7C6F',
+            sageLight: '#E8F1EE',
+            terracotta: '#C27849',
+            terracottaLight: '#F9EFE8',
+            slateTeal: '#5B7A94',
+            slateTealLight: '#ECF1F6',
+            whatsapp: '#25D366',
+            whatsappDark: '#1DA851'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F5;
+      color: #2C302E;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 290px;
+      max-height: 380px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 340px;
+      }
+    }
+    .body-map-container {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 420px;
+      max-height: 440px;
+    }
+    .tab-active {
+      background-color: #4A7C6F;
+      color: #FFFFFF;
+      border-color: #4A7C6F;
+    }
+    .tab-whatsapp-active {
+      background-color: #1DA851;
+      color: #FFFFFF;
+      border-color: #1DA851;
+    }
+    .pulse-ring {
+      transition: transform 3.5s ease-in-out, background-color 3.5s ease-in-out;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sageLight selection:text-charcoal">
+
+  <header class="sticky top-0 z-40 bg-linen/95 backdrop-blur border-b border-sand">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between py-3 gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sage text-white flex items-center justify-center text-lg font-semibold shadow-sm">
+            ◈
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider text-sage font-semibold">Урок 2 • Методичка Елены Перевалиной</div>
+            <h1 class="font-display text-xl sm:text-2xl font-bold leading-tight text-charcoal">Диагностика и исцеление через тело</h1>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <div class="relative flex-1 sm:w-64">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-stone text-sm">🔍</span>
+            <input
+              id="globalSearchInput"
+              type="text"
+              placeholder="Поиск: орган, страх, сустав..."
+              class="w-full pl-9 pr-3 py-1.5 text-sm bg-white border border-sand rounded-lg focus:outline-none focus:border-sage"
+            />
+          </div>
+          <button
+            id="clearSearchBtn"
+            type="button"
+            class="hidden px-2.5 py-1.5 text-xs font-medium bg-parchment text-charcoal rounded-lg border border-sand hover:bg-sand"
+          >
+            Сброс
+          </button>
+          <button
+            id="exportReportBtn"
+            type="button"
+            title="Скачать сводку ваших ответов и заметок"
+            class="px-3 py-1.5 text-xs font-semibold bg-sage text-white rounded-lg hover:bg-sage/90 transition whitespace-nowrap shadow-sm"
+          >
+            ↓ Экспорт заметок
+          </button>
+        </div>
+      </div>
+
+      <nav class="flex items-center gap-1.5 overflow-x-auto pb-2.5 text-xs sm:text-sm font-medium">
+        <a href="#foundation" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">0. Философия</a>
+        <a href="#neuroanatomy" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">1. Позвоночник и тонус</a>
+        <a href="#body-silhouette" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">2. Карта тела</a>
+        <a href="#fears-atlas" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">3. 10 страхов</a>
+        <a href="#joints-polarity" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">4. Стороны и суставы</a>
+        <a href="#rough-cleaning" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">5. «Грубая чистка» (32)</a>
+        <a href="#cases-workbook" class="px-3 py-1.5 rounded-lg bg-parchment hover:bg-sage hover:text-white transition whitespace-nowrap">6. Кейсы и ДЗ</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="globalSearchPanel" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+    <div class="bg-white border border-sage/40 rounded-2xl p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-display text-xl font-bold text-charcoal">Результаты поиска по материалам книги</h2>
+        <span id="searchCountBadge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-sageLight text-sage">0 совпадений</span>
+      </div>
+      <div id="globalSearchResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm"></div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+    <section id="foundation" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sageLight text-sage">
+            Введение • Многомерный подход к здоровью
+          </span>
+          <span class="text-xs text-stone">
+            Справка по изданию: 15 фактических страниц (в Оглавлении указаны стр. 3–20)
+          </span>
+        </div>
+
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          От общего к частному: как тело отражает энергию, эмоции и нейронные связи
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          В данном разделе раскрывается методологический фундамент курса Елены Перевалиной. Вместо кратковременного снятия болевого симптома автор предлагает многоступенчатую работу с эмоциональными и кармическими первопричинами, запускающую глубокую саморегуляцию организма на горизонте 1–2 месяцев, при обязательном соблюдении ежедневной физической «гигиены» тела.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="bg-parchment/70 border border-sand rounded-xl p-5">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <h3 class="font-semibold text-base text-charcoal">Сравнение стратегий исцеления</h3>
+                <div class="inline-flex rounded-lg border border-sand bg-white p-1 text-xs font-medium">
+                  <button type="button" id="btnApproachHolistic" class="px-3 py-1.5 rounded-md tab-active transition">
+                    От общего к частному (Метод автора)
+                  </button>
+                  <button type="button" id="btnApproachSymptomatic" class="px-3 py-1.5 rounded-md text-stone hover:text-charcoal transition">
+                    От частного к общему
+                  </button>
+                </div>
+              </div>
+
+              <div id="approachDisplay" class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">1</span>
+                  <div>
+                    <div class="font-semibold text-charcoal">Первопричина на уровне эмоций, энергии и рода</div>
+                    <p class="text-sm text-stone">Эмоциональный или кармический дисбаланс первичен: со временем он спускается на уровень нервной системы, мышц и внутренних органов.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">2</span>
+                  <div>
+                    <div class="font-semibold text-charcoal">Глубокая перестройка за 1–2 месяца</div>
+                    <p class="text-sm text-stone">Работа не гонится за мгновенным «вау-эффектом», а запускает естественные процессы саморегуляции и фундаментального восстановления.</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3">
+                  <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">3</span>
+                  <div>
+                    <div class="font-semibold text-charcoal">Многоступенчатая очистка и физическая доработка</div>
+                    <p class="text-sm text-stone">Очищается духовная и психоэмоциональная сфера, но при органических изменениях (например, в суставах) или гиподинамии обязательно подключается физика.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="border border-sand rounded-xl p-4 bg-white">
+                <div class="text-xl mb-1.5">🏃</div>
+                <h4 class="font-semibold text-sm text-charcoal mb-1">Гигиена тела</h4>
+                <p class="text-xs text-stone leading-relaxed">
+                  Тело — «дом» для души. Дыхание, быстрая ходьба, бег, йога, силовые тренировки, режим дня и питание защищают от <strong>гиподинамии</strong> (пример из практики: сбой кишечника чисто от нехватки движения без стресса).
+                </p>
+              </div>
+              <div class="border border-sand rounded-xl p-4 bg-white">
+                <div class="text-xl mb-1.5">🕯️</div>
+                <h4 class="font-semibold text-sm text-charcoal mb-1">Гигиена души</h4>
+                <p class="text-xs text-stone leading-relaxed">
+                  Экологичное проживание эмоций, освобождение от накопленных страхов, родовых сценариев и кармических блоков, перекрывающих ток энергии к органам.
+                </p>
+              </div>
+              <div class="border border-sand rounded-xl p-4 bg-white">
+                <div class="text-xl mb-1.5">🧘</div>
+                <h4 class="font-semibold text-sm text-charcoal mb-1">Гигиена разума</h4>
+                <p class="text-xs text-stone leading-relaxed">
+                  Остановка навязчивого проецирования и гиперконтроля, умение расслаблять ум через медитации, чтобы переводить нервную систему в спокойный нормотонус.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 bg-parchment/50 border border-sand rounded-xl p-5 flex flex-col justify-between">
+            <div>
+              <h3 class="font-semibold text-base text-charcoal mb-1">Баланс многомерного подхода</h3>
+              <p class="text-xs text-stone mb-3">
+                Сравнение акцентов диагностики: метод Елены Перевалиной охватывает все 5 уровней здоровья, тогда как симптоматический подход фокусируется лишь на локальной боли.
+              </p>
+            </div>
+            <div class="chart-container">
+              <canvas id="foundationRadarChart"></canvas>
+            </div>
+            <div class="mt-3 text-xs text-stone text-center">
+              Нажмите на кнопки переключения стратегии слева, чтобы обновить профиль диаграммы.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="neuroanatomy" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sageLight text-sage mb-3">
+          Глава 1 и Глава 2 • Нейроанатомия и физиология тонуса
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          Сегментарная иннервация позвоночника и ловушка мышечного гипертонуса
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          Этот блок объединяет анатомическую схему спинномозговых узлов из Главы 1 и механизм кортизолового истощения из Главы 2. Выберите отдел позвоночника, чтобы увидеть связанные мышцы и внутренние органы, а затем исследуйте, почему при мануальном тестировании (ММТ) спазмированная мышца имитирует силу и приводит к сколиозу.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-semibold text-lg text-charcoal">Интерактивная карта 4 отделов позвоночника</h3>
+              <span class="text-xs text-stone">Нажмите на отдел для детализации</span>
+            </div>
+
+            <div id="spineSelectorGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+
+            <div id="spineDetailCard" class="bg-parchment/70 border border-sand rounded-xl p-5 space-y-4"></div>
+
+            <div class="bg-linen border border-sand rounded-xl p-4 flex items-start gap-3">
+              <span class="text-lg">💡</span>
+              <div class="text-xs sm:text-sm text-stone leading-relaxed">
+                <strong class="text-charcoal">Диагностическое правило Главы 1:</strong> Один нервный узел иннервирует и мышцу, и орган (например, шею, плечо и сердце). Боль в передней мышце бедра (квадрицепсе) часто указывает на фиксацию в <strong>тонком кишечнике</strong>. Исключение — чисто механические, бытовые травмы, где страдает только физика. При хронике ММТ выявляет слабость задолго до острой болезни органа.
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-parchment/50 border border-sand rounded-xl p-5">
+              <h3 class="font-semibold text-lg text-charcoal mb-1">Три состояния мышечного тонуса в ММТ</h3>
+              <p class="text-xs text-stone mb-3">
+                Выберите состояние мышцы, чтобы понять, как стресс и выброс кортизола надпочечниками искажают диагностику и формируют сколиотическую осанку в школьном возрасте.
+              </p>
+
+              <div class="grid grid-cols-3 gap-1.5 mb-4 text-xs font-medium">
+                <button type="button" data-tone="normo" class="tone-btn px-2.5 py-2 rounded-lg border border-sand tab-active">
+                  Нормотонус
+                </button>
+                <button type="button" data-tone="hyper" class="tone-btn px-2.5 py-2 rounded-lg border border-sand bg-white text-charcoal hover:bg-parchment">
+                  Гипертонус
+                </button>
+                <button type="button" data-tone="hypo" class="tone-btn px-2.5 py-2 rounded-lg border border-sand bg-white text-charcoal hover:bg-parchment">
+                  Гипотонус
+                </button>
+              </div>
+
+              <div class="chart-container">
+                <canvas id="muscleToneChart"></canvas>
+              </div>
+
+              <div id="toneExplanationBox" class="mt-4 bg-white border border-sand rounded-xl p-4 text-xs sm:text-sm text-stone leading-relaxed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="body-silhouette" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-terracottaLight text-terracotta mb-3">
+          Визуальная диагностика • Проекции страхов, органов и суставов
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          Интерактивная карта телесных проекций
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          Нажмите на любую активную точку на силуэте тела (нарисовано на HTML5 Canvas), чтобы мгновенно синтезировать данные всех глав методички: какие органы и отделы позвоночника здесь проецируются, какие страхи фиксируются и какую родовую программу несет правая (мужская) или левая (женская) сторона.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 bg-parchment/50 border border-sand rounded-2xl p-4 flex flex-col items-center">
+            <div class="flex items-center justify-between w-full text-xs font-semibold mb-2 px-2">
+              <span class="text-terracotta">☀️ Правая сторона (Ян)</span>
+              <span class="text-slateTeal">🌙 Левая сторона (Инь)</span>
+            </div>
+            <div class="body-map-container">
+              <canvas id="bodyMapCanvas" width="340" height="420" class="w-full h-full cursor-pointer rounded-xl"></canvas>
+            </div>
+            <div class="text-xs text-stone mt-2 text-center">
+              Кликните на любую точку силуэта (12 диагностических зон)
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-4">
+            <div id="bodyHotspotInspector" class="bg-linen border-2 border-sage/30 rounded-2xl p-6 space-y-4"></div>
+            <div class="flex flex-wrap gap-1.5" id="bodyHotspotPills"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fears-atlas" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-terracottaLight text-terracotta mb-3">
+          Глава 2 • Психосоматическая топография эмоций
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          Где живут наши страхи: атлас 10 базовых локализаций
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          Непрожитые экологично страхи фиксируются в определенных зонах тела задолго до развития клинических заболеваний. Фильтруйте страхи по зонам тела или кликайте на карточки, чтобы изучить маршрут входа эмоции, поражаемый орган и характерные клинические примеры из книги.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-2 mb-6" id="fearZoneFilters">
+          <button type="button" data-zone="all" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand tab-active">
+            Все 10 страхов
+          </button>
+          <button type="button" data-zone="head" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand">
+            Шея, горло и челюсть
+          </button>
+          <button type="button" data-zone="chest" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand">
+            Грудная клетка и сердце
+          </button>
+          <button type="button" data-zone="abdomen" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand">
+            Живот, желудок и малый таз
+          </button>
+          <button type="button" data-zone="back" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand">
+            Поясница и почки
+          </button>
+          <button type="button" data-zone="limbs" class="fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand">
+            Конечности (руки, колени, стопы)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3" id="fearCardsContainer"></div>
+
+          <div class="lg:col-span-5 space-y-5">
+            <div id="fearDetailInspector" class="bg-parchment/80 border border-sand rounded-xl p-5 space-y-3"></div>
+
+            <div class="bg-white border border-sand rounded-xl p-5">
+              <h3 class="font-semibold text-base text-charcoal mb-1">Уязвимость зон тела к фиксации страхов</h3>
+              <p class="text-xs text-stone mb-3">
+                Количество базовых страхов из Главы 2, проецирующихся на каждую анатомическую зону (один страх может затрагивать несколько зон).
+              </p>
+              <div class="chart-container">
+                <canvas id="fearZonesChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="joints-polarity" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slateTealLight text-slateTeal mb-3">
+          Глава 3 и Глава 4 • Полярность сторон и психосоматика суставов
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          Правая и левая стороны тела: диагностический навигатор 9 зон суставов
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          Односторонняя боль мгновенно сужает поиск первопричины: правая сторона связана с мужским родом, социумом и действиями, левая — с материнской линией, чувствами и безопасностью. Выберите сустав ниже, чтобы прочитать родовой сценарий, кейсы автора и протестировать себя по дословным вопросам из Главы 4.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div class="rounded-xl border border-terracotta/40 bg-terracottaLight/60 p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-terracotta">Правая сторона тела • Мужская энергия</span>
+              <span class="text-lg">☀️</span>
+            </div>
+            <p class="text-sm text-charcoal font-medium mb-2">
+              Отец, дедушки, авторитеты (начальник), социальная роль, рациональность, контроль, достижения и ответственность.
+            </p>
+            <div class="text-xs text-stone space-y-1">
+              <div class="font-semibold text-charcoal">Боль справа означает:</div>
+              <div>• Я мешаю действовать другим.</div>
+              <div>• Я боюсь не соответствовать чужим ожиданиям (особенно мужчин).</div>
+              <div>• Я испытываю чувство вины за свою активность.</div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-slateTeal/40 bg-slateTealLight/60 p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-slateTeal">Левая сторона тела • Женская энергия</span>
+              <span class="text-lg">🌙</span>
+            </div>
+            <p class="text-sm text-charcoal font-medium mb-2">
+              Мать, предки по женской линии, женственность, чувства, забота, внутренний мир, эмпатия и эмоциональная безопасность.
+            </p>
+            <div class="text-xs text-stone space-y-1">
+              <div class="font-semibold text-charcoal">Боль слева означает:</div>
+              <div>• Нехватку поддержки.</div>
+              <div>• Страх уязвимости.</div>
+              <div>• Страх разрешить себе чувствовать.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-parchment/60 border border-sand rounded-xl p-5">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="font-semibold text-base text-charcoal">Выберите зону для тестирования</h3>
+                <span class="text-xs text-stone">9 зон из Главы 4</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2.5" id="jointButtonsGrid"></div>
+
+              <div class="mt-4 pt-4 border-t border-sand">
+                <div class="text-xs font-semibold text-charcoal mb-2">Распределение программ по сторонам</div>
+                <div class="chart-container" style="height: 220px; max-height: 240px;">
+                  <canvas id="jointsPolarityChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-4">
+            <div id="jointDetailInspector" class="bg-white border-2 border-sage/30 rounded-2xl p-6 shadow-sm space-y-5"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rough-cleaning" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sageLight text-sage mb-3">
+          Глава 5 и Заключение • Практикум «Грубая чистка»
+        </span>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+          Интерактивный скрининг 32 страхов и протокол дыхательной дефиксации
+        </h2>
+        <p class="text-stone text-base leading-relaxed max-w-4xl mb-6">
+          Практика «Грубая чистка» позволяет снимать старые программы слой за слоем даже без профессионального владения ММТ. Откалибруйте телесный маятник (встаньте ровно: наклон вперед = «Да», наклон назад = «Нет»), отметьте активные страхи в списке из 32 пунктов (ответы автоматически сохраняются в браузере) и запустите пошаговый ассистент проработки.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          <div class="bg-parchment/70 border border-sand rounded-xl p-4">
+            <div class="text-xs font-bold text-sage uppercase mb-1">Шаг 1 • Калибровка</div>
+            <div class="font-semibold text-sm text-charcoal mb-1">Телесный маятник</div>
+            <p class="text-xs text-stone">Встаньте ровно, расслабьтесь. Определите реакцию тела: обычно <strong>наклон вперед — «Да»</strong>, <strong>наклон назад — «Нет»</strong>.</p>
+          </div>
+          <div class="bg-parchment/70 border border-sand rounded-xl p-4">
+            <div class="text-xs font-bold text-sage uppercase mb-1">Шаг 2 • Скрининг</div>
+            <div class="font-semibold text-sm text-charcoal mb-1">Список 32 страхов</div>
+            <p class="text-xs text-stone">Задавайте утверждения внутрь себя и фиксируйте только те, где тело дало ответ «Да» (наклон вперед).</p>
+          </div>
+          <div class="bg-parchment/70 border border-sand rounded-xl p-4">
+            <div class="text-xs font-bold text-sage uppercase mb-1">Шаг 3 • Регрессия</div>
+            <div class="font-semibold text-sm text-charcoal mb-1">Возраст и фигура</div>
+            <p class="text-xs text-stone">Проверьте период (<strong>эмбриональный, до 5, до 10, до 16 лет</strong>) и человека (мама, папа, бабушка, брат, сестра, друзья), вспомнив момент записи в лимбическую систему.</p>
+          </div>
+          <div class="bg-parchment/70 border border-sand rounded-xl p-4">
+            <div class="text-xs font-bold text-sage uppercase mb-1">Шаг 4 • Дыхание</div>
+            <div class="font-semibold text-sm text-charcoal mb-1">Взгляд + выдох блока</div>
+            <p class="text-xs text-stone">Смотрите в ориентир (крестик в верхнем левом/правом углу) и интенсивно выдыхайте «ком» страха через всё тело (глубокие вдохи и резкие выдохи).</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 bg-parchment/60 p-3.5 rounded-xl border border-sand">
+              <div class="flex flex-wrap gap-1.5" id="screeningCategoryBtns">
+                <button type="button" data-scat="all" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold tab-active">Все (32)</button>
+                <button type="button" data-scat="loved" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal">Близкие и смерть (9)</button>
+                <button type="button" data-scat="body" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal">Здоровье и тело (4)</button>
+                <button type="button" data-scat="control" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal">Контроль и разум (6)</button>
+                <button type="button" data-scat="space" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal">Пространство и угрозы (6)</button>
+                <button type="button" data-scat="social" class="scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal">Социум и финансы (7)</button>
+              </div>
+              <button type="button" id="resetScreeningBtn" class="text-xs font-medium text-terracotta hover:underline">
+                Очистить ответы
+              </button>
+            </div>
+
+            <div id="screeningListContainer" class="space-y-2 max-h-[620px] overflow-y-auto pr-1"></div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-5">
+            <div class="bg-parchment/50 border border-sand rounded-xl p-5">
+              <div class="flex items-center justify-between mb-1">
+                <h3 class="font-semibold text-base text-charcoal">Профиль активных страхов</h3>
+                <span id="activeFearCounter" class="text-xs font-bold px-2.5 py-1 rounded-full bg-sage text-white">Выбрано «Да»: 0</span>
+              </div>
+              <p class="text-xs text-stone mb-3">
+                Диаграмма обновляется в реальном времени по мере вашего самотестирования по 32 пунктам.
+              </p>
+              <div class="chart-container" style="height: 230px; max-height: 250px;">
+                <canvas id="screeningProfileChart"></canvas>
+              </div>
+            </div>
+
+            <div class="bg-white border-2 border-sage/40 rounded-2xl p-5 space-y-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-base text-charcoal">Ассистент проработки выбранного страха</h3>
+                <span class="text-xs font-semibold text-terracotta bg-terracottaLight px-2 py-0.5 rounded">Лимит: 1–2 в день</span>
+              </div>
+
+              <div id="activeWorkFearBanner" class="bg-linen border border-sand rounded-xl p-3 text-xs text-stone">
+                Нажмите <strong class="text-sage">«Вперёд (Да)»</strong> у любого страха слева, чтобы загрузить его в тренажер проработки возраста, фигуры и дыхания.
+              </div>
+
+              <div class="space-y-2">
+                <div class="text-xs font-semibold text-charcoal">1. Уточните период формирования (маятником):</div>
+                <div class="flex flex-wrap gap-1.5" id="agePeriodSelector">
+                  <button type="button" data-age="В эмбриональном периоде" class="age-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Эмбриональный период</button>
+                  <button type="button" data-age="До 5 лет" class="age-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">До 5 лет</button>
+                  <button type="button" data-age="До 10 лет" class="age-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">До 10 лет</button>
+                  <button type="button" data-age="До 16 лет" class="age-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">До 16 лет</button>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="text-xs font-semibold text-charcoal">2. Определите связанную фигуру:</div>
+                <div class="flex flex-wrap gap-1.5" id="figureSelector">
+                  <button type="button" data-fig="Мама" class="fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Мама</button>
+                  <button type="button" data-fig="Папа" class="fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Папа</button>
+                  <button type="button" data-fig="Бабушка" class="fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Бабушка</button>
+                  <button type="button" data-fig="Брат / Сестра" class="fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Брат / Сестра</button>
+                  <button type="button" data-fig="Друзья / Социум" class="fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white">Друзья</button>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-charcoal">3. Визуальный ориентир (глазодвигательный канал):</span>
+                  <div class="inline-flex rounded-lg border border-sand text-xs overflow-hidden">
+                    <button type="button" id="eyeLeftBtn" class="px-2.5 py-1 tab-active">Верхний левый ↖</button>
+                    <button type="button" id="eyeRightBtn" class="px-2.5 py-1 bg-white text-charcoal">Верхний правый ↗</button>
+                  </div>
+                </div>
+
+                <div class="relative h-32 rounded-xl bg-linen border border-sand flex items-center justify-center p-4 overflow-hidden">
+                  <div id="crosshairLeft" class="absolute top-3 left-4 w-7 h-7 rounded-full bg-terracotta text-white flex items-center justify-center font-bold text-sm shadow">
+                    ✚
+                  </div>
+                  <div id="crosshairRight" class="hidden absolute top-3 right-4 w-7 h-7 rounded-full bg-terracotta text-white flex items-center justify-center font-bold text-sm shadow">
+                    ✚
+                  </div>
+
+                  <div class="text-center space-y-2">
+                    <div id="breathCircle" class="w-14 h-14 mx-auto rounded-full bg-sageLight border-2 border-sage flex items-center justify-center text-xs font-semibold text-sage pulse-ring">
+                      Вдох / Выдох
+                    </div>
+                    <div id="breathPromptText" class="text-xs text-stone">
+                      Смотрите на крестик, вспомните ситуацию и дышите через «ком» в теле
+                    </div>
+                  </div>
+                </div>
+
+                <button type="button" id="toggleBreathTimerBtn" class="w-full py-2 rounded-xl bg-sage text-white text-xs font-semibold hover:bg-sage/90 transition">
+                  Запустить ритм дыхания (глубокий вдох → резкий выдох)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cases-workbook" class="space-y-6">
+      <div class="bg-white border border-sand rounded-2xl p-6 sm:p-8 shadow-sm space-y-8">
+        <div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-parchment text-charcoal border border-sand mb-3">
+            Глава 6 и Заключение • Клиническая практика и рабочая тетрадь
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-charcoal mb-3">
+            Примеры из практики, диагностика сбоев маятника и все домашние задания курса
+          </h2>
+          <p class="text-stone text-base leading-relaxed max-w-4xl">
+            В завершающем разделе представлены 4 клинических разбора участников курса, методика устранения помех при самотестировании (внутренний конфликт и гиперконтроль), а также интерактивная рабочая тетрадь со всеми домашними заданиями курса, автосохранением заметок и вкладкой прямой отправки куратору в WhatsApp.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-7 space-y-4">
+            <h3 class="font-semibold text-lg text-charcoal">4 случая проработки страхов из Главы 6</h3>
+            <div class="flex flex-wrap gap-2" id="caseTabsContainer"></div>
+            <div id="caseDetailContainer" class="bg-parchment/70 border border-sand rounded-2xl p-5 space-y-3"></div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <h3 class="font-semibold text-lg text-charcoal">Почему не работает «телесный маятник»?</h3>
+            <p class="text-xs text-stone">
+              Если тело дает разные ответы на один вопрос или показывает только «Да», причина кроется в одном из двух состояний:
+            </p>
+
+            <div class="space-y-3">
+              <div class="border border-sand rounded-xl p-4 bg-linen">
+                <div class="flex items-center gap-2 font-semibold text-sm text-charcoal mb-1">
+                  <span class="w-6 h-6 rounded-full bg-slateTeal text-white text-xs flex items-center justify-center">1</span>
+                  Внутренний конфликт и перестройка НС
+                </div>
+                <p class="text-xs text-stone leading-relaxed mb-2">
+                  Внутри человека нет тишины: мышление уже меняется, но реальная жизнь еще не устраивает — идет борьба старого «я» и нового понимания.
+                </p>
+                <div class="text-xs font-medium text-sage">
+                  ✓ Решение: временно отложить тестирование и успокоить нервную систему (медитации, телесные и дыхательные практики, расслабление).
+                </div>
+              </div>
+
+              <div class="border border-sand rounded-xl p-4 bg-linen">
+                <div class="flex items-center gap-2 font-semibold text-sm text-charcoal mb-1">
+                  <span class="w-6 h-6 rounded-full bg-terracotta text-white text-xs flex items-center justify-center">2</span>
+                  Гиперконтроль
+                </div>
+                <p class="text-xs text-stone leading-relaxed mb-2">
+                  «Суперсила» тотального контроля держит мышцы в постоянном напряжении, не давая им войти в нормотонус и закрывая доступ к чистой информации.
+                </p>
+                <div class="text-xs font-medium text-sage">
+                  ✓ Решение: сознательно отпускать «бразды правления миром», разрешать себе не контролировать и позволять событиям происходить в легкости.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- РАБОЧАЯ ТЕТРАДЬ + ВКЛАДКА ОТПРАВКИ КУРАТОРУ В WHATSAPP -->
+        <div class="pt-6 border-t border-sand space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2.5">
+                <h3 class="font-display text-2xl font-bold text-charcoal">Рабочая тетрадь: все 16 домашних заданий курса</h3>
+                <span id="hwProgressBadge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-sageLight text-sage">0 / 16</span>
+              </div>
+              <p class="text-xs text-stone">Отмечайте выполненные задания, записывайте свои телесные наблюдения и отправляйте домашнее задание куратору в WhatsApp (+79282952929).</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5" id="hwChapterFilters"></div>
+          </div>
+
+          <!-- Сетка карточек домашних заданий -->
+          <div id="homeworkCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+          <!-- Вкладка отправки домашнего задания куратору в WhatsApp -->
+          <div id="curatorSubmitTabPanel" class="hidden bg-parchment/70 border-2 border-sage/40 rounded-2xl p-5 sm:p-6 space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-sand pb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-xl bg-whatsappDark text-white flex items-center justify-center text-xl font-bold shadow-sm">
+                  💬
+                </div>
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-sage">Связь с куратором курса</span>
+                  <h4 class="font-display text-2xl font-bold text-charcoal">Отправка домашнего задания в WhatsApp</h4>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-sand text-xs">
+                <span class="text-stone">Адресат (Куратор):</span>
+                <strong class="text-charcoal font-semibold">+7 928 295-29-29</strong>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="bg-white p-4 rounded-xl border border-sand space-y-3">
+                  <div>
+                    <label for="studentNameInput" class="block text-xs font-semibold text-charcoal mb-1">
+                      Ваше Имя и Фамилия (для подписи отчета):
+                    </label>
+                    <input
+                      id="studentNameInput"
+                      type="text"
+                      placeholder="Например: Мария Иванова"
+                      class="w-full px-3 py-2 text-xs sm:text-sm bg-linen border border-sand rounded-lg focus:outline-none focus:border-sage"
+                    />
+                  </div>
+
+                  <div>
+                    <label for="waScopeSelect" class="block text-xs font-semibold text-charcoal mb-1">
+                      Какие задания включить в сообщение куратору:
+                    </label>
+                    <select
+                      id="waScopeSelect"
+                      class="w-full px-3 py-2 text-xs sm:text-sm bg-linen border border-sand rounded-lg focus:outline-none focus:border-sage"
+                    >
+                      <option value="completed_or_notes">Отмеченные «Выполнено» или с заметками</option>
+                      <option value="all">Все задания рабочей тетради</option>
+                      <option value="Введение">Только: Введение</option>
+                      <option value="Глава 1">Только: Глава 1 (Позвоночник)</option>
+                      <option value="Глава 2">Только: Глава 2 (Страхи в теле)</option>
+                      <option value="Глава 3">Только: Глава 3 (Правая и левая стороны)</option>
+                      <option value="Глава 4">Только: Глава 4 (Суставы и программы)</option>
+                      <option value="Глава 5">Только: Глава 5 («Грубая чистка»)</option>
+                      <option value="Глава 6">Только: Глава 6 (Кейсы и маятник)</option>
+                    </select>
+                  </div>
+
+                  <div class="flex items-center gap-2 pt-1">
+                    <input
+                      id="includeScreeningCheck"
+                      type="checkbox"
+                      checked
+                      class="rounded text-sage focus:ring-sage"
+                    />
+                    <label for="includeScreeningCheck" class="text-xs text-charcoal cursor-pointer">
+                      Прикрепить результаты скрининга 32 страхов и теста суставов
+                    </label>
+                  </div>
+
+                  <div>
+                    <label for="studentCommentInput" class="block text-xs font-semibold text-charcoal mb-1">
+                      Дополнительный вопрос или комментарий куратору:
+                    </label>
+                    <textarea
+                      id="studentCommentInput"
+                      rows="2"
+                      placeholder="Напишите ваш вопрос или общее самочувствие после практик..."
+                      class="w-full px-3 py-2 text-xs bg-linen border border-sand rounded-lg focus:outline-none focus:border-sage"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                  <button
+                    type="button"
+                    id="sendWhatsAppCuratorBtn"
+                    class="flex-1 py-3 px-4 rounded-xl bg-whatsappDark hover:bg-whatsapp text-white font-semibold text-xs sm:text-sm shadow-sm transition flex items-center justify-center gap-2"
+                  >
+                    <span>📤</span>
+                    <span>Отправить в WhatsApp (+79282952929)</span>
+                  </button>
+                  <button
+                    type="button"
+                    id="copyWhatsAppTextBtn"
+                    class="py-3 px-4 rounded-xl bg-white border border-sand hover:bg-parchment text-charcoal font-semibold text-xs transition"
+                  >
+                    📋 Скопировать текст
+                  </button>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-charcoal">Предпросмотр сообщения для куратора:</span>
+                  <span id="waCopyStatus" class="text-xs font-medium text-sage hidden">✓ Скопировано в буфер обмена</span>
+                </div>
+                <textarea
+                  id="waPreviewTextarea"
+                  rows="13"
+                  readonly
+                  class="w-full p-3.5 text-xs font-mono bg-white border border-sand rounded-xl text-charcoal focus:outline-none leading-relaxed"
+                ></textarea>
+                <p class="text-[11px] text-stone">
+                  При нажатии на кнопку «Отправить в WhatsApp» откроется диалог с номером <strong>+79282952929</strong> с автоматически подставленным отчетом.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-parchment border-t border-sand mt-12 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone">
+      <div>
+        <strong class="text-charcoal">«Диагностика и исцеление через тело»</strong> — интерактивный аналитический справочник по методичке Елены Перевалиной (Урок 2).
+      </div>
+      <div>
+        Правило безопасности: прорабатывайте не более 1–2 ситуаций в день, соблюдая гигиену тела, души и разума.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CURATOR_WHATSAPP_PHONE = '79282952929';
+
+    const spineSegmentsData = [
+      {
+        id: 'cervical',
+        title: 'Шейный отдел',
+        badge: '7 позвонков • 8 сегментов',
+        muscles: 'Подзатылочные мышцы, лестничные мышцы шеи, трапециевидная и грудино-ключично-сосцевидная мышцы, кожа головы, диафрагма.',
+        organs: 'Щитовидная железа, глотка, гортань.',
+        symptoms: 'Хроническое напряжение в шее, спазм горла, трудности с речью и самовыражением.',
+        psychosomatics: 'Связан со страхом быть осужденным (публичности), страхом смерти/опасности, страхом неизвестности и страхом боли/агрессии (челюсть, шея).'
+      },
+      {
+        id: 'thoracic',
+        title: 'Грудной отдел',
+        badge: '12 позвонков',
+        muscles: 'Межреберные мышцы, мышцы спины и грудные мышцы спереди.',
+        organs: 'Органы грудной полости (легкие и сердце), а также часть тонкого кишечника.',
+        symptoms: 'Сдавливание в груди, перехват дыхания, межреберные зажимы, дисфункции сердца или тонкого кишечника (отражающиеся болью в квадрицепсе бедра).',
+        psychosomatics: 'Фиксирует страх быть осужденным, страх одиночества («сдавливание в груди»), страх смерти/опасности и боли.'
+      },
+      {
+        id: 'lumbar',
+        title: 'Поясничный отдел',
+        badge: 'Поясница',
+        muscles: 'Мышцы живота, бедра и голени (включая подвздошно-поясничную мышцу).',
+        organs: 'Почки, надпочечники, мочеточники и толстый кишечник.',
+        symptoms: 'Боли в пояснице, слабость подвздошно-поясничной мышцы при перегрузке почек и надпочечников (выброс кортизола).',
+        psychosomatics: 'Главное депо базового страха (входит через ЖКТ, накапливается в почках и надпочечниках) и страха бедности.'
+      },
+      {
+        id: 'sacral',
+        title: 'Крестцовый отдел',
+        badge: 'Крестцово-копчиковый',
+        muscles: 'Мышцы таза и ягодичная область.',
+        organs: 'Вся репродуктивная система и органы малого таза: мочевой пузырь, прямая кишка, половые органы, матка.',
+        symptoms: 'Тазовые зажимы, дисфункции репродуктивной сферы и мочевого пузыря.',
+        psychosomatics: 'Поражается при страхе одиночества («они меня бросили» у женщин старше 40 лет) и блоках безопасности по женской линии.'
+      }
+    ];
+
+    const toneStatesData = {
+      normo: {
+        title: 'Нормотонус — здоровый адаптивный ответ',
+        values: [85, 25, 95],
+        desc: 'Здоровая мышца при мануальном тестировании дает уверенную силу, свободно сокращается и легко расслабляется. Нервная система сбалансирована, энергия беспрепятственно доходит до связанного внутреннего органа.'
+      },
+      hyper: {
+        title: 'Гипертонус (гиперфункция) — ложная сила и кортизол',
+        values: [95, 95, 20],
+        desc: 'Критическая ловушка диагностики: спазмированная мышца тоже показывает силу при тесте! Возникает при скрытом внутреннем напряжении («надо собраться!»). Надпочечники непрепрерывно выбрасывают кортизол («действовать, действовать!»), крупные мышцы выключаются и перебрасывают нагрузку на мелкие — так в школьном возрасте формируется сколиотическая осанка, падает зрение и появляются аллергии.'
+      },
+      hypo: {
+        title: 'Гипотонус (слабость) — сигнал блокировки органа',
+        values: [20, 75, 30],
+        desc: 'Мышца не держит нагрузку при тестировании. Это прямой маркер того, что энергия не доходит до связанного с этим нервным узлом внутреннего органа (например, слабость подвздошно-поясничной мышцы при перегрузке почек страхом), позволяя выявить сбой до острой клинической болезни.'
+      }
+    };
+
+    const bodyHotspotsData = [
+      {
+        id: 'throat',
+        label: 'Горло, шея и челюсть',
+        x: 170,
+        y: 66,
+        color: '#4A7C6F',
+        spine: 'Шейный отдел (7 позвонков, 8 сегментов)',
+        organs: 'Щитовидная железа, глотка, гортань, подзатылочные и жевательные мышцы',
+        fears: 'Страх быть осужденным (спазм у школьной доски), страх неизвестности, страх боли/агрессии (стиснутые зубы), страх смерти.',
+        action: 'Проверьте дыхание, отсутствие зажима в челюсти и невысказанные эмоции.',
+        targetHref: '#neuroanatomy',
+        targetLabel: 'Перейти к шейному отделу (Глава 1)'
+      },
+      {
+        id: 'chest',
+        label: 'Грудная клетка и сердце',
+        x: 170,
+        y: 122,
+        color: '#4A7C6F',
+        spine: 'Грудной отдел (12 позвонков)',
+        organs: 'Сердце, легкие, межреберные и грудные мышцы',
+        fears: 'Страх одиночества («сдавливание в груди»), страх публичного осуждения, страх смерти и опасности за близких.',
+        action: 'Оцените, не удерживаете ли вы ком переживаний в центре груди (см. Случай 1 из Главы 6).',
+        targetHref: '#fears-atlas',
+        targetLabel: 'Смотреть в атласе страхов (Глава 2)'
+      },
+      {
+        id: 'abdomen',
+        label: 'Солнечное сплетение и живот',
+        x: 170,
+        y: 172,
+        color: '#4A7C6F',
+        spine: 'Грудной и поясничный отделы',
+        organs: 'Желудок, тонкий и толстый кишечник',
+        fears: 'Входная дверь базового страха, страх неудач (солнечное сплетение и желудок), страх потери контроля, страх неизвестности.',
+        action: 'Исключите гиподинамию (нехватку движения) и спазм от гиперконтроля.',
+        targetHref: '#fears-atlas',
+        targetLabel: 'Смотреть в атласе страхов (Глава 2)'
+      },
+      {
+        id: 'pelvis',
+        label: 'Поясница, почки и малый таз',
+        x: 170,
+        y: 215,
+        color: '#4A7C6F',
+        spine: 'Поясничный и крестцовый отделы',
+        organs: 'Почки, надпочечники (выброс кортизола), подвздошно-поясничная мышца, мочевой пузырь, матка и репродуктивная система',
+        fears: 'Главное депо базового страха (слабость подвздошно-поясничной мышцы), страх бедности, страх одиночества у женщин 40+.',
+        action: 'Снимите перегрузку с надпочечников через расслабление и остановку навязчивого проецирования.',
+        targetHref: '#neuroanatomy',
+        targetLabel: 'Изучить поясничный отдел и кортизол'
+      },
+      {
+        id: 'right-hand',
+        label: 'Правая рука и кисть',
+        x: 92,
+        y: 218,
+        color: '#C27849',
+        spine: 'Правая сторона • Мужская линия (Ян)',
+        organs: 'Правая верхняя конечность, кисть и пальцы',
+        fears: 'Защита границ, страх потерять всё нажитое, родовые сценарии экономических потерь (пример раскулачивания у дедушки автора), страх потери контроля.',
+        action: 'Тестовый вопрос: «Я не могу брать то, что хочу?»',
+        jointId: 'hand-right',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать правую руку в Главе 4'
+      },
+      {
+        id: 'left-hand',
+        label: 'Левая рука и кисть',
+        x: 248,
+        y: 218,
+        color: '#5B7A94',
+        spine: 'Левая сторона • Женская линия (Инь)',
+        organs: 'Левая верхняя конечность и кисть',
+        fears: 'Неумение принимать помощь, страх быть обязанным, страх ответственности за других, страх не удержать отношения, деньги или творчество.',
+        action: 'Тестовый вопрос: «Я должна всё тянуть на себе, иначе меня посчитают слабой?»',
+        jointId: 'hand-left',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать левую руку в Главе 4'
+      },
+      {
+        id: 'right-hip',
+        label: 'Правое бедро (ТБС)',
+        x: 142,
+        y: 238,
+        color: '#C27849',
+        spine: 'Правая сторона • Мужская линия (Ян)',
+        organs: 'Правый тазобедренный сустав',
+        fears: 'Трудности движения в социуме (работа, карьера, статус), запрет на самореализацию по мужской линии.',
+        action: 'Тестовый вопрос: «Я не могу идти своим путем, потому что это разозлит отца в моей семье?»',
+        jointId: 'hip-right',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать правое бедро в Главе 4'
+      },
+      {
+        id: 'left-hip',
+        label: 'Левое бедро (ТБС)',
+        x: 198,
+        y: 238,
+        color: '#5B7A94',
+        spine: 'Левая сторона • Женская линия (Инь)',
+        organs: 'Левый тазобедренный сустав',
+        fears: 'Блоки безопасности в семье, недостаток заботы, прямая связь с матерью (отказ матери, недолюбленность). Требует физической доработки после психотерапии.',
+        action: 'Тестовый вопрос: «Мне страшно опираться на свою маму / женскую природу?»',
+        jointId: 'hip-left',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать левое бедро в Главе 4'
+      },
+      {
+        id: 'right-knee',
+        label: 'Правое колено',
+        x: 145,
+        y: 312,
+        color: '#C27849',
+        spine: 'Правая сторона • Мужская линия (Ян)',
+        organs: 'Правый коленный сустав',
+        fears: 'Страх сгибаться по требованию внешнего мира, страх попросить помощи у мужчины/начальника, установка «быть сильным вопреки всему».',
+        action: 'Тестовый вопрос: «Я должна быть сильной, как отец, даже если мне больно?»',
+        jointId: 'knee-right',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать правое колено в Главе 4'
+      },
+      {
+        id: 'left-knee',
+        label: 'Левое колено',
+        x: 195,
+        y: 312,
+        color: '#5B7A94',
+        spine: 'Левая сторона • Женская линия (Инь)',
+        organs: 'Левый коленный сустав',
+        fears: 'Неспособность смягчиться, подавление нежности, родовая гордыня по материнской линии («держать лицо, не показывать слез»).',
+        action: 'Тестовый вопрос: «Я никогда не покажу слабость, потому что меня бросят?»',
+        jointId: 'knee-left',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать левое колено в Главе 4'
+      },
+      {
+        id: 'right-foot',
+        label: 'Правая стопа',
+        x: 142,
+        y: 386,
+        color: '#C27849',
+        spine: 'Правая сторона • Мужская линия (Ян)',
+        organs: 'Правая стопа (шпоры, артрозы, ушибы)',
+        fears: 'Тревога за карьеру, страх проявления себя в социуме, давление ожиданий мужчин в роду, страх высоты (ноги «сводит»).',
+        action: 'Тестовый вопрос: «Я боюсь не оправдать ожидания мужчин в своей семье?»',
+        jointId: 'foot-right',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать правую стопу в Главе 4'
+      },
+      {
+        id: 'left-foot',
+        label: 'Левая стопа',
+        x: 198,
+        y: 386,
+        color: '#5B7A94',
+        spine: 'Левая сторона • Женская линия (Инь)',
+        organs: 'Левая стопа (шпоры, артрозы, ушибы)',
+        fears: 'Страх идти своим путем в личной жизни, страх бедности и бездомности по женской линии (право стоять на своей земле).',
+        action: 'Тестовый вопрос: «Я имею право стоять на своей земле / заслуживаю свой дом?»',
+        jointId: 'foot-left',
+        targetHref: '#joints-polarity',
+        targetLabel: 'Протестировать левую стопу в Главе 4'
+      }
+    ];
+
+    const tenFearsData = [
+      {
+        id: 1,
+        name: 'Страх (как базовая эмоция)',
+        zones: ['abdomen', 'back'],
+        zoneLabel: 'Желудок/кишечник → Почки и надпочечники, поясница',
+        muscle: 'Слабость подвздошно-поясничной мышцы, боль в пояснице',
+        detail: 'Изначально базовый страх заходит в тело через желудок и кишечник, но оседает и накапливается именно в почках и надпочечниках. Из-за перегрузки почек подвздошно-поясничная мышца впадает в слабость, вызывая хроническую боль в пояснице.'
+      },
+      {
+        id: 2,
+        name: 'Страх неудач',
+        zones: ['abdomen'],
+        zoneLabel: 'Солнечное сплетение, желудок',
+        muscle: 'Спазм диафрагмальной зоны и эпигастрия',
+        detail: 'Локализуется непосредственно в солнечном сплетении и прицельно бьет по желудку, вызывая дискомфорт, спазмы и нарушение пищеварения.'
+      },
+      {
+        id: 3,
+        name: 'Страх быть осужденным (публичности)',
+        zones: ['chest', 'head'],
+        zoneLabel: 'Грудной отдел, сердце и горло',
+        muscle: 'Спазм гортани и грудных мышц',
+        detail: 'Фиксируется в грудном отделе, влияя на сердце и горло. Классический пример: в детстве ребенка обсмеяли у школьной доски — от страха перехватывает дыхание и возникает спазм в горле, способный остаться на всю жизнь.'
+      },
+      {
+        id: 4,
+        name: 'Страх одиночества',
+        zones: ['abdomen', 'chest'],
+        zoneLabel: 'Нижняя часть живота, матка (у женщин), грудная клетка (сердце)',
+        muscle: 'Сдавливание в груди, напряжение мышц таза',
+        detail: 'Ощущается как сдавливание в груди и бьет по репродуктивной системе. Часто возникает у женщин старше 40 лет, когда разъезжаются дети: колоссальная энергия уходит на обслуживание мысли «они меня бросили».'
+      },
+      {
+        id: 5,
+        name: 'Страх смерти (опасности)',
+        zones: ['chest', 'head', 'back'],
+        zoneLabel: 'Грудная клетка, шея и спина',
+        muscle: 'Панцирный зажим шеи, груди и мышц спины',
+        detail: 'Локализуется в грудной клетке, шее и спине. Может быть страхом как за собственную жизнь, так и за жизнь близких людей.'
+      },
+      {
+        id: 6,
+        name: 'Страх потери контроля',
+        zones: ['abdomen', 'limbs'],
+        zoneLabel: 'Живот, солнечное сплетение и руки',
+        muscle: 'Напряжение брюшной стенки и мышц рук',
+        detail: 'Проявляется болью в животе, солнечном сплетении и руках, когда человек стремится удержать управление всеми событиями и людьми.'
+      },
+      {
+        id: 7,
+        name: 'Страх высоты',
+        zones: ['limbs'],
+        zoneLabel: 'Колени, стопы, ноги',
+        muscle: 'Судорожное напряжение («ноги начинает сводить»)',
+        detail: 'Уходит вниз в ноги, колени и стопы, вызывая ощущение, что ноги «сводит» и теряется опора.'
+      },
+      {
+        id: 8,
+        name: 'Страх неизвестности',
+        zones: ['abdomen', 'head'],
+        zoneLabel: 'Живот и горло',
+        muscle: 'Спазм горла и спазмы кишечника/живота',
+        detail: 'Фиксируется одновременно на уровне горла (невозможность озвучить будущее) и живота (тревога за выживание в неопределенности).'
+      },
+      {
+        id: 9,
+        name: 'Страх боли (или страх агрессии)',
+        zones: ['head', 'back'],
+        zoneLabel: 'Шея, спина и челюсть',
+        muscle: 'Стиснутые зубы (жевательные мышцы), зажим шеи и спины',
+        detail: 'Проявляется характерным симптомом стиснутых зубов, напряжением жевательной мускулатуры, шеи и спины в ожидании удара или конфликта.'
+      },
+      {
+        id: 10,
+        name: 'Страх бедности',
+        zones: ['back'],
+        zoneLabel: 'Поясница',
+        muscle: 'Хроническое напряжение поясничного отдела',
+        detail: 'Локализуется в пояснице, отражая тревогу за материальную опору и базовую финансовую безопасность.'
+      }
+    ];
+
+    const jointsData = [
+      {
+        id: 'hip-right',
+        name: 'Правое бедро (ТБС)',
+        side: 'right',
+        sideLabel: 'Правая сторона • Мужская линия',
+        region: 'Таз и ноги',
+        program: 'Трудности передвижения в социальной сфере (работа, карьера, статус). Запрет на реализацию себя и свое движение, часто передающийся по семейной линии через мужчин. Ощущение запрета действовать.',
+        questions: [
+          '«Я не могу идти своим путем, потому что это разозлит отца (или значимого мужчину) в моей семье?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'hip-left',
+        name: 'Левое бедро (ТБС)',
+        side: 'left',
+        sideLabel: 'Левая сторона • Женская линия',
+        region: 'Таз и ноги',
+        program: 'Блоки в сфере безопасности в собственной семье, недостаток заботы и гармонии в доме. Прямая связь с матерью; сильнейший удар — отказ матери от ребенка или тотальная недолюбленность.',
+        questions: [
+          '«Мне страшно опираться на свою женскую природу?»',
+          '«Мне страшно опираться на свою маму?»',
+          '«Мне страшно опираться на свою внутреннюю женщину?»'
+        ],
+        caseNote: 'Пример из практики: у пациентки стоял вопрос о замене левого тазобедренного сустава из-за того, что в детстве мать бросала её и отказывалась от неё. Автор глубоко отработала травму на психоэмоциональном уровне, но подчеркнула необходимость обязательной доработки сустава на уровне физики для полноценного восстановления.'
+      },
+      {
+        id: 'knee-right',
+        name: 'Правое колено',
+        side: 'right',
+        sideLabel: 'Правая сторона • Мужская линия',
+        region: 'Ноги',
+        program: 'Страх сгибаться по требованию внешнего мира. Страх попросить помощи у авторитетного мужчины, начальника, мужа. Нежелание «пригнуться» и убеждение, что нужно быть сильным вопреки всему.',
+        questions: [
+          '«Я должна быть сильной, как отец, даже если мне больно?»',
+          '«Я должна быть сильной, даже если мне плохо?»',
+          '«Я не позволю себе слабость, иначе меня не примут?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'knee-left',
+        name: 'Левое колено',
+        side: 'left',
+        sideLabel: 'Левая сторона • Женская линия',
+        region: 'Ноги',
+        program: 'Неспособность смягчиться, подавление своей нежности и мягкости. Часто это гордыня, передающаяся по материнской линии (когда мама держала лицо, не прогибалась и не показывала слез).',
+        questions: [
+          '«Я никогда не покажу слабость, потому что если я покажу слабость, меня бросят?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'foot-right',
+        name: 'Правая стопа',
+        side: 'right',
+        sideLabel: 'Правая сторона • Мужская линия',
+        region: 'Стопы (шпоры, артрозы, ушибы)',
+        program: 'Стопы символизируют право стоять на земле. Справа — тревога за карьеру и страх проявления себя в социуме (страх сделать что-то неправильно). Давление по мужской линии.',
+        questions: [
+          '«Я должна (должен) продолжать дело отца?»',
+          '«Я боюсь не оправдать ожидания мужчин в своей семье?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'foot-left',
+        name: 'Левая стопа',
+        side: 'left',
+        sideLabel: 'Левая сторона • Женская линия',
+        region: 'Стопы (шпоры, артрозы, ушибы)',
+        program: 'Страх идти своим путем в личной жизни, сомнения в праве на личную жизнь. Сюда же относится страх бедности и бездомности по женской линии (отсутствие своего жилья).',
+        questions: [
+          '«Я имею право стоять на своей земле?»',
+          '«Я не заслуживаю иметь свой дом / свое место?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'hand-right',
+        name: 'Правая рука (кисть, пальцы)',
+        side: 'right',
+        sideLabel: 'Правая сторона • Мужская линия',
+        region: 'Руки и кисти',
+        program: 'Защита своих границ. Страх потерять всё нажитое. Родовые сценарии по мужской линии, связанные с экономическими потерями (например, при раскулачивании).',
+        questions: [
+          '«Я не могу брать то, что хочу?»',
+          '«(Для мужчин): Я не могу брать то, что хочу, потому что это не по-мужски?»'
+        ],
+        caseNote: 'Личная история автора: у дедушки Елены Перевалиной на станке отрезало правый палец, а в истории их семьи как раз было раскулачивание. Родовой страх огромных потерь («когда забрали всё») передается потомкам и фиксируется в правой кисти.'
+      },
+      {
+        id: 'hand-left',
+        name: 'Левая рука',
+        side: 'left',
+        sideLabel: 'Левая сторона • Женская линия',
+        region: 'Руки',
+        program: 'Неумение принимать помощь, страх быть обязанным (возникает, когда мама в детстве всё тянула на себе и не доверяла другим), а также страх брать ответственность за других.',
+        questions: [
+          '«Я должна всё тянуть на себе, иначе меня посчитают слабой?»',
+          '«Нельзя лезть в чужие дела?»',
+          '«Если я помогу, меня обвинят в навязчивости?»'
+        ],
+        caseNote: null
+      },
+      {
+        id: 'wrist-left',
+        name: 'Левая кисть',
+        side: 'left',
+        sideLabel: 'Левая сторона • Женская линия',
+        region: 'Кисти',
+        program: 'Страх не удержать отношения, деньги или творчество.',
+        questions: [
+          '«Я не умею беречь то, что имею?»'
+        ],
+        caseNote: null
+      }
+    ];
+
+    const screeningFearsList = [
+      { id: 1, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Я боюсь, что с моим близким случится что-то плохое.' },
+      { id: 2, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Если близкий не выходит на связь, у меня возникает страх.' },
+      { id: 3, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Я боюсь потерять кого-то из родных навсегда.' },
+      { id: 4, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Мне страшно, что близкие попадут в беду.' },
+      { id: 5, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Я не справлюсь, если кому-то потребуется серьезная помощь.' },
+      { id: 6, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Я боюсь умереть от несчастного случая или болезни.' },
+      { id: 7, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Мне страшно, когда я слышу о смерти.' },
+      { id: 8, cat: 'loved', catLabel: 'Близкие и смерть', text: 'Я боюсь старости и всего, что с ней связано.' },
+      { id: 9, cat: 'loved', catLabel: 'Близкие и смерть', text: 'У меня паника перед кладбищами и похоронами.' },
+      { id: 10, cat: 'body', catLabel: 'Здоровье и тело', text: 'Я боюсь серьезных заболеваний (в т.ч. рака).' },
+      { id: 11, cat: 'body', catLabel: 'Здоровье и тело', text: 'Я боюсь посещать врачей и хирургических вмешательств.' },
+      { id: 12, cat: 'body', catLabel: 'Здоровье и тело', text: 'Я боюсь уколов и любого воздействия на мое тело.' },
+      { id: 13, cat: 'body', catLabel: 'Здоровье и тело', text: 'Мне некомфортно от любого физического недомогания.' },
+      { id: 14, cat: 'control', catLabel: 'Контроль и разум', text: 'Я боюсь потерять сознание / потерять контроль.' },
+      { id: 15, cat: 'control', catLabel: 'Контроль и разум', text: 'Если я не контролирую ситуацию, я паникую.' },
+      { id: 16, cat: 'control', catLabel: 'Контроль и разум', text: 'Я должна всё контролировать.' },
+      { id: 17, cat: 'control', catLabel: 'Контроль и разум', text: 'Я боюсь быть зависимым и оказаться беспомощным.' },
+      { id: 18, cat: 'control', catLabel: 'Контроль и разум', text: 'Я боюсь совершить ошибку.' },
+      { id: 19, cat: 'control', catLabel: 'Контроль и разум', text: 'Я боюсь сойти с ума / потерять рассудок.' },
+      { id: 20, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь землетрясений, пожаров, ураганов, наводнений.' },
+      { id: 21, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь летать на самолете, ездить на автомобиле/поезде.' },
+      { id: 22, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь лифтов и замкнутых пространств.' },
+      { id: 23, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь темноты, открытых площадей, высоты.' },
+      { id: 24, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь толпы, массовых беспорядков.' },
+      { id: 25, cat: 'space', catLabel: 'Пространство и угрозы', text: 'Я боюсь беспилотников и звука сирены.' },
+      { id: 26, cat: 'social', catLabel: 'Социум и финансы', text: 'Я боюсь выступать на публике и критики.' },
+      { id: 27, cat: 'social', catLabel: 'Социум и финансы', text: 'Мне некомфортно в незнакомом месте с незнакомыми людьми.' },
+      { id: 28, cat: 'social', catLabel: 'Социум и финансы', text: 'Я боюсь заблудиться.' },
+      { id: 29, cat: 'social', catLabel: 'Социум и финансы', text: 'Я боюсь потерять работу, деньги.' },
+      { id: 30, cat: 'social', catLabel: 'Социум и финансы', text: 'Мне страшно из-за долгов и финансовых обязательств.' },
+      { id: 31, cat: 'social', catLabel: 'Социум и финансы', text: 'Я боюсь упустить возможности из-за своей неуверенности.' },
+      { id: 32, cat: 'social', catLabel: 'Социум и финансы', text: 'Я боюсь одиночества, потому что меня не принимают.' }
+    ];
+
+    const clinicalCasesData = [
+      {
+        id: 'case1',
+        title: 'Случай 1. Всеобъемлющий страх смерти и болезней',
+        trigger: 'Почти все страхи из списка (потеря близких, болезни).',
+        root: 'В раннем детстве участница видела глазами тяжелые события; страх зафиксировался плотным комком в груди.',
+        protocol: 'Взгляд в левый верхний угол, воспоминание себя той испуганной девочкой и выдыхание напряжения через тело с принятием того, что это был выбор других людей и изменить его было нельзя.'
+      },
+      {
+        id: 'case2',
+        title: 'Случай 2. Страх быть неуслышанной обществом',
+        trigger: 'Тестирование установки левой руки «Нельзя лезть в чужие дела».',
+        root: 'Глубинный страх непринятия обществом, заставлявший всю жизнь быть на виду и «самой лучшей». Корни — в школьных годах и потребности заслужить похвалу и любовь мамы.',
+        protocol: 'Дыхательная работа с фокусом взгляда в правый верхний угол и осознанием истинной потребности в материнском принятии.'
+      },
+      {
+        id: 'case3',
+        title: 'Случай 3. Страх катаклизмов и беспилотников',
+        trigger: 'Панический страх перед сиренами и беспилотниками.',
+        root: 'Многослойная причина базовой тревожности: по роду шло принижение женщин (установка «женщина должна подчиняться»), а в этой жизни страх активировался после сильного абьюза со стороны мужчины.',
+        protocol: 'Послойное извлечение блока: сначала отрабатываются недавние триггеры из этой жизни, и только затем — глубинные родовые сценарии.'
+      },
+      {
+        id: 'case4',
+        title: 'Случай 4. Страх одиночества в 6 лет',
+        trigger: 'Страх одиночества (возраст 6 лет, фигура отца), но конкретное событие не вспоминается.',
+        root: 'Вместо точного события всплыла атмосфера: ссора родителей, ругань, возможно связанная с алкоголем. Ребенок воспринимал это как угрозу разрушения мира («Папа уйдет, и я останусь одна»), перетягивая проекции взрослых на себя.',
+        protocol: 'Работа через восстановление эмоциональной атмосферы детства и снятие детской проекции ответственности за отношения родителей.'
+      }
+    ];
+
+    const homeworkListData = [
+      { id: 'hw-0-1', chapter: 'Введение', title: 'Задание 1 (Введение)', text: 'Проанализируйте свой текущий режим дня. Присутствует ли в нем регулярная забота о физическом теле (ходьба, йога, питание)?' },
+      { id: 'hw-0-2', chapter: 'Введение', title: 'Задание 2 (Введение)', text: 'Сформулируйте, какие шаги вы можете предпринять уже на этой неделе, чтобы ввести телесные практики в свою ежедневную «гигиену».' },
+      { id: 'hw-0-3', chapter: 'Введение', title: 'Задание 3 (Введение)', text: 'Запишите свои наблюдения о том, как ваше тело обычно реагирует на сильный стресс.' },
+      { id: 'hw-1-1', chapter: 'Глава 1', title: 'Задание 4 (Глава 1)', text: 'Изучите список отделов позвоночника и связанных с ними органов. Выпишите их по памяти.' },
+      { id: 'hw-1-2', chapter: 'Глава 1', title: 'Задание 5 (Глава 1)', text: 'Вспомните и запишите свои частые мышечные боли (например, боль в шее или пояснице). Опираясь на текст главы, определите, с какими внутренними органами могут быть связаны эти зоны.' },
+      { id: 'hw-2-1', chapter: 'Глава 2', title: 'Задание 6 (Глава 2)', text: 'Ознакомьтесь со списком локализации страхов. Проанализируйте свое тело: есть ли у вас хронические напряжения в упомянутых зонах (шея, поясница, грудной отдел)?' },
+      { id: 'hw-2-2', chapter: 'Глава 2', title: 'Задание 7 (Глава 2)', text: 'Попробуйте сопоставить свои телесные ощущения с описанными страхами (например, страх неудач и дискомфорт в солнечном сплетении). Запишите свои выводы.' },
+      { id: 'hw-3-1', chapter: 'Глава 3', title: 'Задание 8 (Глава 3)', text: 'Вспомните свои недавние травмы, ушибы или повторяющиеся боли. Разделите их на два списка: «Правая сторона» и «Левая сторона».' },
+      { id: 'hw-3-2', chapter: 'Глава 3', title: 'Задание 9 (Глава 3)', text: 'Опираясь на информацию из главы, проанализируйте, какие жизненные сферы (социально-мужская или эмоционально-женская) могли находиться в напряжении в момент возникновения этих болей.' },
+      { id: 'hw-4-1', chapter: 'Глава 4', title: 'Задание 10 (Глава 4)', text: 'Выберите одну из проблемных зон вашего тела, описанных в этой главе.' },
+      { id: 'hw-4-2', chapter: 'Глава 4', title: 'Задание 11 (Глава 4)', text: 'Прочитайте вслух предложенные вопросы для тестирования. Отследите свои телесные и эмоциональные реакции. Запишите те установки, которые вызвали у вас наибольший отклик.' },
+      { id: 'hw-5-1', chapter: 'Глава 5', title: 'Задание 12 (Глава 5)', text: 'Протестируйте себя по списку страхов с помощью телесного маятника (движение вперед — «да», назад — «нет») и выпишите 1–2 активных страха.' },
+      { id: 'hw-5-3', chapter: 'Глава 5', title: 'Задание 13 (Глава 5)', text: 'Определите возраст появления активных страхов и связанных с ними людей.' },
+      { id: 'hw-5-4', chapter: 'Глава 5', title: 'Задание 14 (Глава 5)', text: 'Проведите дыхательную практику по освобождению от одного из этих страхов.' },
+      { id: 'hw-6-1', chapter: 'Глава 6', title: 'Задание 15 (Глава 6)', text: 'Оцените, насколько легко вам дается расслабление во время телесного тестирования. Мешает ли вам гиперконтроль?' },
+      { id: 'hw-6-2', chapter: 'Глава 6', title: 'Задание 16 (Глава 6)', text: 'Если вы чувствуете внутреннее сопротивление или ваш маятник не дает четких ответов, запишите 3 успокаивающие практики, которые вы будете использовать для балансировки нервной системы перед диагностикой.' }
+    ];
+
+    function wrapLabel(text, maxLen = 16) {
+      if (typeof text !== 'string' || text.length <= maxLen) return text;
+      const words = text.split(' ');
+      const lines = [];
+      let current = '';
+      words.forEach(word => {
+        if ((current + ' ' + word).trim().length <= maxLen) {
+          current = (current + ' ' + word).trim();
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      });
+      if (current) lines.push(current);
+      return lines;
+    }
+
+    const commonTooltipConfig = {
+      backgroundColor: '#2C302E',
+      titleColor: '#FAF8F5',
+      bodyColor: '#E6DFD3',
+      padding: 10,
+      cornerRadius: 8,
+      callbacks: {
+        title: function(items) {
+          if (!items.length) return '';
+          const raw = items[0].label;
+          return Array.isArray(raw) ? raw.join(' ') : raw;
+        }
+      }
+    };
+
+    const STORAGE_KEY = 'perevalina_body_guide_v2';
+
+    const appState = {
+      selectedSpine: 'cervical',
+      selectedTone: 'normo',
+      selectedHotspotId: 'throat',
+      hoveredHotspotId: null,
+      selectedFearZone: 'all',
+      selectedFearId: 1,
+      selectedJointId: 'hip-left',
+      jointResponses: {},
+      screeningCategory: 'all',
+      screeningAnswers: {},
+      activeWorkFearId: null,
+      selectedAge: null,
+      selectedFigure: null,
+      eyeChannel: 'left',
+      breathingActive: false,
+      breathTimerId: null,
+      selectedCaseId: 'case1',
+      selectedHwChapter: 'Все',
+      hwCompleted: {},
+      hwNotes: {},
+      studentName: '',
+      studentComment: ''
+    };
+
+    function loadPersistedState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed.jointResponses) appState.jointResponses = parsed.jointResponses;
+        if (parsed.screeningAnswers) appState.screeningAnswers = parsed.screeningAnswers;
+        if (parsed.hwCompleted) appState.hwCompleted = parsed.hwCompleted;
+        if (parsed.hwNotes) appState.hwNotes = parsed.hwNotes;
+        if (parsed.studentName) appState.studentName = parsed.studentName;
+        if (parsed.studentComment) appState.studentComment = parsed.studentComment;
+      } catch (e) {}
+    }
+
+    function savePersistedState() {
+      try {
+        const payload = {
+          jointResponses: appState.jointResponses,
+          screeningAnswers: appState.screeningAnswers,
+          hwCompleted: appState.hwCompleted,
+          hwNotes: appState.hwNotes,
+          studentName: appState.studentName,
+          studentComment: appState.studentComment
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {}
+    }
+
+    let foundationChart = null;
+    let muscleToneChart = null;
+    let fearZonesChart = null;
+    let jointsPolarityChart = null;
+    let screeningProfileChart = null;
+    let selectJointByIdFn = null;
+    let refreshWhatsAppPreviewFn = null;
+
+    function initFoundationSection() {
+      const ctx = document.getElementById('foundationRadarChart').getContext('2d');
+      const labels = [
+        'Снятие острой боли',
+        'Поиск первопричины',
+        'Саморегуляция (1-2 мес)',
+        'Гигиена тела и режима',
+        'Духовная и родовая работа'
+      ].map(l => wrapLabel(l, 16));
+
+      foundationChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Метод «От общего к частному»',
+            data: [70, 100, 95, 90, 95],
+            backgroundColor: 'rgba(74, 124, 111, 0.22)',
+            borderColor: '#4A7C6F',
+            pointBackgroundColor: '#4A7C6F',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { display: false },
+              grid: { color: '#E6DFD3' },
+              angleLines: { color: '#E6DFD3' },
+              pointLabels: { color: '#2C302E', font: { size: 11 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          }
+        }
+      });
+
+      const btnHolistic = document.getElementById('btnApproachHolistic');
+      const btnSymptomatic = document.getElementById('btnApproachSymptomatic');
+      const display = document.getElementById('approachDisplay');
+
+      btnHolistic.addEventListener('click', () => {
+        btnHolistic.className = 'px-3 py-1.5 rounded-md tab-active transition';
+        btnSymptomatic.className = 'px-3 py-1.5 rounded-md text-stone hover:text-charcoal transition';
+        display.innerHTML = `
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">1</span>
+            <div>
+              <div class="font-semibold text-charcoal">Первопричина на уровне эмоций, энергии и рода</div>
+              <p class="text-sm text-stone">Эмоциональный или кармический дисбаланс первичен: со временем он спускается на уровень нервной системы, мышц и внутренних органов.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">2</span>
+            <div>
+              <div class="font-semibold text-charcoal">Глубокая перестройка за 1–2 месяца</div>
+              <p class="text-sm text-stone">Работа не гонится за мгновенным «вау-эффектом», а запускает естественные процессы саморегуляции и фундаментального восстановления.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-sage text-white flex items-center justify-center shrink-0 font-bold">3</span>
+            <div>
+              <div class="font-semibold text-charcoal">Многоступенчатая очистка и физическая доработка</div>
+              <p class="text-sm text-stone">Очищается духовная и психоэмоциональная сфера, но при органических изменениях (например, в суставах) или гиподинамии обязательно подключается физика.</p>
+            </div>
+          </div>
+        `;
+        foundationChart.data.datasets[0] = {
+          label: 'Метод «От общего к частному»',
+          data: [70, 100, 95, 90, 95],
+          backgroundColor: 'rgba(74, 124, 111, 0.22)',
+          borderColor: '#4A7C6F',
+          pointBackgroundColor: '#4A7C6F',
+          borderWidth: 2
+        };
+        foundationChart.update();
+      });
+
+      btnSymptomatic.addEventListener('click', () => {
+        btnSymptomatic.className = 'px-3 py-1.5 rounded-md tab-active transition';
+        btnHolistic.className = 'px-3 py-1.5 rounded-md text-stone hover:text-charcoal transition';
+        display.innerHTML = `
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-terracotta text-white flex items-center justify-center shrink-0 font-bold">1</span>
+            <div>
+              <div class="font-semibold text-charcoal">Фокус только на физическом симптоме</div>
+              <p class="text-sm text-stone">Снятие локальной боли на уровне физики производит быстрый «вау-эффект», но не затрагивает источник сбоя.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-terracotta text-white flex items-center justify-center shrink-0 font-bold">2</span>
+            <div>
+              <div class="font-semibold text-charcoal">Кратковременный результат</div>
+              <p class="text-sm text-stone">Поскольку эмоциональный или родовой блок остается в нервной системе, напряжение возвращается или переходит на соседние группы мышц.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="w-8 h-8 rounded-lg bg-terracotta text-white flex items-center justify-center shrink-0 font-bold">3</span>
+            <div>
+              <div class="font-semibold text-charcoal">Риск хронизации в органе</div>
+              <p class="text-sm text-stone">Без разгрузки надпочечников и снятия фиксации организму приходится годами компенсировать блок ценой ресурса внутренних органов.</p>
+            </div>
+          </div>
+        `;
+        foundationChart.data.datasets[0] = {
+          label: 'Симптоматический подход',
+          data: [95, 25, 30, 45, 20],
+          backgroundColor: 'rgba(194, 120, 73, 0.22)',
+          borderColor: '#C27849',
+          pointBackgroundColor: '#C27849',
+          borderWidth: 2
+        };
+        foundationChart.update();
+      });
+    }
+
+    function renderSpineSection() {
+      const grid = document.getElementById('spineSelectorGrid');
+      const detail = document.getElementById('spineDetailCard');
+
+      grid.innerHTML = spineSegmentsData.map(seg => {
+        const active = seg.id === appState.selectedSpine;
+        return `
+          <button
+            type="button"
+            data-spine="${seg.id}"
+            class="spine-btn text-left p-3.5 rounded-xl border transition ${
+              active
+                ? 'bg-sage text-white border-sage shadow-sm'
+                : 'bg-white text-charcoal border-sand hover:bg-parchment'
+            }"
+          >
+            <div class="text-[11px] font-medium ${active ? 'text-sageLight' : 'text-stone'}">${seg.badge}</div>
+            <div class="font-semibold text-sm mt-0.5">${seg.title}</div>
+          </button>
+        `;
+      }).join('');
+
+      grid.querySelectorAll('.spine-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedSpine = btn.dataset.spine;
+          renderSpineSection();
+        });
+      });
+
+      const current = spineSegmentsData.find(s => s.id === appState.selectedSpine);
+      detail.innerHTML = `
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sand pb-3">
+          <h4 class="font-display text-2xl font-bold text-charcoal">${current.title}</h4>
+          <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-white border border-sand text-sage">${current.badge}</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div class="bg-white rounded-xl p-3.5 border border-sand">
+            <div class="text-xs font-bold uppercase tracking-wider text-sage mb-1">Иннервируемые мышцы</div>
+            <p class="text-charcoal leading-relaxed">${current.muscles}</p>
+          </div>
+          <div class="bg-white rounded-xl p-3.5 border border-sand">
+            <div class="text-xs font-bold uppercase tracking-wider text-terracotta mb-1">Связанные внутренние органы</div>
+            <p class="text-charcoal leading-relaxed">${current.organs}</p>
+          </div>
+        </div>
+        <div class="text-sm space-y-1.5">
+          <div><strong class="text-charcoal">Клинические проявления:</strong> <span class="text-stone">${current.symptoms}</span></div>
+          <div><strong class="text-charcoal">Психосоматическая связь:</strong> <span class="text-stone">${current.psychosomatics}</span></div>
+        </div>
+      `;
+    }
+
+    function initToneSection() {
+      const ctx = document.getElementById('muscleToneChart').getContext('2d');
+      const labels = [
+        'Сила на тесте ММТ',
+        'Уровень кортизола и спазма',
+        'Энергия в органе'
+      ].map(l => wrapLabel(l, 15));
+
+      muscleToneChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Показатель (%)',
+            data: toneStatesData.normo.values,
+            backgroundColor: ['#4A7C6F', '#C27849', '#5B7A94'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              grid: { color: '#E6DFD3' },
+              ticks: { color: '#636965', font: { size: 11 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#2C302E', font: { size: 11 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          }
+        }
+      });
+
+      const updateToneUI = () => {
+        const info = toneStatesData[appState.selectedTone];
+        document.getElementById('toneExplanationBox').innerHTML = `
+          <div class="font-semibold text-charcoal mb-1">${info.title}</div>
+          <p>${info.desc}</p>
+        `;
+        muscleToneChart.data.datasets[0].data = info.values;
+        muscleToneChart.update();
+
+        document.querySelectorAll('.tone-btn').forEach(btn => {
+          if (btn.dataset.tone === appState.selectedTone) {
+            btn.className = 'tone-btn px-2.5 py-2 rounded-lg border border-sage tab-active';
+          } else {
+            btn.className = 'tone-btn px-2.5 py-2 rounded-lg border border-sand bg-white text-charcoal hover:bg-parchment';
+          }
+        });
+      };
+
+      document.querySelectorAll('.tone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedTone = btn.dataset.tone;
+          updateToneUI();
+        });
+      });
+
+      updateToneUI();
+    }
+
+    function initBodySilhouetteSection() {
+      const canvas = document.getElementById('bodyMapCanvas');
+      const ctx = canvas.getContext('2d');
+
+      const drawSilhouette = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#FAF8F5';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.save();
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = '#D6CEC0';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(170, 12);
+        ctx.lineTo(170, 408);
+        ctx.stroke();
+        ctx.restore();
+
+        ctx.fillStyle = '#E8E1D5';
+        ctx.strokeStyle = '#B8AFA0';
+        ctx.lineWidth = 1.8;
+
+        ctx.beginPath();
+        ctx.arc(170, 34, 21, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.roundRect(161, 54, 18, 18, 4);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(124, 76);
+        ctx.quadraticCurveTo(170, 68, 216, 76);
+        ctx.lineTo(206, 224);
+        ctx.quadraticCurveTo(170, 232, 134, 224);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(124, 78);
+        ctx.lineTo(94, 152);
+        ctx.lineTo(88, 216);
+        ctx.lineTo(101, 219);
+        ctx.lineTo(111, 156);
+        ctx.lineTo(131, 102);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(216, 78);
+        ctx.lineTo(246, 152);
+        ctx.lineTo(252, 216);
+        ctx.lineTo(239, 219);
+        ctx.lineTo(229, 156);
+        ctx.lineTo(209, 102);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(135, 224);
+        ctx.lineTo(166, 226);
+        ctx.lineTo(158, 384);
+        ctx.lineTo(134, 388);
+        ctx.lineTo(136, 310);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(205, 224);
+        ctx.lineTo(174, 226);
+        ctx.lineTo(182, 384);
+        ctx.lineTo(206, 388);
+        ctx.lineTo(204, 310);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        bodyHotspotsData.forEach(spot => {
+          const isSelected = spot.id === appState.selectedHotspotId;
+          const isHovered = spot.id === appState.hoveredHotspotId;
+
+          if (isSelected || isHovered) {
+            ctx.beginPath();
+            ctx.arc(spot.x, spot.y, isSelected ? 15 : 12, 0, Math.PI * 2);
+            ctx.fillStyle = spot.color + '33';
+            ctx.fill();
+          }
+
+          ctx.beginPath();
+          ctx.arc(spot.x, spot.y, isSelected ? 8 : 6.5, 0, Math.PI * 2);
+          ctx.fillStyle = spot.color;
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#FFFFFF';
+          ctx.stroke();
+        });
+      };
+
+      const renderHotspotInspector = () => {
+        const spot = bodyHotspotsData.find(s => s.id === appState.selectedHotspotId);
+        document.getElementById('bodyHotspotInspector').innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sand pb-3">
+            <div>
+              <div class="text-xs font-bold uppercase tracking-wider" style="color: ${spot.color}">${spot.spine}</div>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-charcoal">${spot.label}</h3>
+            </div>
+            <a
+              href="${spot.targetHref}"
+              data-joint-jump="${spot.jointId || ''}"
+              class="hotspot-jump-link px-3 py-1.5 rounded-lg text-xs font-semibold bg-sage text-white hover:bg-sage/90 transition shadow-sm"
+            >
+              ${spot.targetLabel} →
+            </a>
+          </div>
+          <div class="space-y-2.5 text-sm">
+            <div class="bg-white p-3.5 rounded-xl border border-sand">
+              <strong class="text-charcoal">Органы и структуры:</strong> <span class="text-stone">${spot.organs}</span>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-sand">
+              <strong class="text-charcoal">Психосоматика и страхи:</strong> <span class="text-stone">${spot.fears}</span>
+            </div>
+            <div class="bg-sageLight/60 p-3.5 rounded-xl border border-sage/30 text-charcoal font-medium">
+              🧭 Диагностический фокус: ${spot.action}
+            </div>
+          </div>
+        `;
+
+        const jumpLink = document.querySelector('.hotspot-jump-link');
+        if (jumpLink && jumpLink.dataset.jointJump && typeof selectJointByIdFn === 'function') {
+          jumpLink.addEventListener('click', () => {
+            selectJointByIdFn(jumpLink.dataset.jointJump);
+          });
+        }
+
+        const pills = document.getElementById('bodyHotspotPills');
+        pills.innerHTML = bodyHotspotsData.map(s => {
+          const active = s.id === appState.selectedHotspotId;
+          return `
+            <button
+              type="button"
+              data-spot="${s.id}"
+              class="spot-pill px-2.5 py-1 rounded-lg text-xs font-medium border transition ${
+                active ? 'tab-active' : 'bg-white text-charcoal border-sand hover:bg-parchment'
+              }"
+            >
+              ${s.label}
+            </button>
+          `;
+        }).join('');
+
+        pills.querySelectorAll('.spot-pill').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.selectedHotspotId = btn.dataset.spot;
+            drawSilhouette();
+            renderHotspotInspector();
+          });
+        });
+      };
+
+      const getCanvasPos = (evt) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        return {
+          x: (evt.clientX - rect.left) * scaleX,
+          y: (evt.clientY - rect.top) * scaleY
+        };
+      };
+
+      canvas.addEventListener('mousemove', (evt) => {
+        const pos = getCanvasPos(evt);
+        const found = bodyHotspotsData.find(s => Math.hypot(s.x - pos.x, s.y - pos.y) <= 16);
+        const newHover = found ? found.id : null;
+        if (newHover !== appState.hoveredHotspotId) {
+          appState.hoveredHotspotId = newHover;
+          drawSilhouette();
+        }
+      });
+
+      canvas.addEventListener('click', (evt) => {
+        const pos = getCanvasPos(evt);
+        const found = bodyHotspotsData.find(s => Math.hypot(s.x - pos.x, s.y - pos.y) <= 18);
+        if (found) {
+          appState.selectedHotspotId = found.id;
+          drawSilhouette();
+          renderHotspotInspector();
+        }
+      });
+
+      drawSilhouette();
+      renderHotspotInspector();
+    }
+
+    function initFearsAtlasSection() {
+      const ctx = document.getElementById('fearZonesChart').getContext('2d');
+      const zoneLabels = [
+        'Живот, желудок и малый таз',
+        'Шея, горло и челюсть',
+        'Грудная клетка и сердце',
+        'Поясница и почки',
+        'Конечности (руки, ноги)'
+      ].map(l => wrapLabel(l, 16));
+
+      fearZonesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: zoneLabels,
+          datasets: [{
+            label: 'Число страхов',
+            data: [4, 3, 3, 3, 2],
+            backgroundColor: '#C27849',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              min: 0,
+              max: 5,
+              ticks: { stepSize: 1, color: '#636965', font: { size: 11 } },
+              grid: { color: '#E6DFD3' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: '#2C302E', font: { size: 11 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          }
+        }
+      });
+
+      const renderFears = () => {
+        const container = document.getElementById('fearCardsContainer');
+        const filtered = appState.selectedFearZone === 'all'
+          ? tenFearsData
+          : tenFearsData.filter(f => f.zones.includes(appState.selectedFearZone));
+
+        if (!filtered.some(f => f.id === appState.selectedFearId) && filtered.length) {
+          appState.selectedFearId = filtered[0].id;
+        }
+
+        container.innerHTML = filtered.map(fear => {
+          const active = fear.id === appState.selectedFearId;
+          return `
+            <button
+              type="button"
+              data-fear-id="${fear.id}"
+              class="fear-card-btn text-left p-4 rounded-xl border transition flex flex-col justify-between ${
+                active
+                  ? 'bg-terracottaLight border-terracotta shadow-sm'
+                  : 'bg-linen border-sand hover:bg-parchment'
+              }"
+            >
+              <div>
+                <div class="text-[11px] font-semibold text-terracotta mb-1">№ ${fear.id} • ${fear.zoneLabel}</div>
+                <div class="font-semibold text-sm text-charcoal">${fear.name}</div>
+              </div>
+              <div class="text-xs text-stone mt-2 pt-2 border-t border-sand/70">${fear.muscle}</div>
+            </button>
+          `;
+        }).join('');
+
+        container.querySelectorAll('.fear-card-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.selectedFearId = Number(btn.dataset.fearId);
+            renderFears();
+          });
+        });
+
+        const selectedFear = tenFearsData.find(f => f.id === appState.selectedFearId);
+        document.getElementById('fearDetailInspector').innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-terracotta">Детализация локализации № ${selectedFear.id}</span>
+            <span class="text-xs px-2 py-0.5 rounded bg-white border border-sand text-stone">Глава 2</span>
+          </div>
+          <h4 class="font-display text-2xl font-bold text-charcoal">${selectedFear.name}</h4>
+          <div class="bg-white rounded-xl p-3 border border-sand text-xs space-y-1">
+            <div><strong class="text-charcoal">Зона и орган-мишень:</strong> <span class="text-stone">${selectedFear.zoneLabel}</span></div>
+            <div><strong class="text-charcoal">Мышечный отклик:</strong> <span class="text-stone">${selectedFear.muscle}</span></div>
+          </div>
+          <p class="text-sm text-charcoal leading-relaxed">${selectedFear.detail}</p>
+        `;
+      };
+
+      document.querySelectorAll('.fear-zone-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedFearZone = btn.dataset.zone;
+          document.querySelectorAll('.fear-zone-btn').forEach(b => {
+            b.className = b.dataset.zone === appState.selectedFearZone
+              ? 'fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sage tab-active'
+              : 'fear-zone-btn px-3.5 py-1.5 rounded-full text-xs font-semibold border border-sand bg-parchment text-charcoal hover:bg-sand';
+          });
+          renderFears();
+        });
+      });
+
+      renderFears();
+    }
+
+    function initJointsSection() {
+      const ctx = document.getElementById('jointsPolarityChart').getContext('2d');
+      jointsPolarityChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Правая сторона (Ян / Социум)', 'Левая сторона (Инь / Семья)'],
+          datasets: [{
+            data: [4, 5],
+            backgroundColor: ['#C27849', '#5B7A94'],
+            borderWidth: 2,
+            borderColor: '#FAF8F5'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#2C302E', font: { size: 11 }, boxWidth: 12 }
+            },
+            tooltip: commonTooltipConfig
+          }
+        }
+      });
+
+      const renderJoints = () => {
+        const grid = document.getElementById('jointButtonsGrid');
+        grid.innerHTML = jointsData.map(j => {
+          const isSelected = j.id === appState.selectedJointId;
+          const isRight = j.side === 'right';
+          let btnClasses = 'text-left p-3 rounded-xl border transition ';
+          if (isSelected) {
+            btnClasses += isRight
+              ? 'bg-terracotta text-white border-terracotta shadow-sm'
+              : 'bg-slateTeal text-white border-slateTeal shadow-sm';
+          } else {
+            btnClasses += 'bg-white text-charcoal border-sand hover:bg-linen';
+          }
+          return `
+            <button type="button" data-joint="${j.id}" class="${btnClasses}">
+              <div class="text-[10px] uppercase tracking-wider ${isSelected ? 'text-white/90' : (isRight ? 'text-terracotta' : 'text-slateTeal')} font-semibold">
+                ${isRight ? '☀️ Правая' : '🌙 Левая'}
+              </div>
+              <div class="font-semibold text-xs sm:text-sm mt-0.5">${j.name}</div>
+            </button>
+          `;
+        }).join('');
+
+        grid.querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.selectedJointId = btn.dataset.joint;
+            renderJoints();
+          });
+        });
+
+        const joint = jointsData.find(j => j.id === appState.selectedJointId);
+        const isRight = joint.side === 'right';
+        const badgeClass = isRight ? 'bg-terracottaLight text-terracotta' : 'bg-slateTealLight text-slateTeal';
+
+        const questionsHtml = joint.questions.map((q, idx) => {
+          const key = `${joint.id}-${idx}`;
+          const resp = appState.jointResponses[key] || null;
+          return `
+            <div class="p-3.5 rounded-xl bg-linen border border-sand space-y-2.5">
+              <div class="font-medium text-sm text-charcoal italic">${q}</div>
+              <div class="flex items-center gap-2 text-xs">
+                <button
+                  type="button"
+                  data-qkey="${key}"
+                  data-val="yes"
+                  class="q-resp-btn px-3 py-1 rounded-lg border font-medium transition ${
+                    resp === 'yes'
+                      ? 'bg-terracotta text-white border-terracotta'
+                      : 'bg-white text-charcoal border-sand hover:bg-parchment'
+                  }"
+                >
+                  Откликается в теле
+                </button>
+                <button
+                  type="button"
+                  data-qkey="${key}"
+                  data-val="no"
+                  class="q-resp-btn px-3 py-1 rounded-lg border font-medium transition ${
+                    resp === 'no'
+                      ? 'bg-sage text-white border-sage'
+                      : 'bg-white text-charcoal border-sand hover:bg-parchment'
+                  }"
+                >
+                  Нейтрально
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        const caseHtml = joint.caseNote
+          ? `<div class="p-4 rounded-xl bg-parchment border border-sand text-xs sm:text-sm text-charcoal leading-relaxed">
+               <span class="font-bold text-sage">📖 Из практики автора:</span> ${joint.caseNote}
+             </div>`
+          : '';
+
+        document.getElementById('jointDetailInspector').innerHTML = `
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sand pb-3">
+            <div>
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${badgeClass} mb-1">
+                ${joint.sideLabel}
+              </span>
+              <h3 class="font-display text-2xl sm:text-3xl font-bold text-charcoal">${joint.name}</h3>
+            </div>
+            <span class="text-xs text-stone bg-linen px-3 py-1 rounded-lg border border-sand">${joint.region}</span>
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-stone">Психосоматическая программа и родовой сценарий</div>
+            <p class="text-sm sm:text-base text-charcoal leading-relaxed">${joint.program}</p>
+          </div>
+
+          <div class="space-y-2.5">
+            <div class="text-xs font-bold uppercase tracking-wider text-sage">Дословные вопросы для самотестирования (произнесите вслух)</div>
+            ${questionsHtml}
+          </div>
+
+          ${caseHtml}
+        `;
+
+        document.querySelectorAll('.q-resp-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.jointResponses[btn.dataset.qkey] = btn.dataset.val;
+            savePersistedState();
+            renderJoints();
+            if (typeof refreshWhatsAppPreviewFn === 'function') refreshWhatsAppPreviewFn();
+          });
+        });
+      };
+
+      selectJointByIdFn = (id) => {
+        if (jointsData.some(j => j.id === id)) {
+          appState.selectedJointId = id;
+          renderJoints();
+        }
+      };
+
+      renderJoints();
+    }
+
+    function initRoughCleaningSection() {
+      const ctx = document.getElementById('screeningProfileChart').getContext('2d');
+      const catLabels = [
+        'Близкие и смерть',
+        'Здоровье и тело',
+        'Контроль и разум',
+        'Пространство',
+        'Социум и финансы'
+      ].map(l => wrapLabel(l, 14));
+
+      screeningProfileChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: catLabels,
+          datasets: [{
+            label: 'Активных страхов («Да»)',
+            data: [0, 0, 0, 0, 0],
+            backgroundColor: '#4A7C6F',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              min: 0,
+              max: 9,
+              ticks: { stepSize: 2, color: '#636965', font: { size: 11 } },
+              grid: { color: '#E6DFD3' }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#2C302E', font: { size: 10 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: commonTooltipConfig
+          }
+        }
+      });
+
+      const updateChartAndCounter = () => {
+        const counts = { loved: 0, body: 0, control: 0, space: 0, social: 0 };
+        let totalYes = 0;
+        screeningFearsList.forEach(item => {
+          if (appState.screeningAnswers[item.id] === 'yes') {
+            counts[item.cat]++;
+            totalYes++;
+          }
+        });
+        document.getElementById('activeFearCounter').textContent = `Выбрано «Да»: ${totalYes}`;
+        screeningProfileChart.data.datasets[0].data = [
+          counts.loved,
+          counts.body,
+          counts.control,
+          counts.space,
+          counts.social
+        ];
+        screeningProfileChart.update();
+      };
+
+      const updateWorkBanner = () => {
+        const banner = document.getElementById('activeWorkFearBanner');
+        if (!appState.activeWorkFearId) {
+          banner.innerHTML = 'Нажмите <strong class="text-sage">«Вперёд (Да)»</strong> у любого страха слева, чтобы загрузить его в тренажер проработки возраста, фигуры и дыхания.';
+          return;
+        }
+        const fear = screeningFearsList.find(f => f.id === appState.activeWorkFearId);
+        const ageTxt = appState.selectedAge ? ` • Период: <strong>${appState.selectedAge}</strong>` : '';
+        const figTxt = appState.selectedFigure ? ` • Фигура: <strong>${appState.selectedFigure}</strong>` : '';
+        banner.innerHTML = `
+          <div class="text-xs font-semibold text-sage mb-1">В фокусе проработки (№ ${fear.id}):</div>
+          <div class="text-sm font-medium text-charcoal mb-1">«${fear.text}»</div>
+          <div class="text-xs text-stone">Категория: ${fear.catLabel}${ageTxt}${figTxt}</div>
+        `;
+      };
+
+      const renderScreeningList = () => {
+        const container = document.getElementById('screeningListContainer');
+        const list = appState.screeningCategory === 'all'
+          ? screeningFearsList
+          : screeningFearsList.filter(i => i.cat === appState.screeningCategory);
+
+        container.innerHTML = list.map(item => {
+          const ans = appState.screeningAnswers[item.id] || null;
+          const isFocused = appState.activeWorkFearId === item.id;
+          return `
+            <div class="p-3 rounded-xl border transition flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 ${
+              ans === 'yes'
+                ? 'bg-terracottaLight/60 border-terracotta/50'
+                : (isFocused ? 'bg-sageLight/50 border-sage' : 'bg-linen border-sand')
+            }">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 text-[11px] text-stone mb-0.5">
+                  <span class="font-bold text-charcoal">#${item.id}</span>
+                  <span>•</span>
+                  <span>${item.catLabel}</span>
+                </div>
+                <div class="text-xs sm:text-sm text-charcoal font-medium">${item.text}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0 text-xs">
+                <button
+                  type="button"
+                  data-sid="${item.id}"
+                  data-sval="yes"
+                  class="scr-ans-btn px-2.5 py-1.5 rounded-lg border font-semibold transition ${
+                    ans === 'yes'
+                      ? 'bg-terracotta text-white border-terracotta'
+                      : 'bg-white text-charcoal border-sand hover:bg-parchment'
+                  }"
+                >
+                  ↑ Вперёд (Да)
+                </button>
+                <button
+                  type="button"
+                  data-sid="${item.id}"
+                  data-sval="no"
+                  class="scr-ans-btn px-2.5 py-1.5 rounded-lg border font-medium transition ${
+                    ans === 'no'
+                      ? 'bg-sage text-white border-sage'
+                      : 'bg-white text-stone border-sand hover:bg-parchment'
+                  }"
+                >
+                  ↓ Назад (Нет)
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        container.querySelectorAll('.scr-ans-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = Number(btn.dataset.sid);
+            const val = btn.dataset.sval;
+            appState.screeningAnswers[id] = val;
+            if (val === 'yes') {
+              appState.activeWorkFearId = id;
+            }
+            savePersistedState();
+            updateChartAndCounter();
+            updateWorkBanner();
+            renderScreeningList();
+            if (typeof refreshWhatsAppPreviewFn === 'function') refreshWhatsAppPreviewFn();
+          });
+        });
+      };
+
+      document.querySelectorAll('.scat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.screeningCategory = btn.dataset.scat;
+          document.querySelectorAll('.scat-btn').forEach(b => {
+            b.className = b.dataset.scat === appState.screeningCategory
+              ? 'scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold tab-active'
+              : 'scat-btn px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-sand text-charcoal';
+          });
+          renderScreeningList();
+        });
+      });
+
+      document.getElementById('resetScreeningBtn').addEventListener('click', () => {
+        appState.screeningAnswers = {};
+        appState.activeWorkFearId = null;
+        appState.selectedAge = null;
+        appState.selectedFigure = null;
+        savePersistedState();
+        updateChartAndCounter();
+        updateWorkBanner();
+        renderScreeningList();
+        if (typeof refreshWhatsAppPreviewFn === 'function') refreshWhatsAppPreviewFn();
+      });
+
+      document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedAge = btn.dataset.age;
+          document.querySelectorAll('.age-btn').forEach(b => {
+            b.className = b.dataset.age === appState.selectedAge
+              ? 'age-btn px-2.5 py-1 rounded-lg text-xs border border-sage tab-active'
+              : 'age-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white';
+          });
+          updateWorkBanner();
+        });
+      });
+
+      document.querySelectorAll('.fig-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          appState.selectedFigure = btn.dataset.fig;
+          document.querySelectorAll('.fig-btn').forEach(b => {
+            b.className = b.dataset.fig === appState.selectedFigure
+              ? 'fig-btn px-2.5 py-1 rounded-lg text-xs border border-sage tab-active'
+              : 'fig-btn px-2.5 py-1 rounded-lg text-xs border border-sand bg-parchment hover:bg-sage hover:text-white';
+          });
+          updateWorkBanner();
+        });
+      });
+
+      const eyeLeftBtn = document.getElementById('eyeLeftBtn');
+      const eyeRightBtn = document.getElementById('eyeRightBtn');
+      const crossLeft = document.getElementById('crosshairLeft');
+      const crossRight = document.getElementById('crosshairRight');
+
+      eyeLeftBtn.addEventListener('click', () => {
+        eyeLeftBtn.className = 'px-2.5 py-1 tab-active';
+        eyeRightBtn.className = 'px-2.5 py-1 bg-white text-charcoal';
+        crossLeft.classList.remove('hidden');
+        crossRight.classList.add('hidden');
+      });
+
+      eyeRightBtn.addEventListener('click', () => {
+        eyeRightBtn.className = 'px-2.5 py-1 tab-active';
+        eyeLeftBtn.className = 'px-2.5 py-1 bg-white text-charcoal';
+        crossRight.classList.remove('hidden');
+        crossLeft.classList.add('hidden');
+      });
+
+      const toggleBreathBtn = document.getElementById('toggleBreathTimerBtn');
+      const breathCircle = document.getElementById('breathCircle');
+      const breathPrompt = document.getElementById('breathPromptText');
+      let inhalePhase = true;
+
+      toggleBreathBtn.addEventListener('click', () => {
+        if (appState.breathingActive) {
+          clearInterval(appState.breathTimerId);
+          appState.breathingActive = false;
+          toggleBreathBtn.textContent = 'Запустить ритм дыхания (глубокий вдох → резкий выдох)';
+          breathCircle.style.transform = 'scale(1)';
+          breathCircle.textContent = 'Вдох / Выдох';
+          breathPrompt.textContent = 'Смотрите на крестик, вспомните ситуацию и дышите через «ком» в теле';
+        } else {
+          appState.breathingActive = true;
+          toggleBreathBtn.textContent = 'Остановить дыхательный тренажер';
+          const runStep = () => {
+            if (inhalePhase) {
+              breathCircle.style.transform = 'scale(1.28)';
+              breathCircle.textContent = 'Глубокий вдох';
+              breathPrompt.textContent = 'Удерживайте взгляд на крестике, соберите ком страха...';
+            } else {
+              breathCircle.style.transform = 'scale(0.88)';
+              breathCircle.textContent = 'Резкий выдох!';
+              breathPrompt.textContent = 'Резко выдыхайте напряжение через всё тело, проживая эмоцию!';
+            }
+            inhalePhase = !inhalePhase;
+          };
+          runStep();
+          appState.breathTimerId = setInterval(runStep, 3500);
+        }
+      });
+
+      const firstYesId = Object.keys(appState.screeningAnswers).find(k => appState.screeningAnswers[k] === 'yes');
+      if (firstYesId) {
+        appState.activeWorkFearId = Number(firstYesId);
+      }
+
+      updateChartAndCounter();
+      updateWorkBanner();
+      renderScreeningList();
+    }
+
+    function openWhatsAppMessage(text) {
+      const url = `https://wa.me/${CURATOR_WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function initCasesAndWorkbookSection() {
+      const renderCases = () => {
+        const tabs = document.getElementById('caseTabsContainer');
+        tabs.innerHTML = clinicalCasesData.map((c, idx) => {
+          const active = c.id === appState.selectedCaseId;
+          return `
+            <button
+              type="button"
+              data-case="${c.id}"
+              class="case-tab-btn px-3 py-1.5 rounded-xl text-xs font-semibold border transition ${
+                active
+                  ? 'tab-active'
+                  : 'bg-white text-charcoal border-sand hover:bg-parchment'
+              }"
+            >
+              Случай ${idx + 1}
+            </button>
+          `;
+        }).join('');
+
+        tabs.querySelectorAll('.case-tab-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.selectedCaseId = btn.dataset.case;
+            renderCases();
+          });
+        });
+
+        const current = clinicalCasesData.find(c => c.id === appState.selectedCaseId);
+        document.getElementById('caseDetailContainer').innerHTML = `
+          <h4 class="font-display text-2xl font-bold text-charcoal">${current.title}</h4>
+          <div class="space-y-2.5 text-sm">
+            <div class="bg-white p-3.5 rounded-xl border border-sand">
+              <span class="font-semibold text-terracotta">Запрос / Триггер:</span>
+              <span class="text-charcoal">${current.trigger}</span>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-sand">
+              <span class="font-semibold text-slateTeal">Выявленная первопричина:</span>
+              <span class="text-charcoal">${current.root}</span>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-sand">
+              <span class="font-semibold text-sage">Протокол проработки:</span>
+              <span class="text-charcoal">${current.protocol}</span>
+            </div>
+          </div>
+        `;
+      };
+
+      const chapters = [
+        'Все',
+        'Введение',
+        'Глава 1',
+        'Глава 2',
+        'Глава 3',
+        'Глава 4',
+        'Глава 5',
+        'Глава 6',
+        '📤 Отправить ДЗ куратору'
+      ];
+
+      const studentNameInput = document.getElementById('studentNameInput');
+      const studentCommentInput = document.getElementById('studentCommentInput');
+      const waScopeSelect = document.getElementById('waScopeSelect');
+      const includeScreeningCheck = document.getElementById('includeScreeningCheck');
+      const waPreviewTextarea = document.getElementById('waPreviewTextarea');
+
+      studentNameInput.value = appState.studentName || '';
+      studentCommentInput.value = appState.studentComment || '';
+
+      const buildCuratorReportText = () => {
+        const name = (appState.studentName || '').trim() || 'Ученик курса';
+        const scope = waScopeSelect.value;
+        const includeDiag = includeScreeningCheck.checked;
+        const comment = (appState.studentComment || '').trim();
+        const doneCount = homeworkListData.filter(h => Boolean(appState.hwCompleted[h.id])).length;
+
+        const lines = [
+          '🌿 *ДОМАШНЕЕ ЗАДАНИЕ ПО КУРСУ «БАЛАНС»*',
+          '*Урок 2: Диагностика и исцеление через тело*',
+          `👤 *Ученик:* ${name}`,
+          `📊 *Выполнено заданий:* ${doneCount} из ${homeworkListData.length}`,
+          ''
+        ];
+
+        let tasksToInclude = [];
+        if (scope === 'completed_or_notes') {
+          tasksToInclude = homeworkListData.filter(
+            hw => Boolean(appState.hwCompleted[hw.id]) || Boolean((appState.hwNotes[hw.id] || '').trim())
+          );
+        } else if (scope === 'all') {
+          tasksToInclude = homeworkListData;
+        } else {
+          tasksToInclude = homeworkListData.filter(hw => hw.chapter === scope);
+        }
+
+        lines.push('📝 *ОТВЕТЫ ПО РАБОЧЕЙ ТЕТРАДИ:*');
+        if (!tasksToInclude.length) {
+          lines.push('_(Пока нет отмеченных заданий или заполненных заметок в выбранном фильтре)_');
+        } else {
+          tasksToInclude.forEach(hw => {
+            const statusIcon = appState.hwCompleted[hw.id] ? '✅' : '▫️';
+            const note = (appState.hwNotes[hw.id] || '').trim();
+            lines.push(`${statusIcon} *${hw.title}:* ${hw.text}`);
+            lines.push(`   ✍️ *Ответ:* ${note || 'Выполнено без текстовой заметки'}`);
+          });
+        }
+
+        if (includeDiag) {
+          const activeFears = screeningFearsList.filter(f => appState.screeningAnswers[f.id] === 'yes');
+          lines.push('', `🧭 *СКРИНИНГ 32 СТРАХОВ («Да»: ${activeFears.length}):*`);
+          if (!activeFears.length) {
+            lines.push('   • Активных страхов не отмечено');
+          } else {
+            activeFears.forEach(f => {
+              lines.push(`   • [№${f.id}] ${f.text}`);
+            });
+          }
+
+          const activeJoints = [];
+          jointsData.forEach(j => {
+            j.questions.forEach((q, idx) => {
+              if (appState.jointResponses[`${j.id}-${idx}`] === 'yes') {
+                activeJoints.push(`   • ${j.name}: ${q}`);
+              }
+            });
+          });
+
+          if (activeJoints.length) {
+            lines.push('', '🦴 *ОТКЛИКНУВШИЕСЯ УСТАНОВКИ ПО СУСТАВАМ:*');
+            activeJoints.forEach(aj => lines.push(aj));
+          }
+        }
+
+        if (comment) {
+          lines.push('', `💬 *Комментарий / вопрос куратору:* ${comment}`);
+        }
+
+        return lines.join('\n');
+      };
+
+      const updateWhatsAppPreview = () => {
+        if (waPreviewTextarea) {
+          waPreviewTextarea.value = buildCuratorReportText();
+        }
+      };
+
+      refreshWhatsAppPreviewFn = updateWhatsAppPreview;
+
+      studentNameInput.addEventListener('input', () => {
+        appState.studentName = studentNameInput.value;
+        savePersistedState();
+        updateWhatsAppPreview();
+      });
+
+      studentCommentInput.addEventListener('input', () => {
+        appState.studentComment = studentCommentInput.value;
+        savePersistedState();
+        updateWhatsAppPreview();
+      });
+
+      waScopeSelect.addEventListener('change', updateWhatsAppPreview);
+      includeScreeningCheck.addEventListener('change', updateWhatsAppPreview);
+
+      document.getElementById('sendWhatsAppCuratorBtn').addEventListener('click', () => {
+        const text = buildCuratorReportText();
+        openWhatsAppMessage(text);
+      });
+
+      document.getElementById('copyWhatsAppTextBtn').addEventListener('click', () => {
+        const text = buildCuratorReportText();
+        navigator.clipboard.writeText(text).then(() => {
+          const status = document.getElementById('waCopyStatus');
+          status.classList.remove('hidden');
+          setTimeout(() => status.classList.add('hidden'), 2500);
+        });
+      });
+
+      const updateHwProgress = () => {
+        const doneCount = homeworkListData.filter(h => Boolean(appState.hwCompleted[h.id])).length;
+        document.getElementById('hwProgressBadge').textContent = `${doneCount} / ${homeworkListData.length}`;
+      };
+
+      const renderWorkbook = () => {
+        updateHwProgress();
+        updateWhatsAppPreview();
+
+        const filterBox = document.getElementById('hwChapterFilters');
+        filterBox.innerHTML = chapters.map(ch => {
+          const isCuratorTab = ch === '📤 Отправить ДЗ куратору';
+          const active = ch === appState.selectedHwChapter;
+
+          let btnClass = 'hw-ch-btn px-2.5 py-1 rounded-lg text-xs font-semibold border transition ';
+          if (isCuratorTab) {
+            btnClass += active
+              ? 'tab-whatsapp-active shadow-sm'
+              : 'bg-whatsapp/15 text-charcoal border-whatsappDark/40 hover:bg-whatsapp hover:text-white';
+          } else {
+            btnClass += active
+              ? 'tab-active'
+              : 'bg-parchment text-charcoal border-sand hover:bg-sand';
+          }
+
+          return `
+            <button
+              type="button"
+              data-hwch="${ch}"
+              class="${btnClass}"
+            >
+              ${ch}
+            </button>
+          `;
+        }).join('');
+
+        filterBox.querySelectorAll('.hw-ch-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            appState.selectedHwChapter = btn.dataset.hwch;
+            renderWorkbook();
+          });
+        });
+
+        const grid = document.getElementById('homeworkCardsGrid');
+        const curatorPanel = document.getElementById('curatorSubmitTabPanel');
+
+        if (appState.selectedHwChapter === '📤 Отправить ДЗ куратору') {
+          grid.classList.add('hidden');
+          curatorPanel.classList.remove('hidden');
+          updateWhatsAppPreview();
+          return;
+        } else {
+          grid.classList.remove('hidden');
+          curatorPanel.classList.add('hidden');
+        }
+
+        const list = appState.selectedHwChapter === 'Все'
+          ? homeworkListData
+          : homeworkListData.filter(h => h.chapter === appState.selectedHwChapter);
+
+        grid.innerHTML = list.map(hw => {
+          const done = Boolean(appState.hwCompleted[hw.id]);
+          const note = appState.hwNotes[hw.id] || '';
+          return `
+            <div class="p-4 rounded-xl border transition space-y-2.5 ${
+              done ? 'bg-sageLight/40 border-sage/50' : 'bg-linen border-sand'
+            }">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-bold text-sage">${hw.title}</span>
+                <label class="inline-flex items-center gap-1.5 text-xs font-medium text-charcoal cursor-pointer">
+                  <input
+                    type="checkbox"
+                    data-hwid="${hw.id}"
+                    class="hw-check rounded text-sage focus:ring-sage"
+                    ${done ? 'checked' : ''}
+                  />
+                  <span>Выполнено</span>
+                </label>
+              </div>
+              <p class="text-xs sm:text-sm text-charcoal leading-relaxed">${hw.text}</p>
+              <textarea
+                data-hwnote="${hw.id}"
+                rows="2"
+                placeholder="Ваши заметки и телесные наблюдения..."
+                class="hw-note w-full text-xs p-2.5 rounded-lg bg-white border border-sand focus:outline-none focus:border-sage"
+              >${note}</textarea>
+              <div class="flex items-center justify-end pt-1">
+                <button
+                  type="button"
+                  data-hw-wa="${hw.id}"
+                  class="hw-single-wa-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-white border border-sand text-charcoal hover:bg-whatsappDark hover:text-white hover:border-whatsappDark transition"
+                >
+                  <span>💬</span>
+                  <span>Отправить задание в WhatsApp куратору</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        grid.querySelectorAll('.hw-check').forEach(chk => {
+          chk.addEventListener('change', () => {
+            appState.hwCompleted[chk.dataset.hwid] = chk.checked;
+            savePersistedState();
+            renderWorkbook();
+          });
+        });
+
+        grid.querySelectorAll('.hw-note').forEach(ta => {
+          ta.addEventListener('input', () => {
+            appState.hwNotes[ta.dataset.hwnote] = ta.value;
+            savePersistedState();
+            updateWhatsAppPreview();
+          });
+        });
+
+        grid.querySelectorAll('.hw-single-wa-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const hwId = btn.dataset.hwWa;
+            const hw = homeworkListData.find(h => h.id === hwId);
+            if (!hw) return;
+            const name = (appState.studentName || '').trim() || 'Ученик курса';
+            const note = (appState.hwNotes[hw.id] || '').trim() || 'Выполнено';
+            const singleMsg = [
+              '🌿 *ДОМАШНЕЕ ЗАДАНИЕ ПО КУРСУ «БАЛАНС» (Урок 2)*',
+              `👤 *Ученик:* ${name}`,
+              `📌 *${hw.title}:* ${hw.text}`,
+              `✍️ *Мой ответ:* ${note}`
+            ].join('\n');
+            openWhatsAppMessage(singleMsg);
+          });
+        });
+      };
+
+      renderCases();
+      renderWorkbook();
+    }
+
+    function initExportHandler() {
+      document.getElementById('exportReportBtn').addEventListener('click', () => {
+        const activeFears = screeningFearsList.filter(f => appState.screeningAnswers[f.id] === 'yes');
+        const lines = [
+          'ЛИЧНАЯ КАРТА ДИАГНОСТИКИ И РАБОЧАЯ ТЕТРАДЬ',
+          'По методичке Елены Перевалиной «Диагностика и исцеление через тело» (Урок 2)',
+          '=========================================================================',
+          '',
+          `1. АКТИВНЫЕ СТРАХИ ПО СКРИНИНГУ («ДА» — ${activeFears.length} из 32):`
+        ];
+
+        if (!activeFears.length) {
+          lines.push('   Пока не отмечено ни одного активного страха.');
+        } else {
+          activeFears.forEach(f => {
+            lines.push(`   - [№${f.id} | ${f.catLabel}] ${f.text}`);
+          });
+        }
+
+        lines.push('', '2. ОТКЛИКНУВШИЕСЯ УСТАНОВКИ ПО СУСТАВАМ И СТОРОНАМ ТЕЛА:');
+        let foundJointYes = false;
+        jointsData.forEach(j => {
+          j.questions.forEach((q, idx) => {
+            if (appState.jointResponses[`${j.id}-${idx}`] === 'yes') {
+              foundJointYes = true;
+              lines.push(`   - ${j.name} (${j.sideLabel}): ${q}`);
+            }
+          });
+        });
+        if (!foundJointYes) {
+          lines.push('   Пока не отмечено откликнувшихся установок.');
+        }
+
+        lines.push('', '3. ЗАМЕТКИ ПО ДОМАШНИМ ЗАДАНИЯМ КУРСА:');
+        homeworkListData.forEach(hw => {
+          const status = appState.hwCompleted[hw.id] ? '[Выполнено]' : '[В процессе]';
+          const note = (appState.hwNotes[hw.id] || '').trim();
+          if (appState.hwCompleted[hw.id] || note) {
+            lines.push(`   ${status} ${hw.title}: ${hw.text}`);
+            if (note) {
+              lines.push(`      Заметка: ${note}`);
+            }
+          }
+        });
+
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'diagnostika-tela-zametki.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function initGlobalSearch() {
+      const input = document.getElementById('globalSearchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const panel = document.getElementById('globalSearchPanel');
+      const resultsBox = document.getElementById('globalSearchResults');
+      const badge = document.getElementById('searchCountBadge');
+
+      const searchCorpus = [
+        ...spineSegmentsData.map(s => ({
+          tag: 'Позвоночник • Глава 1',
+          title: s.title,
+          desc: `${s.organs} | Мышцы: ${s.muscles}`,
+          href: '#neuroanatomy'
+        })),
+        ...tenFearsData.map(f => ({
+          tag: 'Локализация страха • Глава 2',
+          title: f.name,
+          desc: `${f.zoneLabel} — ${f.muscle}`,
+          href: '#fears-atlas'
+        })),
+        ...jointsData.map(j => ({
+          tag: 'Суставы • Глава 4',
+          title: j.name,
+          desc: `${j.program} Вопросы: ${j.questions.join(' ')}`,
+          href: '#joints-polarity'
+        })),
+        ...screeningFearsList.map(sf => ({
+          tag: `Тест №${sf.id} • Глава 5`,
+          title: sf.text,
+          desc: `Категория: ${sf.catLabel}`,
+          href: '#rough-cleaning'
+        })),
+        ...clinicalCasesData.map(c => ({
+          tag: 'Кейс • Глава 6',
+          title: c.title,
+          desc: `${c.trigger} ${c.root}`,
+          href: '#cases-workbook'
+        }))
+      ];
+
+      const runSearch = () => {
+        const q = input.value.trim().toLowerCase();
+        if (!q) {
+          panel.classList.add('hidden');
+          clearBtn.classList.add('hidden');
+          return;
+        }
+        clearBtn.classList.remove('hidden');
+        panel.classList.remove('hidden');
+
+        const matches = searchCorpus.filter(
+          item => item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+        );
+        badge.textContent = `${matches.length} совпадений`;
+
+        if (!matches.length) {
+          resultsBox.innerHTML = '<div class="text-stone col-span-full py-2">Ничего не найдено. Попробуйте другой термин (например: почки, колено, мама, отец, щитовидная, горло).</div>';
+          return;
+        }
+
+        resultsBox.innerHTML = matches.slice(0, 12).map(m => `
+          <a href="${m.href}" class="block p-3 rounded-xl bg-linen border border-sand hover:border-sage transition">
+            <div class="text-[11px] font-semibold text-sage mb-0.5">${m.tag}</div>
+            <div class="font-semibold text-charcoal mb-1">${m.title}</div>
+            <div class="text-xs text-stone line-clamp-2">${m.desc}</div>
+          </a>
+        `).join('');
+      };
+
+      input.addEventListener('input', runSearch);
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        runSearch();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPersistedState();
+      initFoundationSection();
+      renderSpineSection();
+      initToneSection();
+      initJointsSection();
+      initBodySilhouetteSection();
+      initFearsAtlasSection();
+      initRoughCleaningSection();
+      initCasesAndWorkbookSection();
+      initExportHandler();
+      initGlobalSearch();
+    });
+  </script>
+</body>
+</html>
